@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(Move-Item \"shared\\\\GradientDot.tsx\" \"shared\\\\gradient-dot.tsx\" -Force)",
+      "Bash(Move-Item \"shared\\\\AccentLine.tsx\" \"shared\\\\accent-line.tsx\" -Force)",
+      "Bash(Move-Item \"shared\\\\EyebrowLabel.tsx\" \"shared\\\\eyebrow-label.tsx\" -Force)",
+      "Bash(Move-Item \"shared\\\\GlassCard.tsx\" \"shared\\\\glass-card.tsx\" -Force)",
+      "Bash(Move-Item \"shared\\\\useFadeUp.ts\" \"shared\\\\use-fade-up.ts\" -Force)",
+      "Bash(npm run *)",
+      "Bash(node *)",
+      "mcp__magic__21st_magic_component_inspiration",
+      "mcp__magic__21st_magic_component_builder",
+      "Bash(Remove-Item *)"
+    ]
+  }
+}
