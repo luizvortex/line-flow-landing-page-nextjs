@@ -1,5 +1,6 @@
 import { ArrowRight, Star, Zap } from "lucide-react";
 import { GradientDot } from "./shared/gradient-dot";
+import { AnimatedFlow } from "./shared/animated-flow";
 
 export function Hero() {
   return (
@@ -8,6 +9,7 @@ export function Hero() {
       className="relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-36"
     >
       {/* Background decorations */}
+      <AnimatedFlow />
       <GradientDot
         size={900}
         color="#77aca2"
