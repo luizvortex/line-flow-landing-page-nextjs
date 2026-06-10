@@ -1,4 +1,4 @@
-﻿import { ArrowRight, PlayCircle, Star, Zap } from "lucide-react";
+import { ArrowRight, Star, Zap } from "lucide-react";
 import { GradientDot } from "./shared/gradient-dot";
 
 export function Hero() {
@@ -90,18 +90,11 @@ export function Hero() {
           style={{ animationDelay: "240ms" }}
         >
           <a
-            href="#"
+            href="https://lineflow.mpdev.pro.br"
             className="flex items-center gap-2 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold px-7 py-3.5 rounded-lg text-base shadow-[0_0_28px_rgba(119,172,162,.35)] hover:shadow-[0_0_48px_rgba(119,172,162,.45)] transition-all duration-200"
           >
             Criar conta grátis
             <ArrowRight size={16} strokeWidth={2.5} />
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-2 border border-[#255068] hover:border-[#77aca2]/60 bg-[#072233]/40 hover:bg-[#072233]/70 text-[#8bb5b0] hover:text-[#e8f2f1] px-6 py-3.5 rounded-lg text-sm font-medium transition-all duration-150 backdrop-blur-sm"
-          >
-            <PlayCircle size={16} strokeWidth={1.5} />
-            Ver demo em 2 min
           </a>
         </div>
 

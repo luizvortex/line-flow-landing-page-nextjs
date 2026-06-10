@@ -1,4 +1,4 @@
-﻿import { Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { GradientDot } from "./shared/gradient-dot";
 import { EyebrowLabel } from "./shared/eyebrow-label";
 import { GlassCard } from "./shared/glass-card";
@@ -47,26 +47,10 @@ export function CTAFinal() {
               Sem cartão · 1 fila · 30 entradas/dia
             </p>
             <a
-              href="#"
+              href="https://lineflow.mpdev.pro.br"
               className="mt-4 block text-center border border-[#77aca2] text-[#77aca2] hover:bg-[#77aca2] hover:text-[#031926] py-2.5 rounded-lg text-sm font-semibold transition-all duration-150"
             >
               Começar agora →
-            </a>
-          </GlassCard>
-
-          <GlassCard className="p-6 text-left flex-1 max-w-xs mx-auto sm:mx-0 bg-[rgba(119,172,162,0.08)] border-[#77aca2]/30">
-            <EyebrowLabel>Ao vivo</EyebrowLabel>
-            <h3 className="text-[#e8f2f1] font-semibold mt-2">
-              Ver demo interativo
-            </h3>
-            <p className="text-[#8bb5b0] text-sm mt-2">
-              Experimente sem cadastro · 2 minutos
-            </p>
-            <a
-              href="#"
-              className="mt-4 block text-center bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold py-2.5 rounded-lg text-sm transition-all duration-150"
-            >
-              Abrir demo →
             </a>
           </GlassCard>
         </div>

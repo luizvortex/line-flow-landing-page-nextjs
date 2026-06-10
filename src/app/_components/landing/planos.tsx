@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Check, ShieldCheck, X } from "lucide-react";
@@ -218,7 +218,7 @@ export function Planos() {
                   </ul>
 
                   <a
-                    href="#"
+                    href="https://lineflow.mpdev.pro.br"
                     className={`mt-8 block text-center py-3 rounded-lg text-sm font-medium transition-all duration-150 ${
                       plan.style === "primary"
                         ? "bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold py-3.5 shadow-[0_0_24px_rgba(119,172,162,.30)] hover:shadow-[0_0_36px_rgba(119,172,162,.40)]"
