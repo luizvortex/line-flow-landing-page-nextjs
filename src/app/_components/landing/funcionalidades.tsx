@@ -1,4 +1,4 @@
-﻿import {
+import {
   BarChart2,
   Bell,
   Globe,
@@ -30,16 +30,16 @@ export function Funcionalidades() {
               — tudo numa tela. O operador trabalha no celular ou no computador.
             </p>
             {/* Mini preview */}
-            <div className="absolute bottom-0 right-0 w-[240px] h-[160px] pointer-events-none overflow-hidden">
+            <div className="absolute bottom-0 right-0 w-[260px] h-[180px] md:w-[380px] md:h-[260px] pointer-events-none overflow-hidden">
               <div
                 aria-hidden="true"
                 className="absolute inset-0 z-10"
                 style={{
                   background:
-                    "linear-gradient(to top left, rgba(7,34,51,0.9) 30%, transparent 70%)",
+                    "linear-gradient(to top left, rgba(7,34,51,0.95) 20%, transparent 80%)",
                 }}
               />
-              <div className="absolute bottom-4 right-4 space-y-1.5">
+              <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 space-y-1.5 md:space-y-2.5">
                 {[
                   { pos: "#001", name: "Rafael M.", active: true },
                   { pos: "#002", name: "Ana Costa", active: false },
@@ -47,14 +47,14 @@ export function Funcionalidades() {
                 ].map((row) => (
                   <div
                     key={row.pos}
-                    className="flex items-center gap-2 bg-[#031926]/70 rounded px-2 py-1"
+                    className="flex items-center gap-2 md:gap-3 bg-[#031926]/80 backdrop-blur-sm rounded-md md:rounded-lg px-3 py-1.5 md:px-4 md:py-2.5 border border-[#1a3d52]/50"
                   >
                     <div
-                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                        row.active ? "bg-[#4ade80]" : "bg-[#77aca2]"
+                      className={`w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full shrink-0 shadow-[0_0_12px_currentColor] ${
+                        row.active ? "bg-[#4ade80] text-[#4ade80]" : "bg-[#77aca2]/60 text-[#77aca2]"
                       }`}
                     />
-                    <span className="text-[9px] text-[#8bb5b0] font-mono whitespace-nowrap">
+                    <span className="text-[10px] md:text-xs text-[#8bb5b0] font-mono whitespace-nowrap font-medium tracking-wide">
                       {row.pos} · {row.name}
                     </span>
                   </div>
@@ -231,14 +231,17 @@ export function Funcionalidades() {
               navegador. Android e iOS. Rápido como app nativo.
             </p>
             <div className="mt-6 flex items-center gap-4 flex-wrap">
-              {["Android", "iOS", "Chrome", "Safari"].map((platform) => (
-                <div key={platform} className="flex flex-col items-center gap-1">
-                  <div className="w-8 h-8 rounded-lg bg-[#031926] border border-[#1a3d52] flex items-center justify-center">
-                    <span className="text-[8px] text-[#4d7a80] font-bold">
-                      {platform.slice(0, 2).toUpperCase()}
-                    </span>
+              {[
+                { name: "Android", icon: "/svgs/android.svg" },
+                { name: "iOS", icon: "/svgs/apple.svg" },
+                { name: "Chrome", icon: "/svgs/googlechrome.svg" },
+                { name: "Safari", icon: "/svgs/safari.svg" },
+              ].map((platform) => (
+                <div key={platform.name} className="flex flex-col items-center gap-1.5">
+                  <div className="w-10 h-10 rounded-lg bg-[#031926] border border-[#1a3d52] flex items-center justify-center p-2">
+                    <img src={platform.icon} alt={platform.name} className="w-full h-full object-contain invert opacity-70 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <span className="text-[8px] text-[#4d7a80]">{platform}</span>
+                  <span className="text-[10px] text-[#4d7a80]">{platform.name}</span>
                 </div>
               ))}
               <span className="text-[10px] text-[#4d7a80] ml-1">
