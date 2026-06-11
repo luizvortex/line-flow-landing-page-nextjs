@@ -5,14 +5,14 @@ import { Check, ShieldCheck, X } from "lucide-react";
 import { GlassCard } from "./shared/glass-card";
 import { EyebrowLabel } from "./shared/eyebrow-label";
 
-type PriceValue = number | null;
+export type PriceValue = number | null;
 
-interface Feature {
+export interface Feature {
   text: string;
   included: boolean;
 }
 
-interface Plan {
+export interface Plan {
   id: string;
   name: string;
   price: { monthly: PriceValue; annual: PriceValue };
@@ -23,81 +23,9 @@ interface Plan {
   features: Feature[];
 }
 
-const plans: Plan[] = [
-  {
-    id: "free",
-    name: "Free",
-    price: { monthly: 0, annual: 0 },
-    desc: "Para testar e dar os primeiros passos.",
-    cta: "Começar grátis",
-    style: "outline",
-    features: [
-      { text: "1 fila ativa", included: true },
-      { text: "30 entradas por dia", included: true },
-      { text: "QR Code básico", included: true },
-      { text: "Acompanhamento em tempo real", included: true },
-      { text: "Notificações push", included: false },
-      { text: "Display TV", included: false },
-      { text: "Analytics", included: false },
-    ],
-  },
-  {
-    id: "starter",
-    name: "Starter",
-    price: { monthly: 49, annual: 39 },
-    desc: "Para negócios em crescimento.",
-    cta: "Assinar Starter",
-    style: "accent",
-    features: [
-      { text: "Até 5 filas ativas", included: true },
-      { text: "Entradas ilimitadas", included: true },
-      { text: "QR Code por fila", included: true },
-      { text: "Painel web completo", included: true },
-      { text: "Suporte por e-mail", included: true },
-      { text: "Display TV", included: false },
-      { text: "Analytics avançado", included: false },
-    ],
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: { monthly: 129, annual: 99 },
-    desc: "Profissional. Completo. Para quem leva o negócio a sério.",
-    cta: "Assinar Pro",
-    style: "primary",
-    popular: true,
-    features: [
-      { text: "Filas ilimitadas", included: true },
-      { text: "Entradas ilimitadas", included: true },
-      { text: "Display TV ao vivo ⭐", included: true },
-      { text: "Notificações push ⭐", included: true },
-      { text: "Analytics avançado ⭐", included: true },
-      { text: "Relatórios e exportação", included: true },
-      { text: "Funcionários ilimitados", included: true },
-      { text: "Suporte prioritário", included: true },
-    ],
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: { monthly: null, annual: null },
-    desc: "Para redes e franquias com necessidades específicas.",
-    cta: "Falar com vendas",
-    style: "outline",
-    features: [
-      { text: "Tudo do Pro", included: true },
-      { text: "White-label completo", included: true },
-      { text: "SLA garantido", included: true },
-      { text: "API pública dedicada", included: true },
-      { text: "Integração sob medida", included: true },
-      { text: "Suporte dedicado 24/7", included: true },
-      { text: "Treinamento da equipe", included: true },
-    ],
-  },
-];
-
-export function Planos() {
+export function Planos({ initialPlans }: { initialPlans: Plan[] }) {
   const [annual, setAnnual] = useState(false);
+  const plans = initialPlans;
 
   return (
     <section id="planos" className="bg-[#031926] py-24 md:py-32 px-6">
