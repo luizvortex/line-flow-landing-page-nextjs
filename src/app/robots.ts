@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://lineflow.mpdev.pro.br/sitemap.xml",
+    sitemap: "https://lineflow.mpdevelop.com.br/sitemap.xml",
   };
 }

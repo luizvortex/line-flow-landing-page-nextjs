@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lineflow.mpdev.pro.br"),
+  metadataBase: new URL("https://lineflow.mpdevelop.com.br"),
   title: "LineFlow — Gestão de filas em tempo real para seu negócio",
   description:
     "Clientes entram na fila pelo QR Code, acompanham a posição no celular e recebem notificação push. Dashboard completo para salões, clínicas e restaurantes.",

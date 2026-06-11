@@ -6,6 +6,7 @@ import {
   QrCode,
   Tv,
 } from "lucide-react";
+import Image from "next/image";
 import { GlassCard } from "./shared/glass-card";
 import { EyebrowLabel } from "./shared/eyebrow-label";
 
@@ -238,8 +239,8 @@ export function Funcionalidades() {
                 { name: "Safari", icon: "/svgs/safari.svg" },
               ].map((platform) => (
                 <div key={platform.name} className="flex flex-col items-center gap-1.5">
-                  <div className="w-10 h-10 rounded-lg bg-[#031926] border border-[#1a3d52] flex items-center justify-center p-2">
-                    <img src={platform.icon} alt={platform.name} className="w-full h-full object-contain invert opacity-70 group-hover:opacity-100 transition-opacity" />
+                  <div className="w-10 h-10 rounded-lg bg-[#031926] border border-[#1a3d52] flex items-center justify-center p-2 relative">
+                    <Image src={platform.icon} alt={platform.name} fill className="object-contain p-2 invert opacity-70 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <span className="text-[10px] text-[#4d7a80]">{platform.name}</span>
                 </div>

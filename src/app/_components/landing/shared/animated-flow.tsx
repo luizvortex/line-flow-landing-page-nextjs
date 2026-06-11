@@ -46,7 +46,7 @@ export function AnimatedFlow() {
       />
 
       {/* SVG Container width 200% so we can translate -50% and perfectly loop */}
-      <div className="absolute top-[20%] left-0 w-[200%] md:w-[200vw] h-[350px] opacity-5">
+      <div className="absolute top-[20%] left-0 w-[200%] md:w-[200vw] h-[350px] opacity-7">
         {/* Layer 1 - Deepest wave */}
         <div className="absolute inset-0 animate-flow-wave-slow opacity-50">
           <svg viewBox="0 0 2400 200" preserveAspectRatio="none" className="w-full h-full">

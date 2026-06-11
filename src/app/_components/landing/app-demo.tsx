@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import {
@@ -725,13 +725,14 @@ export function AppDemo() {
           </div>
 
           {/* Phone shell */}
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 rounded-[44px] bg-[#77aca2]/10 blur-3xl scale-110 pointer-events-none"
-            />
-            <div
-              style={{
+          <div className="relative flex justify-center origin-top transform scale-[0.8] sm:scale-100 -mb-[150px] sm:mb-0 transition-all duration-300">
+            <div className="relative w-[375px]">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 rounded-[44px] bg-[#77aca2]/10 blur-3xl scale-110 pointer-events-none"
+              />
+              <div
+                style={{
                 width: 375,
                 background: C.base,
                 borderRadius: 44,
@@ -804,6 +805,7 @@ export function AppDemo() {
                   }}
                 />
               </div>
+            </div>
             </div>
           </div>
         </div>
