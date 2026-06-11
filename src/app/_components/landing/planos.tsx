@@ -72,9 +72,9 @@ export function Planos({ initialPlans }: { initialPlans: Plan[] }) {
         </div>
 
         {/* Plans grid */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {plans.map((plan) => (
-            <div key={plan.id} className="relative">
+            <div key={plan.id} className="relative h-full">
               {plan.popular && (
                 <div className="absolute -top-4 left-0 right-0 flex justify-center z-10">
                   <span className="bg-[#77aca2] text-[#031926] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full uppercase whitespace-nowrap">

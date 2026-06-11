@@ -13,7 +13,16 @@ import { supabase } from "@/src/lib/supabase";
 export const revalidate = 60; // Recarrega os planos do banco a cada 1 minuto (Static Generation)
 
 export default async function LandingPage() {
-  const { data } = await supabase.from("plans").select("*").order("idx", { ascending: true });
+  const { data, error } = await supabase.from("plans").select("*").order("price", { ascending: true });
+
+  if (error) {
+    console.error("ERRO SUPABASE DETALHADO:");
+    console.error("- Message:", error.message);
+    console.error("- Details:", error.details);
+    console.error("- Hint:", error.hint);
+    console.error("- Code:", error.code);
+    console.error("- URL Carregada:", process.env.SUPABASE_URL);
+  }
 
   const formattedPlans: Plan[] = (data || []).map((dbPlan) => {
     const isFree = dbPlan.price === "0.00" || Number(dbPlan.price) === 0;
