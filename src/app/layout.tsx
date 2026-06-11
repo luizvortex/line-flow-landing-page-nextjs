@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lineflow.mpdev.pro.br"),
   title: "LineFlow — Gestão de filas em tempo real para seu negócio",
   description:
     "Clientes entram na fila pelo QR Code, acompanham a posição no celular e recebem notificação push. Dashboard completo para salões, clínicas e restaurantes.",
@@ -28,9 +29,14 @@ export const metadata: Metadata = {
     "salão de beleza",
     "clínica",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "LineFlow — Sua fila mais inteligente começa hoje",
     description: "Setup em 3 minutos. Sem app. Sem papel. Só atendimento.",
+    url: "/",
+    siteName: "LineFlow",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
