@@ -8,6 +8,7 @@ import Link from "next/link";
 const navLinks = [
   { label: "Como funciona", href: "#como-funciona" },
   { label: "App do cliente", href: "#app-demo" },
+  { label: "Agendamento", href: "#agendamento" },
   { label: "Funcionalidades", href: "#funcionalidades" },
   { label: "Planos", href: "#planos" },
 ];
@@ -27,7 +28,7 @@ export function Navbar() {
       <nav
         className={`sticky top-0 z-50 h-16 px-6 md:px-12 transition-all duration-200 ${
           scrolled
-            ? "bg-[#031926]/90 backdrop-blur-lg border-b border-[#1a3d52]"
+            ? "bg-[#031926]/90 backdrop-blur-lg"
             : "bg-transparent"
         }`}
       >
@@ -45,7 +46,7 @@ export function Navbar() {
               Line<span className="text-[#77aca2]">Flow</span>
             </span>
             <span className="bg-[rgba(119,172,162,0.15)] text-[#77aca2] text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
-              Beta
+              v1.0
             </span>
           </Link>
 

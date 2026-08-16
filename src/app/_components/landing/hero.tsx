@@ -1,4 +1,4 @@
-import { ArrowRight, Star, Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { GradientDot } from "./shared/gradient-dot";
 import { AnimatedFlow } from "./shared/animated-flow";
 
@@ -106,13 +106,12 @@ export function Hero() {
           style={{ animationDelay: "320ms" }}
         >
           <span className="flex items-center gap-1.5">
-            <Star
+            <Zap
               size={12}
               strokeWidth={1.5}
               className="fill-[#fbbf24] text-[#fbbf24]"
             />
-            <span className="font-mono text-[#8bb5b0]">4.9</span>
-            <span className="text-[#4d7a80]">· 300+ negócios</span>
+            <span className="text-[#8bb5b0]">14 dias de Pro no plano grátis</span>
           </span>
           <span aria-hidden="true" className="text-[#255068]">·</span>
           <span>Sem cartão para começar</span>

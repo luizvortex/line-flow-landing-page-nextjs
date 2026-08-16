@@ -26,6 +26,34 @@ function useCounter(end: number, duration = 1400, started = false) {
   return count;
 }
 
+/**
+ * Revela o texto letra a letra quando o bloco entra na tela — o equivalente
+ * do `useCounter` para um valor que é palavra, não número.
+ */
+function useTypewriter(text: string, speed = 130, started = false) {
+  const [shown, setShown] = useState(0);
+
+  useEffect(() => {
+    if (!started) return;
+
+    // Respeita a mesma preferência que o globals.css já honra nas animações.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const id = setTimeout(() => setShown(text.length), 0);
+      return () => clearTimeout(id);
+    }
+
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setShown(i);
+      if (i >= text.length) clearInterval(id);
+    }, speed);
+    return () => clearInterval(id);
+  }, [text, speed, started]);
+
+  return { typed: text.slice(0, shown), done: shown >= text.length };
+}
+
 const testimonials = [
   {
     quote:
@@ -71,7 +99,8 @@ export function SocialProof() {
     return () => observer.disconnect();
   }, []);
 
-  const countBusinesses = useCounter(300, 1200, started);
+  const free = useTypewriter("Grátis", 130, started);
+  const countTrial = useCounter(14, 900, started);
   const countRating = useCounter(49, 900, started);
   const countSetup = useCounter(3, 700, started);
 
@@ -90,7 +119,7 @@ export function SocialProof() {
           Depoimentos
         </EyebrowLabel>
         <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-[#e8f2f1]">
-          300+ negócios confiam no LineFlow
+          Pensado para o balcão, não para o escritório
         </h2>
 
         {/* Logo strip */}
@@ -152,20 +181,30 @@ export function SocialProof() {
         {/* Metrics */}
         <div ref={ref} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
           <GlassCard className="py-8 px-4 text-center">
-            <div className="font-mono font-bold text-4xl text-[#77aca2]">
-              {countBusinesses}+
+            {/* aria-label carrega a palavra inteira: o leitor de tela não deve
+                receber o texto em pedaços conforme a animação avança. */}
+            <div
+              className="font-mono font-bold text-4xl text-[#77aca2]"
+              aria-label="Grátis"
+            >
+              <span aria-hidden="true">
+                {free.typed}
+                {!free.done && (
+                  <span className="opacity-50 font-normal">|</span>
+                )}
+              </span>
             </div>
             <div className="text-[#4d7a80] text-xs uppercase tracking-wider mt-2">
-              Negócios ativos
+              Para começar
             </div>
           </GlassCard>
 
           <GlassCard className="py-8 px-4 text-center">
             <div className="font-mono font-bold text-4xl text-[#77aca2]">
-              2.1M+
+              {countTrial}&nbsp;dias
             </div>
             <div className="text-[#4d7a80] text-xs uppercase tracking-wider mt-2">
-              Entradas processadas
+              De Pro grátis
             </div>
           </GlassCard>
 
@@ -183,7 +222,7 @@ export function SocialProof() {
               &lt;&nbsp;{countSetup}&nbsp;min
             </div>
             <div className="text-[#4d7a80] text-xs uppercase tracking-wider mt-2">
-              Setup inicial
+              Até o primeiro QR Code
             </div>
           </GlassCard>
         </div>

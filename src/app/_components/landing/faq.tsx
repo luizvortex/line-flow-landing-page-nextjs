@@ -27,7 +27,15 @@ const faqs = [
   },
   {
     q: "Posso ter filas diferentes para serviços diferentes?",
-    a: "Sim. Nos planos Starter e Pro você cria quantas filas quiser — Corte, Barba, Manicure, Consulta Geral — cada uma com seu QR Code, tempo estimado e operador responsável.",
+    a: "Sim. Cada fila — Corte, Barba, Manicure, Consulta Geral — tem seu QR Code, tempo estimado e operador responsável. A quantidade depende do plano: 1 fila no Free, 3 no Starter, 25 no Pro e 50 no Pro Plus.",
+  },
+  {
+    q: "Dá para trabalhar com hora marcada em vez de fila?",
+    a: "Sim. Cada fila tem seu modo: por ordem de chegada ou por horário marcado. Você configura fila a fila, então dá para ter Corte por ordem de chegada e Coloração com hora marcada no mesmo negócio. Disponível a partir do plano Starter.",
+  },
+  {
+    q: "Quem marcou horário corre o risco de perder a vez?",
+    a: "Não. No modo de horário marcado o cliente é chamado quando a hora dele chega — não existe senha por ordem de chegada disputando a mesma vaga. Ele ainda recebe um lembrete automático antes do horário.",
   },
   {
     q: "O que acontece se cancelar? Perco os dados?",
@@ -35,7 +43,7 @@ const faqs = [
   },
   {
     q: "Tem integração com WhatsApp ou iFood?",
-    a: "Ainda não nativamente, mas estamos construindo integrações. No Enterprise oferecemos integração personalizada via API. Fique de olho nas novidades — lançamos atualizações frequentes.",
+    a: "Com WhatsApp, sim: a partir do plano Starter o cliente entra na fila direto pelo WhatsApp, e nos planos Pro e Pro Plus o atendimento sai do número próprio da sua empresa. Integração com iFood ainda não existe nativamente — está no roadmap.",
   },
 ];
 

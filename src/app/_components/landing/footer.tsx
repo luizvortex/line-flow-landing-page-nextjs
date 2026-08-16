@@ -38,7 +38,7 @@ export function Footer() {
                 Line<span className="text-[#77aca2]">Flow</span>
               </span>
               <span className="bg-[rgba(119,172,162,0.15)] text-[#77aca2] text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
-                Beta
+                v1.0
               </span>
             </div>
             <p className="mt-4 text-[#8bb5b0] text-sm leading-relaxed max-w-xs">
