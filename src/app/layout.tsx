@@ -57,7 +57,14 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="bg-[#031926] text-[#e8f2f1] min-h-screen">
+      {/* Extensões de navegador (ColorZilla, Grammarly e afins) injetam
+          atributos no <body> antes da hidratação, o que o React acusa como
+          divergência. Vale só para os atributos deste elemento — os filhos
+          continuam sendo comparados normalmente. */}
+      <body
+        suppressHydrationWarning
+        className="bg-[#031926] text-[#e8f2f1] min-h-screen"
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#77aca2] focus:text-[#031926] focus:rounded-lg focus:font-semibold"
