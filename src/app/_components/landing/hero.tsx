@@ -54,10 +54,11 @@ export function Hero() {
             backgroundClip: "text",
           }}
         >
-          Gestão de atendimento
+          Todo o seu atendimento,
           <br />
+          em um só{" "}
           <span className="relative inline-block">
-            <span className="relative z-20" style={{ WebkitTextFillColor: "initial" }}>completa,</span>
+            <span className="relative z-20" style={{ WebkitTextFillColor: "initial" }}>fluxo.</span>
             <svg
               aria-hidden="true"
               className="absolute -bottom-1 left-0 w-full overflow-visible"
@@ -73,8 +74,7 @@ export function Hero() {
                 strokeLinecap="round"
               />
             </svg>
-          </span>{" "}
-          não só fila.
+          </span>
         </h1>
 
         <p
