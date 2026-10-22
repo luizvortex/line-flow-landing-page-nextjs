@@ -1,70 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { BellRing, CalendarPlus, MessageCircle } from "lucide-react";
+import {
+  BellRing,
+  CalendarPlus,
+  ListChecks,
+  Smartphone,
+} from "lucide-react";
 import { GlassCard } from "./shared/glass-card";
 import { EyebrowLabel } from "./shared/eyebrow-label";
+import { BookingAppPreview } from "./shared/booking-app-preview";
 
-/**
- * Os dois modos vendidos na landing. O backend tem um terceiro (HYBRID, em
- * `SchedulingMode`), que fica de fora por decisão de posicionamento — se
- * voltar a ser vendido, basta acrescentar uma entrada em `views`.
- */
-type Mode = "queue" | "timeSlot";
+/** Duas vistas do mesmo agendamento: o que o cliente vê e o que você vê. */
+type View = "client" | "panel";
 
 type Tone = "success" | "accent" | "muted";
 
 interface Row {
-  /** Senha (#001) no modo fila, ou horário na agenda. `~` = estimado. */
-  slot: string;
+  time: string;
   name: string;
   status: string;
   tone: Tone;
-  cta?: boolean;
 }
 
-interface ModeView {
-  id: Mode;
-  label: string;
-  title: string;
-  subtitle: string;
-  liveLabel: string;
-  rows: Row[];
-  footer: string;
-}
+const tabs: { id: View; label: string }[] = [
+  { id: "client", label: "No app do cliente" },
+  { id: "panel", label: "No seu painel" },
+];
 
-const views: ModeView[] = [
-  {
-    id: "queue",
-    label: "Ordem de chegada",
-    title: "Corte masculino",
-    subtitle: "Entra quem chegou primeiro",
-    liveLabel: "Ao vivo",
-    rows: [
-      { slot: "#001", name: "Rafael M.", status: "Chamado", tone: "success" },
-      { slot: "#002", name: "Ana Costa", status: "Na fila", tone: "accent", cta: true },
-      { slot: "#003", name: "Carlos Lima", status: "Na fila", tone: "accent" },
-      { slot: "#004", name: "Julia P.", status: "Na fila", tone: "accent" },
-    ],
-    footer:
-      "Senha automática por ordem de chegada, com espera estimada em tempo real.",
-  },
-  {
-    id: "timeSlot",
-    label: "Horário marcado",
-    title: "Coloração",
-    subtitle: "Terça, 16 de agosto",
-    liveLabel: "Agenda do dia",
-    rows: [
-      { slot: "09:00", name: "Ana Costa", status: "Confirmado", tone: "success" },
-      { slot: "09:30", name: "—", status: "Livre", tone: "muted" },
-      { slot: "10:00", name: "Rafael Mendes", status: "Confirmado", tone: "success" },
-      { slot: "10:30", name: "Julia Prado", status: "Lembrete enviado", tone: "accent" },
-      { slot: "11:00", name: "—", status: "Livre", tone: "muted" },
-    ],
-    footer:
-      "Cada cliente tem a hora dele — ninguém espera em pé na recepção.",
-  },
+const agenda: Row[] = [
+  { time: "09:00", name: "Ana Costa", status: "Confirmado", tone: "success" },
+  { time: "09:30", name: "—", status: "Livre", tone: "muted" },
+  { time: "10:00", name: "Rafael Mendes", status: "Confirmado", tone: "success" },
+  { time: "10:30", name: "Julia Prado", status: "Lembrete enviado", tone: "accent" },
+  { time: "11:00", name: "—", status: "Livre", tone: "muted" },
+  { time: "11:30", name: "Pedro H.", status: "Confirmado", tone: "success" },
 ];
 
 const toneClasses: Record<Tone, string> = {
@@ -75,9 +45,9 @@ const toneClasses: Record<Tone, string> = {
 
 const comoMarca = [
   {
-    icon: MessageCircle,
-    title: "O cliente marca pelo WhatsApp",
-    desc: "Ele pede o horário na conversa e recebe a confirmação na hora. Sem app, sem cadastro, sem ligar para a recepção.",
+    icon: Smartphone,
+    title: "O cliente marca pelo app ou pelo WhatsApp",
+    desc: "No link da sua empresa ele escolhe o serviço, o dia e o horário livre. Se preferir, pede na conversa do WhatsApp e recebe a confirmação na hora.",
   },
   {
     icon: CalendarPlus,
@@ -89,12 +59,15 @@ const comoMarca = [
     title: "Lembrete automático antes da hora",
     desc: "O cliente é avisado antes do horário marcado. Menos falta, menos horário vago no fim do dia.",
   },
+  {
+    icon: ListChecks,
+    title: "Lista de espera quando a agenda lota",
+    desc: "Sem horário no dia? O cliente entra na lista de espera e é avisado assim que uma vaga abrir.",
+  },
 ];
 
 export function Agendamento() {
-  // Começa no horário marcado: é a novidade que a seção veio apresentar.
-  const [mode, setMode] = useState<Mode>("timeSlot");
-  const view = views.find((v) => v.id === mode) ?? views[0];
+  const [view, setView] = useState<View>("client");
 
   return (
     <section id="agendamento" className="bg-lf-card/30 py-24 md:py-32 px-6">
@@ -109,110 +82,102 @@ export function Agendamento() {
           no mesmo negócio.
         </p>
 
-        {/* Sem items-start: as colunas esticam juntas e o card da esquerda
-            acompanha a altura da pilha de cards da direita. */}
         <div className="mt-12 grid lg:grid-cols-2 gap-10 lg:gap-14">
-          {/* Alternador de modo + prévia */}
+          {/* Alternador de vista + prévia */}
           <div className="flex flex-col">
             <div
               role="tablist"
-              aria-label="Modo de atendimento da fila"
+              aria-label="Vista do agendamento"
               className="flex gap-2 flex-wrap"
             >
-              {views.map((v) => (
+              {tabs.map((t) => (
                 <button
-                  key={v.id}
+                  key={t.id}
                   role="tab"
-                  aria-selected={mode === v.id}
-                  aria-controls="preview-modo"
-                  onClick={() => setMode(v.id)}
+                  aria-selected={view === t.id}
+                  aria-controls="preview-agendamento"
+                  onClick={() => setView(t.id)}
                   className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border cursor-pointer transition-all duration-150 ${
-                    mode === v.id
+                    view === t.id
                       ? "border-lf-accent bg-lf-accent/15 text-lf-accent"
                       : "border-lf-border bg-transparent text-lf-muted hover:text-lf-secondary hover:border-lf-border-strong"
                   }`}
                 >
-                  {v.label}
+                  {t.label}
                 </button>
               ))}
             </div>
 
-            {/* id/role no wrapper: GlassCard só aceita children/className/as. */}
-            <div id="preview-modo" role="tabpanel" className="mt-5 flex-1 flex">
-              <GlassCard className="p-5 md:p-6 w-full flex flex-col">
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-lf-primary truncate">
-                      {view.title}
-                    </p>
-                    <p className="text-[10px] text-lf-muted mt-0.5">
-                      {view.subtitle}
-                    </p>
+            {/* Altura mínima igual à do celular: trocar de aba não faz a
+                página pular. */}
+            <div
+              id="preview-agendamento"
+              role="tabpanel"
+              className="mt-5 flex-1 flex justify-center items-start min-h-[640px]"
+            >
+              {view === "client" ? (
+                <BookingAppPreview />
+              ) : (
+                <GlassCard className="p-5 md:p-6 w-full">
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-lf-primary truncate">
+                        Coloração
+                      </p>
+                      <p className="text-[10px] text-lf-muted mt-0.5">
+                        Terça, 16 de agosto
+                      </p>
+                    </div>
+                    <span className="flex items-center gap-1.5 bg-lf-accent/10 border border-lf-accent/20 rounded-full px-2.5 py-1 shrink-0">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping-live absolute inline-flex h-full w-full rounded-full bg-lf-accent opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-lf-accent" />
+                      </span>
+                      <span className="text-[10px] text-lf-accent font-medium">
+                        Agenda do dia
+                      </span>
+                    </span>
                   </div>
-                  <span className="flex items-center gap-1.5 bg-lf-accent/10 border border-lf-accent/20 rounded-full px-2.5 py-1 shrink-0">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping-live absolute inline-flex h-full w-full rounded-full bg-lf-accent opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-lf-accent" />
-                    </span>
-                    <span className="text-[10px] text-lf-accent font-medium">
-                      {view.liveLabel}
-                    </span>
-                  </span>
-                </div>
 
-                {/* flex-1 absorve a sobra de altura; min-h é só o piso */}
-                <div className="space-y-1.5 min-h-[212px] flex-1">
-                  {view.rows.map((row) => (
-                    <div
-                      key={row.slot}
-                      className="flex items-center justify-between gap-3 bg-lf-base/40 rounded-lg px-3 py-2.5 border border-transparent hover:border-lf-border/60 transition-colors"
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
+                  <div className="space-y-1.5">
+                    {agenda.map((row) => (
+                      <div
+                        key={row.time}
+                        className="flex items-center justify-between gap-3 bg-lf-base/40 rounded-lg px-3 py-2.5 border border-transparent hover:border-lf-border/60 transition-colors"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span
+                            className={`font-mono text-xs font-bold shrink-0 ${
+                              row.tone === "muted" ? "text-lf-muted" : "text-lf-accent"
+                            }`}
+                          >
+                            {row.time}
+                          </span>
+                          <span
+                            className={`text-xs truncate ${
+                              row.tone === "muted" ? "text-lf-muted" : "text-lf-secondary"
+                            }`}
+                          >
+                            {row.name}
+                          </span>
+                        </div>
                         <span
-                          className={`font-mono text-xs font-bold shrink-0 ${
-                            row.tone === "muted"
-                              ? "text-lf-muted"
-                              : "text-lf-accent"
-                          }`}
-                        >
-                          {row.slot}
-                        </span>
-                        <span
-                          className={`text-xs truncate ${
-                            row.tone === "muted"
-                              ? "text-lf-muted"
-                              : "text-lf-secondary"
-                          }`}
-                        >
-                          {row.name}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <span
-                          className={`text-[10px] px-2 py-0.5 rounded-full ${
-                            toneClasses[row.tone]
-                          }`}
+                          className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${toneClasses[row.tone]}`}
                         >
                           {row.status}
                         </span>
-                        {row.cta && (
-                          <span className="text-[10px] bg-lf-accent text-lf-base px-2 py-0.5 rounded font-bold">
-                            Chamar
-                          </span>
-                        )}
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                {/* Legenda dentro do card: fica junto da tabela que explica e
-                    deixa a coluna com um filho só, livre para esticar. */}
-                <div className="mt-4 pt-4 border-t border-lf-border">
-                  <p className="text-[11px] text-lf-muted leading-relaxed">
-                    {view.footer}
-                  </p>
-                </div>
-              </GlassCard>
+                  <div className="mt-4 pt-4 border-t border-lf-border">
+                    <p className="text-[11px] text-lf-muted leading-relaxed">
+                      O horário que o cliente marcou no app cai aqui na hora.
+                      Os livres você encaixa pelo balcão em dois cliques.
+                    </p>
+                  </div>
+                </GlassCard>
+              )}
             </div>
           </div>
 
@@ -223,7 +188,7 @@ export function Agendamento() {
             </h3>
             <p className="mt-2 text-lf-secondary text-sm leading-relaxed">
               Nos modos com horário o cliente não tira senha. Ele reserva a hora
-              dele por WhatsApp ou direto com você.
+              dele pelo app, pelo WhatsApp ou direto com você.
             </p>
 
             <div className="mt-7 space-y-4">

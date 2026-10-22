@@ -1,5 +1,6 @@
 import { Navbar } from "@/src/app/_components/landing/navbar";
 import { Hero } from "@/src/app/_components/landing/hero";
+import { Social } from "@/src/app/_components/landing/social";
 import { ComoFunciona } from "@/src/app/_components/landing/como-funciona";
 import { AppDemo } from "@/src/app/_components/landing/app-demo";
 import { Agendamento } from "@/src/app/_components/landing/agendamento";
@@ -17,6 +18,7 @@ export default function LandingPage() {
     <main className="bg-[#031926] min-h-screen">
       <Navbar />
       <Hero />
+      <Social />
       <ComoFunciona />
       <AppDemo />
       <Agendamento />
