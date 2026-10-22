@@ -72,7 +72,7 @@ export function Navbar() {
               Entrar
             </a>
             <a
-              href="https://lineflow.mpdev.pro.br"
+              href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
               className="flex items-center gap-1.5 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-semibold text-sm px-5 py-2 rounded-lg shadow-[0_0_20px_rgba(119,172,162,.25)] hover:shadow-[0_0_28px_rgba(119,172,162,.35)] transition-all duration-150"
             >
               Comece grátis
@@ -141,7 +141,7 @@ export function Navbar() {
                 Entrar
               </a>
               <a
-                href="https://lineflow.mpdev.pro.br"
+                href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
                 className="flex items-center justify-center gap-1.5 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-semibold text-sm px-5 py-3 rounded-lg transition-all"
               >
                 Comece grátis

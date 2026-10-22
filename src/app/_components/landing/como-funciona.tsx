@@ -146,7 +146,7 @@ export function ComoFunciona() {
             Pronto para a primeira fila digital?
           </p>
           <a
-            href="https://lineflow.mpdev.pro.br"
+            href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
             className="inline-flex items-center gap-2 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold px-7 py-3.5 rounded-lg shadow-[0_0_24px_rgba(119,172,162,.25)] hover:shadow-[0_0_36px_rgba(119,172,162,.35)] transition-all duration-200"
           >
             Criar minha conta grátis

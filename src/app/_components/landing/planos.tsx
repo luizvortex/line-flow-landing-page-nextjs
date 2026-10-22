@@ -173,7 +173,7 @@ export function Planos({ initialPlans }: { initialPlans: Plan[] }) {
                     </ul>
 
                     <a
-                      href="https://lineflow.mpdev.pro.br"
+                      href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
                       className={`mt-8 block text-center py-3 rounded-lg text-sm font-medium transition-all duration-150 ${
                         plan.style === "primary"
                           ? "bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold py-3.5 shadow-[0_0_24px_rgba(119,172,162,.30)] hover:shadow-[0_0_36px_rgba(119,172,162,.40)]"

@@ -47,7 +47,7 @@ export function CTAFinal() {
               Sem cartão · 1 fila · 30 entradas/dia
             </p>
             <a
-              href="https://lineflow.mpdev.pro.br"
+              href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
               className="mt-4 block text-center border border-[#77aca2] text-[#77aca2] hover:bg-[#77aca2] hover:text-[#031926] py-2.5 rounded-lg text-sm font-semibold transition-all duration-150"
             >
               Começar agora →

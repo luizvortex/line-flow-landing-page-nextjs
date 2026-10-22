@@ -92,7 +92,7 @@ export function Hero() {
           style={{ animationDelay: "240ms" }}
         >
           <a
-            href="https://lineflow.mpdev.pro.br"
+            href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
             className="flex items-center gap-2 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-bold px-7 py-3.5 rounded-lg text-base shadow-[0_0_28px_rgba(119,172,162,.35)] hover:shadow-[0_0_48px_rgba(119,172,162,.45)] transition-all duration-200"
           >
             Criar conta grátis
