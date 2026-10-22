@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Bell,
   CalendarDays,
@@ -19,6 +18,7 @@ import { EyebrowLabel } from "./shared/eyebrow-label";
 import { GlassCard } from "./shared/glass-card";
 import { GradientDot } from "./shared/gradient-dot";
 import { PhoneFrame } from "./shared/phone-frame";
+import { AppLogo } from "./shared/app-logo";
 
 /**
  * Novidade da plataforma: o app social do cliente (perfil da empresa, feed,
@@ -208,18 +208,7 @@ function FeedPreview() {
         <div className="relative">
           {/* Cabeçalho do app */}
           <div className="flex items-center justify-between px-4 h-12">
-            <span className="flex items-center gap-2">
-              <Image
-                src="/logo/logo-mark.png"
-                alt=""
-                width={22}
-                height={22}
-                className="w-[22px] h-[22px]"
-              />
-              <span className="text-[15px] font-semibold tracking-tight text-lf-primary">
-                Line<span className="text-lf-accent">Flow</span>
-              </span>
-            </span>
+            <AppLogo size={15} />
             <span className="flex items-center gap-3 text-lf-primary">
               <Search size={18} />
               <span className="relative">
