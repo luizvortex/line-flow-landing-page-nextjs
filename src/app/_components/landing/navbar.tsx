@@ -46,7 +46,7 @@ export function Navbar() {
               Line<span className="text-[#77aca2]">Flow</span>
             </span>
             <span className="bg-[rgba(119,172,162,0.15)] text-[#77aca2] text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
-              v1.0
+              v1.1
             </span>
           </Link>
 
