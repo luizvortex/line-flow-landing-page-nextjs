@@ -1,9 +1,12 @@
 import {
   BarChart2,
   Bell,
+  Gift,
   Globe,
   ListOrdered,
   QrCode,
+  Repeat,
+  Stamp,
   Tv,
 } from "lucide-react";
 import Image from "next/image";
@@ -248,6 +251,82 @@ export function Funcionalidades() {
               <span className="text-[10px] text-[#4d7a80] ml-1">
                 Compatível com todos
               </span>
+            </div>
+          </GlassCard>
+
+          {/* Card H — Fidelidade */}
+          <GlassCard className="md:col-span-4 p-8 group">
+            <EyebrowLabel icon={<Stamp size={11} strokeWidth={1.5} />}>
+              Fidelidade
+            </EyebrowLabel>
+            <h3 className="text-xl font-semibold text-[#e8f2f1] mt-2">
+              Cartão fidelidade automático
+            </h3>
+            <p className="text-[#8bb5b0] text-sm leading-relaxed mt-2">
+              Cada atendimento concluído vira um selo. Juntou, o cliente troca
+              pela recompensa que você definir.
+            </p>
+            <div className="mt-6 flex items-center gap-1.5">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-4 h-4 rounded-full border ${
+                    i < 7
+                      ? "bg-[#77aca2]/40 border-[#77aca2]"
+                      : "border-dashed border-[#255068]"
+                  }`}
+                />
+              ))}
+              <span className="text-[10px] text-[#4d7a80] font-mono ml-1.5">
+                7/10
+              </span>
+            </div>
+          </GlassCard>
+
+          {/* Card I — Indique e ganhe */}
+          <GlassCard className="md:col-span-4 p-8 group">
+            <EyebrowLabel icon={<Gift size={11} strokeWidth={1.5} />}>
+              Indicação
+            </EyebrowLabel>
+            <h3 className="text-xl font-semibold text-[#e8f2f1] mt-2">
+              Indique e ganhe
+            </h3>
+            <p className="text-[#8bb5b0] text-sm leading-relaxed mt-2">
+              Cada cliente tem um código. Quando o indicado faz o primeiro
+              atendimento, quem indicou é recompensado.
+            </p>
+            <div className="mt-6 inline-flex items-center gap-2 bg-[#031926] rounded-lg px-3 py-2 border border-[#1a3d52]">
+              <span className="text-[10px] text-[#4d7a80]">Código</span>
+              <span className="font-mono text-sm font-bold text-[#77aca2] tracking-widest">
+                AMIGO-4F8K
+              </span>
+            </div>
+          </GlassCard>
+
+          {/* Card J — Lembrete de retorno */}
+          <GlassCard className="md:col-span-4 p-8 group">
+            <EyebrowLabel icon={<Repeat size={11} strokeWidth={1.5} />}>
+              Retorno
+            </EyebrowLabel>
+            <h3 className="text-xl font-semibold text-[#e8f2f1] mt-2">
+              Lembra o cliente de voltar
+            </h3>
+            <p className="text-[#8bb5b0] text-sm leading-relaxed mt-2">
+              Cada serviço tem seu prazo de retorno. Passou o tempo, o cliente
+              recebe o aviso para marcar de novo.
+            </p>
+            <div className="mt-6 bg-[#031926] rounded-xl p-3.5 border border-[#1a3d52] flex gap-3 items-center">
+              <div className="w-8 h-8 rounded-lg bg-[rgba(119,172,162,0.15)] flex items-center justify-center shrink-0">
+                <Repeat size={14} strokeWidth={1.5} className="text-[#77aca2]" />
+              </div>
+              <div>
+                <p className="text-[#e8f2f1] text-xs font-semibold">
+                  Barbearia Silva
+                </p>
+                <p className="text-[#8bb5b0] text-xs">
+                  Já faz 30 dias do seu corte. Bora marcar?
+                </p>
+              </div>
             </div>
           </GlassCard>
         </div>

@@ -3,7 +3,6 @@ import { Hero } from "@/src/app/_components/landing/hero";
 import { ComoFunciona } from "@/src/app/_components/landing/como-funciona";
 import { AppDemo } from "@/src/app/_components/landing/app-demo";
 import { Agendamento } from "@/src/app/_components/landing/agendamento";
-import { Retencao } from "@/src/app/_components/landing/retencao";
 import { Gestao } from "@/src/app/_components/landing/gestao";
 import { Funcionalidades } from "@/src/app/_components/landing/funcionalidades";
 import { SocialProof } from "@/src/app/_components/landing/social-proof";
@@ -21,7 +20,6 @@ export default function LandingPage() {
       <ComoFunciona />
       <AppDemo />
       <Agendamento />
-      <Retencao />
       <Funcionalidades />
       <Gestao />
       <SocialProof />
