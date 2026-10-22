@@ -1,13 +1,15 @@
+import Image from "next/image";
 import {
   Bell,
-  Bookmark,
+  CalendarDays,
   Compass,
   Heart,
   Home,
-  MapPin,
+  ListOrdered,
   MessageCircle,
-  Pin,
+  Plus,
   Scissors,
+  Search,
   Sparkles,
   Star,
   User,
@@ -24,20 +26,34 @@ import { PhoneFrame } from "./shared/phone-frame";
  * módulo `social` e no `/explore`.
  */
 
+/** Fileira do Início: o "Seu story" do dono e os stories de quem ele segue. */
 const stories = [
-  { name: "Barbearia Silva", seen: false },
   { name: "Studio Bela", seen: false },
-  { name: "Clínica Vida", seen: true },
+  { name: "Clínica Vida", seen: false },
   { name: "Spa Zen", seen: true },
 ];
 
+/** Mesmo degradê do anel de story no app (`--lf-anel-story`). */
+const STORY_RING =
+  "conic-gradient(from 210deg, #22c3d6, #0e7c96, #1fa98a, #5fe0c4, #22c3d6)";
+
+/** Abas do app do cliente (`itensNavCliente` no PWA). */
 const navItems: { label: string; icon: LucideIcon; active?: boolean }[] = [
   { label: "Início", icon: Home, active: true },
   { label: "Explorar", icon: Compass },
   { label: "Mensagens", icon: MessageCircle },
   { label: "Perfil", icon: User },
-  { label: "Mapa", icon: MapPin },
 ];
+
+/** Ondas do fundo do topo (o `FundoFlow` do app), sem a animação. */
+const WAVES = Array.from({ length: 8 }, (_, i) => {
+  const y = 40 + i * 26;
+  let d = `M -195 ${y}`;
+  for (let x = -195, up = true; x < 585; x += 97.5, up = !up) {
+    d += ` Q ${x + 48.75} ${y + (up ? -22 : 22)} ${x + 97.5} ${y}`;
+  }
+  return { d, opacity: 1 - i * 0.1 };
+});
 
 const features: { icon: LucideIcon; title: string; desc: string }[] = [
   {
@@ -67,108 +83,227 @@ const features: { icon: LucideIcon; title: string; desc: string }[] = [
   },
 ];
 
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
+
+function StoryAvatar({ name, seen }: { name: string; seen: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-1 w-[58px] shrink-0">
+      <span
+        className="grid p-[2.5px] rounded-full w-[54px] h-[54px]"
+        style={{ background: seen ? "#255068" : STORY_RING }}
+      >
+        <span className="grid place-items-center rounded-full border-[2.5px] border-lf-base bg-lf-accent text-lf-base text-sm font-extrabold">
+          {initials(name)}
+        </span>
+      </span>
+      <span className="text-[9.5px] text-lf-secondary truncate max-w-[58px]">
+        {name}
+      </span>
+    </div>
+  );
+}
+
+function PostCard({
+  author,
+  when,
+  likes,
+  caption,
+  cta,
+  children,
+}: {
+  author: string;
+  when: string;
+  likes: number;
+  caption?: string;
+  cta: "fila" | "agenda";
+  children: React.ReactNode;
+}) {
+  return (
+    <article className="mx-2.5 rounded-[20px] border border-lf-border bg-lf-card overflow-hidden">
+      <header className="flex items-center gap-2 px-3 py-2.5">
+        <span className="w-8 h-8 rounded-full bg-lf-accent text-lf-base grid place-items-center text-[11px] font-bold shrink-0">
+          {initials(author)}
+        </span>
+        <div className="min-w-0">
+          <p className="text-[12px] font-semibold text-lf-primary truncate">
+            {author}
+          </p>
+          <p className="text-[10px] text-[#73a0a6]">{when}</p>
+        </div>
+      </header>
+
+      <div className="mx-2 rounded-[15px] overflow-hidden bg-lf-elevated">
+        {children}
+      </div>
+
+      <div className="flex items-center gap-1.5 px-3 pt-2 text-[#e0683f]">
+        <Heart size={18} className="fill-current" />
+        <span className="text-[11px] font-semibold">{likes}</span>
+      </div>
+
+      {caption && (
+        <p className="mx-3 mt-0.5 text-[11px] leading-snug text-lf-secondary">
+          <strong className="text-lf-primary">{author}</strong> {caption}
+        </p>
+      )}
+
+      <div className="m-2.5">
+        <span className="h-[38px] rounded-xl bg-lf-accent text-lf-base flex items-center justify-center gap-1.5 text-[12px] font-semibold">
+          {cta === "fila" ? (
+            <>
+              <ListOrdered size={14} />
+              Entrar na fila
+            </>
+          ) : (
+            <>
+              <CalendarDays size={14} />
+              Agendar
+            </>
+          )}
+        </span>
+      </div>
+    </article>
+  );
+}
+
 function FeedPreview() {
   return (
     <PhoneFrame>
-      {/* Topo do Início */}
-      <div className="flex items-center justify-between px-5 pt-2 pb-3">
-        <p className="text-base font-bold text-lf-primary">
-          Line<span className="text-lf-accent">Flow</span>
-        </p>
-        <div className="relative">
-          <Bell size={18} className="text-lf-secondary" />
-          <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-lf-accent" />
+      <div className="relative flex-1 min-h-0 overflow-hidden">
+        {/* Fundo com as ondas do app */}
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[260px] overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(120% 70% at 85% 0%, rgba(119,172,162,0.2), transparent 60%), radial-gradient(90% 60% at 0% 20%, rgba(70,129,137,0.16), transparent 65%)",
+            }}
+          />
+          <svg
+            viewBox="0 0 390 260"
+            preserveAspectRatio="none"
+            className="absolute inset-0 w-full h-full"
+          >
+            {WAVES.map((w) => (
+              <path
+                key={w.d}
+                d={w.d}
+                fill="none"
+                stroke="rgba(119,172,162,0.13)"
+                strokeWidth={1.2}
+                vectorEffect="non-scaling-stroke"
+                style={{ opacity: w.opacity }}
+              />
+            ))}
+          </svg>
         </div>
-      </div>
 
-      {/* Fileira de stories */}
-      <div className="flex gap-3 px-5 pb-3 border-b border-lf-border">
-        {stories.map((s) => (
-          <div key={s.name} className="flex flex-col items-center gap-1 w-[52px]">
-            <div
-              className={`p-[2px] rounded-full ${
-                s.seen
-                  ? "bg-lf-border"
-                  : "bg-gradient-to-tr from-lf-accent-deep via-lf-accent to-[#c9e4df]"
-              }`}
-            >
-              <div className="w-11 h-11 rounded-full bg-lf-card border-2 border-lf-base flex items-center justify-center text-[11px] font-bold text-lf-accent">
-                {s.name
-                  .split(" ")
-                  .map((w) => w[0])
-                  .join("")}
-              </div>
-            </div>
-            <span className="text-[9px] text-lf-secondary truncate w-full text-center">
-              {s.name}
+        <div className="relative">
+          {/* Cabeçalho do app */}
+          <div className="flex items-center justify-between px-4 h-12">
+            <span className="flex items-center gap-2">
+              <Image
+                src="/logo/logo-mark.png"
+                alt=""
+                width={22}
+                height={22}
+                className="w-[22px] h-[22px]"
+              />
+              <span className="text-[15px] font-semibold tracking-tight text-lf-primary">
+                Line<span className="text-lf-accent">Flow</span>
+              </span>
+            </span>
+            <span className="flex items-center gap-3 text-lf-primary">
+              <Search size={18} />
+              <span className="relative">
+                <Bell size={18} />
+                <span className="absolute -top-1 -right-1.5 min-w-[13px] h-[13px] px-0.5 rounded-full bg-lf-error text-white text-[8px] font-bold grid place-items-center border-[1.5px] border-lf-base">
+                  2
+                </span>
+              </span>
             </span>
           </div>
-        ))}
-      </div>
 
-      {/* Publicação */}
-      <div className="flex-1 min-h-0">
-        <div className="flex items-center gap-2.5 px-5 py-2.5">
-          <div className="w-8 h-8 rounded-full bg-lf-accent/15 flex items-center justify-center">
-            <Scissors size={14} className="text-lf-accent" />
+          {/* Fileira de stories */}
+          <div className="flex gap-2.5 px-4 pt-1 pb-3">
+            <div className="flex flex-col items-center gap-1 w-[58px] shrink-0">
+              <span className="relative w-[54px] h-[54px]">
+                <span className="absolute inset-0 grid place-items-center rounded-full border-[2.5px] border-lf-base ring-[1.5px] ring-lf-border-strong bg-lf-accent text-lf-base text-sm font-extrabold">
+                  BS
+                </span>
+                <span className="absolute -right-0.5 -bottom-0.5 w-5 h-5 rounded-full grid place-items-center bg-lf-accent text-lf-base border-2 border-lf-base">
+                  <Plus size={11} strokeWidth={3} />
+                </span>
+              </span>
+              <span className="text-[9.5px] text-lf-secondary">Seu story</span>
+            </div>
+            {stories.map((s) => (
+              <StoryAvatar key={s.name} {...s} />
+            ))}
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-lf-primary">
-              Barbearia Silva
-            </p>
-            <p className="text-[10px] text-lf-muted">Centro · 1,2 km</p>
+
+          {/* Feed */}
+          <div className="flex flex-col gap-3">
+            <PostCard
+              author="Barbearia Silva"
+              when="ontem"
+              likes={24}
+              caption="Combo corte + barba com horário livre hoje à tarde."
+              cta="fila"
+            >
+              {/* Arte ilustrativa do post */}
+              <div className="relative aspect-[1.6] bg-gradient-to-br from-[#06131c] via-[#0b2433] to-[#1d4a52] overflow-hidden">
+                <div className="absolute -right-6 -top-10 w-40 h-40 rounded-full bg-[#77aca2]/20 blur-2xl" />
+                <Scissors
+                  size={70}
+                  strokeWidth={1}
+                  className="absolute right-4 bottom-3 text-[#e8f2f1]/25 -rotate-12"
+                />
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2">
+                  <p className="text-[8px] uppercase tracking-[0.2em] text-[#c9e4df]/70">
+                    Estilo e tradição
+                  </p>
+                  <p className="text-[19px] font-extrabold leading-[1.05] text-[#e8f2f1] mt-0.5">
+                    Barbearia
+                    <br />
+                    Silva
+                  </p>
+                  <p className="mt-1.5 inline-block text-[8px] font-semibold text-lf-base bg-lf-accent rounded-full px-2 py-0.5">
+                    Corte + barba
+                  </p>
+                </div>
+              </div>
+            </PostCard>
+
+            <PostCard author="Studio Bela" when="há 3 dias" likes={57} cta="agenda">
+              <div className="aspect-[1.6] bg-gradient-to-br from-[#2a1f33] via-[#3b2c45] to-[#77aca2]/60" />
+            </PostCard>
           </div>
-          <Pin size={12} className="text-lf-muted" />
         </div>
 
-        {/* Foto ilustrativa */}
-        <div className="relative h-[230px] bg-gradient-to-br from-[#0f3450] via-[#1d5a63] to-[#77aca2] overflow-hidden">
-          <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-[#c9e4df]/15" />
-          <div className="absolute -left-8 bottom-6 w-32 h-32 rounded-full bg-lf-base/25" />
-          <Scissors
-            size={64}
-            strokeWidth={1}
-            className="absolute right-6 bottom-6 text-[#e8f2f1]/30"
-          />
-          <div className="absolute left-4 bottom-4">
-            <p className="text-[10px] uppercase tracking-[0.15em] text-[#e8f2f1]/70">
-              Novo serviço
-            </p>
-            <p className="text-lg font-bold text-[#e8f2f1] leading-tight">
-              Degradê +<br />barba completa
-            </p>
-          </div>
+        {/* Barra de navegação flutuante (vidro) */}
+        <div className="absolute inset-x-2.5 bottom-2 h-[54px] px-1.5 rounded-[22px] border border-white/10 bg-[#072233]/75 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)] flex items-center justify-around gap-1">
+          {navItems.map(({ label, icon: Icon, active }) => (
+            <div
+              key={label}
+              className={`flex-1 h-[44px] rounded-[16px] flex flex-col items-center justify-center gap-0.5 text-[9px] font-semibold ${
+                active
+                  ? "bg-lf-accent/15 text-lf-accent shadow-[inset_0_0_0_1px_rgba(119,172,162,0.3)]"
+                  : "text-[#73a0a6]"
+              }`}
+            >
+              <Icon size={17} />
+              {label}
+            </div>
+          ))}
         </div>
-
-        <div className="px-5 pt-2.5">
-          <div className="flex items-center gap-3.5 text-lf-primary">
-            <Heart size={18} className="fill-[#f87171] text-[#f87171]" />
-            <MessageCircle size={18} />
-            <Bookmark size={18} className="ml-auto" />
-          </div>
-          <p className="mt-1.5 text-[11px] font-semibold text-lf-primary">
-            128 curtidas
-          </p>
-          <p className="mt-0.5 text-[11px] text-lf-secondary leading-snug">
-            <span className="font-semibold text-lf-primary">Barbearia Silva</span>{" "}
-            Agora com combo de corte e barba. Agenda aberta para essa semana.
-          </p>
-        </div>
-      </div>
-
-      {/* Barra de navegação do app */}
-      <div className="mx-3 mb-1 mt-2 rounded-2xl bg-lf-card/90 border border-lf-border flex justify-around py-2">
-        {navItems.map(({ label, icon: Icon, active }) => (
-          <div
-            key={label}
-            className={`flex flex-col items-center gap-0.5 ${
-              active ? "text-lf-accent" : "text-lf-muted"
-            }`}
-          >
-            <Icon size={15} />
-            <span className="text-[8px]">{label}</span>
-          </div>
-        ))}
       </div>
     </PhoneFrame>
   );
