@@ -42,6 +42,10 @@ const faqs = [
     a: "Você continua com acesso por 30 dias após o cancelamento e pode exportar todos os dados em CSV. Sem dados perdidos.",
   },
   {
+    q: "O LineFlow é só fila ou gerencia o negócio todo?",
+    a: "Vai além da fila. Além de fila e agenda, você tem cadastro e histórico de clientes, cartão fidelidade, indique e ganhe, vendas, estoque, despesas, comissões da equipe e relatórios. O que está disponível depende do plano — veja a comparação na seção de planos.",
+  },
+  {
     q: "Tem integração com WhatsApp ou iFood?",
     a: "Com WhatsApp, sim: a partir do plano Starter o cliente entra na fila direto pelo WhatsApp, e nos planos Pro e Pro Plus o atendimento sai do número próprio da sua empresa. Integração com iFood ainda não existe nativamente — está no roadmap.",
   },

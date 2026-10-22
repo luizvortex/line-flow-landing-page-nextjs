@@ -81,9 +81,9 @@ export function Hero() {
           className="mt-6 text-[#8bb5b0] text-lg leading-relaxed max-w-xl mx-auto animate-fade-up"
           style={{ animationDelay: "160ms" }}
         >
-          Seu cliente entra pela porta, escaneia o QR Code e acompanha a
-          posição no celular. Você gerencia tudo em tempo real no dashboard.
-          Sem papel, sem confusão — só atendimento.
+          Fila virtual, agenda, fidelidade e financeiro no mesmo painel. O
+          cliente entra pelo QR Code ou WhatsApp, acompanha pelo celular e
+          volta sempre. Sem papel, sem app — só atendimento.
         </p>
 
         {/* CTAs */}
@@ -160,9 +160,11 @@ export function Hero() {
                   </div>
                   {[
                     { label: "Filas ao vivo", active: true },
-                    { label: "Relatórios", active: false },
+                    { label: "Agenda", active: false },
                     { label: "Clientes", active: false },
-                    { label: "Configurações", active: false },
+                    { label: "Fidelidade", active: false },
+                    { label: "Financeiro", active: false },
+                    { label: "Relatórios", active: false },
                   ].map((item) => (
                     <div
                       key={item.label}

@@ -16,15 +16,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lineflow.mpdevelop.com.br"),
-  title: "LineFlow — Gestão de filas em tempo real para seu negócio",
+  title: "LineFlow — Gestão de atendimento completa para seu negócio",
   description:
-    "Clientes entram na fila pelo QR Code, acompanham a posição no celular e recebem notificação push. Dashboard completo para salões, clínicas e restaurantes.",
+    "Fila virtual, agendamento, fidelidade, financeiro e relatórios em um só lugar. Clientes entram pelo QR Code ou WhatsApp, sem baixar app. Para barbearias, salões, clínicas e estética.",
   keywords: [
     "fila virtual",
     "QR Code fila",
     "gerenciamento de filas",
     "sistema de senhas",
     "fila digital",
+    "gestão de atendimento",
+    "agendamento online",
+    "cartão fidelidade",
     "barbearia",
     "salão de beleza",
     "clínica",
@@ -33,8 +36,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "LineFlow — Sua fila mais inteligente começa hoje",
-    description: "Setup em 3 minutos. Sem app. Sem papel. Só atendimento.",
+    title: "LineFlow — Todo o seu atendimento, em um só fluxo",
+    description: "Fila, agenda, fidelidade e financeiro em um só lugar. Setup em 3 minutos, sem app.",
     url: "/",
     siteName: "LineFlow",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -42,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LineFlow — Gestão de filas em tempo real",
-    description: "QR Code + notificação push + dashboard ao vivo.",
+    title: "LineFlow — Gestão de atendimento completa",
+    description: "Fila, agenda, fidelidade e financeiro em um só lugar.",
   },
 };
 
