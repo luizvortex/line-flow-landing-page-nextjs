@@ -4,7 +4,12 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { EyebrowLabel } from "./shared/eyebrow-label";
 
-const faqs = [
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+const defaultFaqs: FaqItem[] = [
   {
     q: "Preciso instalar alguma coisa?",
     a: "Não. O LineFlow funciona 100% no navegador, tanto para você (dashboard) quanto para seus clientes (fila). No celular, o cliente pode adicionar à tela inicial como um app — sem passar pela App Store.",
@@ -51,7 +56,13 @@ const faqs = [
   },
 ];
 
-export function FAQ() {
+export function FAQ({
+  items = defaultFaqs,
+  title = "Tudo que você queria saber",
+}: {
+  items?: FaqItem[];
+  title?: string;
+}) {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -59,11 +70,11 @@ export function FAQ() {
       <div className="max-w-3xl mx-auto">
         <EyebrowLabel>Dúvidas frequentes</EyebrowLabel>
         <h2 className="mt-3 text-3xl font-bold text-[#e8f2f1]">
-          Tudo que você queria saber
+          {title}
         </h2>
 
         <div className="mt-12">
-          {faqs.map((faq, i) => (
+          {items.map((faq, i) => (
             <div key={i} className="border-b border-[#1a3d52]">
               <button
                 onClick={() => setOpen(open === i ? null : i)}

@@ -9,7 +9,8 @@ const footerLinks = {
     "Roadmap",
   ],
   "Para seu negócio": [
-    "Barbearia e salão",
+    "Barbearias",
+    "Salões de beleza",
     "Clínicas médicas",
     "Restaurantes",
     "Academia e fitness",
@@ -23,6 +24,11 @@ const footerLinks = {
     "Contato",
     "WhatsApp",
   ],
+};
+
+/** Itens do rodapé que já têm página; o resto ainda aponta para "#". */
+const footerHrefs: Record<string, string> = {
+  Barbearias: "/barbearias",
 };
 
 export function Footer() {
@@ -83,7 +89,7 @@ export function Footer() {
                 {links.map((link) => (
                   <li key={link}>
                     <a
-                      href="#"
+                      href={footerHrefs[link] ?? "#"}
                       className="text-[#8bb5b0] text-sm hover:text-[#e8f2f1] transition-colors duration-150"
                     >
                       {link}

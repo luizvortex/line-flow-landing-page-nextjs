@@ -5,7 +5,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = [
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+const defaultLinks: NavLink[] = [
   { label: "Como funciona", href: "#como-funciona" },
   { label: "App do cliente", href: "#app-demo" },
   { label: "Agendamento", href: "#agendamento" },
@@ -13,7 +18,7 @@ const navLinks = [
   { label: "Planos", href: "#planos" },
 ];
 
-export function Navbar() {
+export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -52,7 +57,7 @@ export function Navbar() {
 
           {/* Center nav (desktop) */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -101,7 +106,7 @@ export function Navbar() {
           />
           <div className="absolute right-0 top-0 bottom-0 w-72 bg-[#072233] border-l border-[#1a3d52] p-6 flex flex-col shadow-[0_0_60px_rgba(3,25,38,.9)]">
             <div className="flex justify-between items-center mb-8">
-              <a href="/" className="flex items-center gap-2">
+              <Link href="/" className="flex items-center gap-2">
                 <Image
                   src="/logo/logo-mark.png"
                   alt="LineFlow"
@@ -112,7 +117,7 @@ export function Navbar() {
                 <span className="text-xl font-bold text-[#e8f2f1]">
                   Line<span className="text-[#77aca2]">Flow</span>
                 </span>
-              </a>
+              </Link>
               <button
                 onClick={() => setMobileOpen(false)}
                 className="text-[#8bb5b0] hover:text-[#e8f2f1] transition-colors p-1"
@@ -122,7 +127,7 @@ export function Navbar() {
               </button>
             </div>
             <nav className="flex flex-col gap-5 mb-8">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
