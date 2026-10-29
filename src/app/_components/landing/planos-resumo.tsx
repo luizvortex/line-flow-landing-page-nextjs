@@ -46,12 +46,13 @@ const HIGHLIGHTS: Record<string, { intro?: string; items: string[] }> = {
       "25 filas e dono + 10 operadores",
       "WhatsApp com número próprio",
       "Analytics e métricas",
-      "Assistente de IA e marca própria",
+      "Assistente de IA que consulta seus dados",
     ],
   },
   "pro-plus": {
     intro: "Tudo do Pro, mais:",
     items: [
+      "White label: edite o painel com a sua marca",
       "50 filas ativas",
       "Dono + 20 operadores",
       "IA que consulta e executa ações",
