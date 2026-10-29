@@ -1,10 +1,20 @@
+"use client";
+
+import { useState } from "react";
 import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { Switch } from "@/src/app/_components/ui/switch";
 import type { Plan } from "@/src/lib/plans";
 
 const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
 
 const brl = (value: number) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+/** Desconto do anual sobre 12x o mensal, em % inteiro. */
+function annualSavings(plan: Plan): number | null {
+  if (plan.annual === null || plan.monthly <= 0) return null;
+  return Math.round((1 - plan.annual / (plan.monthly * 12)) * 100);
+}
 
 /**
  * Planos resumidos para a página de anúncio: os quatro planos lado a lado,
@@ -52,10 +62,14 @@ const HIGHLIGHTS: Record<string, { intro?: string; items: string[] }> = {
 
 const SHOWN = ["free", "starter", "pro", "pro-plus"];
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
   const highlight = HIGHLIGHTS[plan.id];
   const featured = !!plan.popular;
-  const annualMonthly = plan.annual !== null ? plan.annual / 12 : null;
+  // No anual o número grande é o equivalente mensal, para seguir comparável
+  // com o modo mensal; o total do ano vai na linha de baixo.
+  const showAnnual = annual && plan.annual !== null;
+  const price = showAnnual ? plan.annual! / 12 : plan.monthly;
+  const savings = annualSavings(plan);
 
   return (
     <article
@@ -78,14 +92,25 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="mt-5 flex items-baseline gap-1">
         <span className="font-mono text-[30px] font-bold tracking-tight leading-none whitespace-nowrap">
-          {plan.monthly === 0 ? "R$ 0" : brl(plan.monthly)}
+          {price === 0 ? "R$ 0" : brl(price)}
         </span>
         <span className={`text-sm ${featured ? "text-lf-base/60" : "text-lf-muted"}`}>/mês</span>
       </div>
       <p className={`mt-2 text-[11px] min-h-4 ${featured ? "text-lf-base/70" : "text-lf-muted"}`}>
-        {annualMonthly !== null
-          ? `ou ${brl(annualMonthly)}/mês no plano anual`
-          : "Grátis para sempre"}
+        {plan.annual === null
+          ? "Grátis para sempre"
+          : showAnnual
+            ? (
+                <>
+                  {brl(plan.annual!)} por ano
+                  {savings ? (
+                    <span className={`ml-1.5 font-semibold ${featured ? "text-[#15803d]" : "text-lf-success"}`}>
+                      −{savings}%
+                    </span>
+                  ) : null}
+                </>
+              )
+            : `ou ${brl(plan.annual / 12)}/mês no plano anual`}
       </p>
 
       <ul className="mt-5 space-y-2.5 flex-1">
@@ -122,6 +147,8 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 export function PlanosResumo({ plans }: { plans: Plan[] }) {
+  const [annual, setAnnual] = useState(false);
+  const bestSavings = Math.max(0, ...plans.map((p) => annualSavings(p) ?? 0));
   const shown = SHOWN.map((id) => plans.find((p) => p.id === id)).filter(
     (p): p is Plan => !!p,
   );
@@ -138,9 +165,30 @@ export function PlanosResumo({ plans }: { plans: Plan[] }) {
           </p>
         </div>
 
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+        {/* Mensal / anual */}
+        <div className="mt-9 flex items-center justify-center gap-3 flex-wrap">
+          <span className={`text-sm font-medium transition-colors ${!annual ? "text-lf-primary" : "text-lf-muted"}`}>
+            Mensal
+          </span>
+          <Switch
+            size="lg"
+            checked={annual}
+            onCheckedChange={(checked) => setAnnual(checked)}
+            aria-label={annual ? "Mudar para cobrança mensal" : "Mudar para cobrança anual"}
+          />
+          <span className={`text-sm font-medium transition-colors ${annual ? "text-lf-primary" : "text-lf-muted"}`}>
+            Anual
+          </span>
+          {bestSavings > 0 && (
+            <span className="rounded-full bg-lf-success/15 px-2.5 py-0.5 text-xs font-semibold text-lf-success">
+              economize até {bestSavings}%
+            </span>
+          )}
+        </div>
+
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
           {shown.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} />
+            <PlanCard key={plan.id} plan={plan} annual={annual} />
           ))}
         </div>
 
