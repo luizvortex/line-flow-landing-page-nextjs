@@ -2,6 +2,7 @@ import { ArrowDown, ArrowRight, Zap } from "lucide-react";
 import { PhoneFrame } from "./shared/phone-frame";
 import { FeedPreview } from "./social";
 import { WaitingScreen } from "./app-demo";
+import { Parallax } from "./shared/parallax";
 
 const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
 
@@ -120,14 +121,18 @@ export function HeroCard({
             className="relative mt-10 -mb-[170px] sm:-mb-[200px] flex justify-center lg:absolute lg:mt-0 lg:mb-0 lg:right-8 lg:top-[230px] animate-fade-up"
             style={{ animationDelay: "160ms" }}
           >
-            <ScaledPhone className="-rotate-[5deg] mt-8 -mr-10 sm:-mr-8 z-0">
-              <FeedPreview />
-            </ScaledPhone>
-            <ScaledPhone className="rotate-[4deg] z-10">
-              <PhoneFrame>
-                <WaitingScreen />
-              </PhoneFrame>
-            </ScaledPhone>
+            <Parallax speed={0.08} className="z-0">
+              <ScaledPhone className="-rotate-[5deg] mt-8 -mr-10 sm:-mr-8 z-0">
+                <FeedPreview />
+              </ScaledPhone>
+            </Parallax>
+            <Parallax speed={0.18} className="z-10">
+              <ScaledPhone className="rotate-[4deg] z-10">
+                <PhoneFrame>
+                  <WaitingScreen />
+                </PhoneFrame>
+              </ScaledPhone>
+            </Parallax>
           </div>
         </div>
       </div>

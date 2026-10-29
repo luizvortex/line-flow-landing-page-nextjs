@@ -46,11 +46,18 @@
 
 :root {
   color-scheme: dark;
+  /* Faixa "Tem uma equipe...": destaque próprio, mais fechado que o fundo. */
+  --lf-band-from: #0f3450;
+  --lf-band-via: #0b2d42;
+  --lf-band-to: #072233;
 }
 
 /* Paleta clara, a mesma do tema claro do app (globals.css do PWA). */
 [data-theme="light"] {
   color-scheme: light;
+  --lf-band-from: #cfe3de;
+  --lf-band-via: #bdd8d1;
+  --lf-band-to: #a8cbc2;
   --lf-base: #f0f6f5;
   --lf-card: #ffffff;
   --lf-hover: #e6f0ee;
