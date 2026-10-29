@@ -112,6 +112,37 @@ export function Footer() {
           </Link>
         </div>
       </div>
+
+      {/* Marca d'água gigante no pé da página */}
+      <div className="relative overflow-hidden select-none pointer-events-none" aria-hidden="true">
+        <p
+          className="text-center font-bold leading-none whitespace-nowrap px-4"
+          style={{ fontSize: "clamp(72px, 22vw, 260px)", letterSpacing: "-0.03em" }}
+        >
+          <span
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(232,242,241,0.07) 0%, rgba(232,242,241,0.02) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Line
+          </span>
+          <span
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(119,172,162,0.14) 0%, rgba(119,172,162,0.04) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Flow
+          </span>
+        </p>
+      </div>
     </footer>
   );
 }
