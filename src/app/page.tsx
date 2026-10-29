@@ -2,6 +2,7 @@ import { Navbar } from "@/src/app/_components/landing/navbar";
 import { HeroCard } from "@/src/app/_components/landing/hero-card";
 import { Beneficios } from "@/src/app/_components/landing/beneficios";
 import { PassoAPasso } from "@/src/app/_components/landing/passo-a-passo";
+import { EquipeCta } from "@/src/app/_components/landing/equipe-cta";
 import { Social } from "@/src/app/_components/landing/social";
 import { ComoFunciona } from "@/src/app/_components/landing/como-funciona";
 import { AppDemo } from "@/src/app/_components/landing/app-demo";
@@ -22,6 +23,7 @@ export default function LandingPage() {
       <HeroCard />
       <Beneficios />
       <PassoAPasso />
+      <EquipeCta />
       <Social />
       <ComoFunciona />
       <AppDemo />
