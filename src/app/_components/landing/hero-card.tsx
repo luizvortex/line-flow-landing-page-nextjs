@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowDown, ArrowRight, Zap } from "lucide-react";
 import { PhoneFrame } from "./shared/phone-frame";
 import { FeedPreview } from "./social";
 import { WaitingScreen } from "./app-demo";
@@ -54,12 +54,7 @@ export function HeroCard() {
           />
 
           <div className="relative max-w-[520px] animate-fade-up">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-lf-base text-[#c6e6df] text-xs font-semibold px-3 py-1.5">
-              <Sparkles size={12} />
-              Novo: seu negócio no feed do cliente
-            </span>
-
-            <h1 className="mt-6 text-[42px] sm:text-[56px] lg:text-[64px] font-bold tracking-tight leading-[1.02] text-lf-base">
+            <h1 className="text-[42px] sm:text-[56px] lg:text-[64px] font-bold tracking-tight leading-[1.02] text-lf-base">
               Todo o seu atendimento, em um só fluxo.
             </h1>
 
@@ -97,7 +92,7 @@ export function HeroCard() {
             aria-hidden="true"
             viewBox="0 0 360 170"
             fill="none"
-            className="hidden lg:block absolute left-[385px] top-[330px] w-[330px] text-lf-base"
+            className="hidden lg:block absolute left-[385px] top-[278px] w-[330px] text-lf-base"
           >
             <path
               d="M352 4 C 335 60, 300 92, 252 100 C 206 108, 200 68, 226 60 C 256 51, 266 112, 200 140 C 150 161, 75 160, 14 152"
