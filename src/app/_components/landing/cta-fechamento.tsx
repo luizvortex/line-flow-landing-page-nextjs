@@ -6,7 +6,11 @@ const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
  * Fechamento da página no formato do Spoke: posicionamento de um lado e o
  * botão do outro, no mesmo card verde-água da hero.
  */
-export function CtaFechamento() {
+export function CtaFechamento({
+  title = "O sistema de atendimento para barbearias, salões e clínicas.",
+}: {
+  title?: string;
+}) {
   return (
     <section id="comecar" className="px-4 sm:px-6 pt-8 pb-20 md:pb-28">
       <div className="relative max-w-6xl mx-auto overflow-hidden rounded-[32px] bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] px-7 py-12 sm:px-12 md:py-16">
@@ -21,7 +25,7 @@ export function CtaFechamento() {
 
         <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
           <h2 className="text-[32px] sm:text-[44px] font-bold tracking-tight leading-[1.08] text-lf-base max-w-2xl">
-            O sistema de atendimento para barbearias, salões e clínicas.
+            {title}
           </h2>
 
           <div className="shrink-0 flex flex-col items-start lg:items-end gap-3">

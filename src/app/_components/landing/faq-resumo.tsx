@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowRight, Plus } from "lucide-react";
 
 const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
@@ -9,7 +9,12 @@ const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
  * FAQ curto da página de anúncio: só as objeções que seguram o cadastro.
  * A lista completa segue no `FAQ` usado em /barbearias.
  */
-const faqs = [
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+const defaultFaqs: FaqItem[] = [
   {
     q: "Meu cliente precisa baixar algum aplicativo?",
     a: "Não. Ele escaneia o QR Code ou abre o link da sua empresa no celular e já entra na fila ou marca o horário. Se quiser, pode adicionar o app à tela inicial, sem passar pela loja.",
@@ -36,7 +41,17 @@ const faqs = [
   },
 ];
 
-export function FaqResumo() {
+export function FaqResumo({
+  items = defaultFaqs,
+  title = (
+    <>
+      Perguntas <span className="text-lf-accent">frequentes</span>
+    </>
+  ),
+}: {
+  items?: FaqItem[];
+  title?: ReactNode;
+}) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -44,7 +59,7 @@ export function FaqResumo() {
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <h2 className="text-3xl md:text-[44px] font-bold tracking-tight leading-[1.1] text-lf-primary">
-            Perguntas <span className="text-lf-accent">frequentes</span>
+            {title}
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-lf-secondary max-w-sm">
             O que todo dono de negócio pergunta antes de começar.
@@ -59,7 +74,7 @@ export function FaqResumo() {
         </div>
 
         <div className="border-t border-lf-border">
-          {faqs.map((faq, i) => {
+          {items.map((faq, i) => {
             const isOpen = open === i;
             return (
               <div key={faq.q} className="border-b border-lf-border">

@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { Navbar, type NavLink } from "@/src/app/_components/landing/navbar";
-import { HeroBarbearia } from "@/src/app/_components/barbearias/hero-barbearia";
-import { DoresBarbearia } from "@/src/app/_components/barbearias/dores-barbearia";
-import { AppDemo } from "@/src/app/_components/landing/app-demo";
-import { Agendamento } from "@/src/app/_components/landing/agendamento";
-import { Social } from "@/src/app/_components/landing/social";
-import { RecursosBarbearia } from "@/src/app/_components/barbearias/recursos-barbearia";
-import { Planos } from "@/src/app/_components/landing/planos";
-import { FAQ, type FaqItem } from "@/src/app/_components/landing/faq";
-import { CTAFinal } from "@/src/app/_components/landing/cta-final";
+import { Navbar } from "@/src/app/_components/landing/navbar";
+import { HeroCard } from "@/src/app/_components/landing/hero-card";
+import { Beneficios } from "@/src/app/_components/landing/beneficios";
+import { PassoAPasso } from "@/src/app/_components/landing/passo-a-passo";
+import { EquipeCta } from "@/src/app/_components/landing/equipe-cta";
+import { PlanosResumo } from "@/src/app/_components/landing/planos-resumo";
+import { FaqResumo, type FaqItem } from "@/src/app/_components/landing/faq-resumo";
+import { CtaFechamento } from "@/src/app/_components/landing/cta-fechamento";
 import { Footer } from "@/src/app/_components/landing/footer";
 import { plans } from "@/src/lib/plans";
 
@@ -43,26 +41,15 @@ export const metadata: Metadata = {
   },
 };
 
-const links: NavLink[] = [
-  { label: "App do cliente", href: "#app-demo" },
-  { label: "Agendamento", href: "#agendamento" },
-  { label: "App social", href: "#social" },
-  { label: "Recursos", href: "#recursos" },
-  { label: "Planos", href: "#planos" },
-];
-
+/** As dúvidas de quem tem barbearia, no lugar do FAQ geral da home. */
 const faqs: FaqItem[] = [
   {
     q: "Dá para ter uma fila para cada barbeiro?",
-    a: "Sim. Cada fila tem seu QR Code, seu operador e sua espera estimada, então o cliente escolhe com quem quer cortar. A quantidade depende do plano: 1 fila no Free, 3 no Starter, 25 no Pro e 50 no Pro Plus.",
-  },
-  {
-    q: "Quantos barbeiros posso cadastrar?",
-    a: "O Free é só para o dono. O Starter tem dono + 1 operador, o Pro dono + 10 e o Pro Plus dono + 20.",
+    a: "Sim. Cada fila tem seu QR Code, seu barbeiro e sua espera estimada, então o cliente escolhe com quem quer cortar. A quantidade depende do plano: 1 fila no Free, 3 no Starter, 25 no Pro e 50 no Pro Plus.",
   },
   {
     q: "O cliente pode marcar horário em vez de pegar fila?",
-    a: "Pode. Cada fila funciona por ordem de chegada ou com horário marcado — dá para ter a fila de walk-in e a agenda na mesma barbearia. O cliente marca pelo app ou pelo WhatsApp e recebe lembrete antes do horário. Agendamento a partir do plano Starter.",
+    a: "Pode. Cada fila funciona por ordem de chegada ou com horário marcado, e dá para ter as duas na mesma barbearia. O cliente marca pelo app ou pelo WhatsApp e recebe lembrete antes do horário. Agendamento a partir do plano Starter.",
   },
   {
     q: "Como funciona a comissão dos barbeiros?",
@@ -70,11 +57,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Meu cliente precisa baixar algum aplicativo?",
-    a: "Não. Ele escaneia o QR Code ou abre o link da barbearia no celular e já entra na fila. Se quiser, pode adicionar o app à tela inicial, sem passar pela loja.",
-  },
-  {
-    q: "Consigo vender produtos como pomada e óleo de barba?",
-    a: "Sim. As vendas de produtos e serviços ficam registradas no painel e o estoque baixa sozinho a cada venda.",
+    a: "Não. Ele escaneia o QR Code ou abre o link da barbearia no celular e já entra na fila ou marca o horário, sem passar pela loja de apps.",
   },
   {
     q: "Como faço o cliente voltar?",
@@ -82,23 +65,31 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Funciona para barbearia com um barbeiro só?",
-    a: "Funciona. O plano Free tem 1 fila e até 15 entradas por dia, e nos primeiros 14 dias você usa os recursos do Pro para testar tudo.",
+    a: "Funciona. O plano Free tem 1 fila, não pede cartão e, nos primeiros 14 dias, libera os recursos do Pro para você testar tudo.",
   },
 ];
 
 export default function BarbeariasPage() {
   return (
     <main className="bg-lf-base min-h-screen">
-      <Navbar links={links} />
-      <HeroBarbearia />
-      <DoresBarbearia />
-      <AppDemo />
-      <Agendamento />
-      <Social />
-      <RecursosBarbearia />
-      <Planos initialPlans={plans} />
-      <FAQ items={faqs} title="Dúvidas de quem tem barbearia" />
-      <CTAFinal />
+      <Navbar />
+      <HeroCard
+        title="Cadeira cheia, ninguém esperando em pé."
+        subtitle="Fila por barbeiro, horário marcado, comissão calculada sozinha e cliente que volta. O cliente acompanha a vez pelo celular e chega na hora do corte."
+      />
+      <Beneficios />
+      <PassoAPasso />
+      <EquipeCta title="Tem uma equipe de barbeiros?" />
+      <PlanosResumo plans={plans} />
+      <FaqResumo
+        items={faqs}
+        title={
+          <>
+            Dúvidas de quem tem <span className="text-lf-accent">barbearia</span>
+          </>
+        }
+      />
+      <CtaFechamento title="O sistema de atendimento feito para barbearias." />
       <Footer />
     </main>
   );

@@ -263,7 +263,7 @@ function CarouselSteps() {
         {/* Seta sutil indicando o arraste para o lado */}
         <span
           aria-hidden="true"
-          className={`pointer-events-none absolute left-3 top-[42%] -translate-y-1/2 text-lf-primary transition-opacity duration-500 ${
+          className={`pointer-events-none absolute left-3 top-[42%] -translate-y-1/2 text-lf-accent transition-opacity duration-500 ${
             touched ? "opacity-0" : "opacity-100"
           }`}
         >

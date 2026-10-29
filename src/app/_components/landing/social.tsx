@@ -9,14 +9,9 @@ import {
   Plus,
   Scissors,
   Search,
-  Sparkles,
-  Star,
   User,
   type LucideIcon,
 } from "lucide-react";
-import { EyebrowLabel } from "./shared/eyebrow-label";
-import { GlassCard } from "./shared/glass-card";
-import { GradientDot } from "./shared/gradient-dot";
 import { PhoneFrame } from "./shared/phone-frame";
 import { AppLogo } from "./shared/app-logo";
 
@@ -55,33 +50,6 @@ const WAVES = Array.from({ length: 8 }, (_, i) => {
   return { d, opacity: 1 - i * 0.1 };
 });
 
-const features: { icon: LucideIcon; title: string; desc: string }[] = [
-  {
-    icon: User,
-    title: "Perfil com seguidores e publicações",
-    desc: "Sua empresa ganha um perfil com bio, capa, fotos e vídeos. Fixe até 3 publicações no topo.",
-  },
-  {
-    icon: Sparkles,
-    title: "Stories com botão Reservar",
-    desc: "Um story fica 24 h no ar e pode levar o cliente direto para marcar horário ou entrar na fila.",
-  },
-  {
-    icon: Home,
-    title: "Feed que mostra o que importa",
-    desc: "O Início do cliente prioriza quem ele segue e visita, e sugere negócios novos para conhecer.",
-  },
-  {
-    icon: Compass,
-    title: "Explorar com fila curta e mapa",
-    desc: "O cliente descobre negócios por categoria, vê quem está com fila curta agora e quem está aberto perto dele.",
-  },
-  {
-    icon: Star,
-    title: "Avaliações no perfil",
-    desc: "As notas e comentários dos atendimentos aparecem no perfil. Você decide se mostra ou não.",
-  },
-];
 
 function initials(name: string) {
   return name
@@ -295,73 +263,5 @@ export function FeedPreview() {
         </div>
       </div>
     </PhoneFrame>
-  );
-}
-
-export function Social() {
-  return (
-    <section
-      id="social"
-      className="relative py-24 md:py-32 px-6 overflow-hidden"
-    >
-      <GradientDot
-        size={700}
-        color="#77aca2"
-        opacity={0.07}
-        className="-left-40 top-10"
-      />
-
-      <div className="relative max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
-        <div className="flex justify-center order-2 lg:order-1">
-          <FeedPreview />
-        </div>
-
-        <div className="order-1 lg:order-2">
-          <div className="flex items-center gap-3">
-            <EyebrowLabel>App social</EyebrowLabel>
-            <span className="text-[10px] uppercase tracking-widest bg-lf-accent text-lf-base px-2 py-0.5 rounded-full font-bold">
-              Novo
-            </span>
-          </div>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-lf-primary">
-            Seu negócio no feed do cliente
-          </h2>
-          <p className="mt-4 text-lf-secondary text-lg leading-relaxed">
-            O app do cliente virou uma rede social de negócios locais. Ele
-            segue, curte, vê seus stories e marca horário sem sair do app.
-          </p>
-
-          <div className="mt-8 space-y-3">
-            {features.map(({ icon: Icon, title, desc }) => (
-              <GlassCard key={title} as="article" className="p-4 flex gap-4">
-                <div className="w-9 h-9 rounded-lg bg-lf-accent/15 flex items-center justify-center shrink-0">
-                  <Icon size={16} strokeWidth={1.5} className="text-lf-accent" />
-                </div>
-                <div>
-                  <h3 className="text-[15px] font-semibold text-lf-primary">
-                    {title}
-                  </h3>
-                  <p className="text-lf-secondary text-sm leading-relaxed mt-0.5">
-                    {desc}
-                  </p>
-                </div>
-              </GlassCard>
-            ))}
-          </div>
-
-          <p className="mt-6 text-xs text-lf-muted">
-            Todo negócio ganha o perfil. Publicar fotos e stories a partir do
-            plano{" "}
-            <a
-              href="#planos"
-              className="text-lf-accent hover:text-lf-accent-hover underline underline-offset-2 transition-colors"
-            >
-              Pro
-            </a>
-            ; vídeos no Pro Plus.
-          </p>
-        </div>
-      </div>
-    </section>
   );
 }

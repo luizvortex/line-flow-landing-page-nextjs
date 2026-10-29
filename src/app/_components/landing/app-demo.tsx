@@ -1,27 +1,22 @@
 "use client";
 
-import { useState } from "react";
 import {
   ArrowLeft,
   Bell,
-  CheckCircle2,
   ChevronRight,
   Clock,
   ExternalLink,
   Info,
   ListOrdered,
-  Star,
   Users,
 } from "lucide-react";
-import { EyebrowLabel } from "./shared/eyebrow-label";
-import { GradientDot } from "./shared/gradient-dot";
-import { PhoneFrame } from "./shared/phone-frame";
 import { AppLogo } from "./shared/app-logo";
 
 /**
- * Fluxo de pegar a senha, com as telas do PWA: entrada na fila
- * (`passo-informacoes.tsx`), ticket aguardando, chamado e concluído
- * (`pagina-ticket.tsx`). Os números são de exemplo.
+ * Telas do fluxo de pegar a senha, iguais às do PWA: entrada na fila
+ * (`passo-informacoes.tsx`), ticket aguardando e chamado
+ * (`pagina-ticket.tsx`). Usadas no passo a passo e na hero; os números
+ * são de exemplo.
  */
 
 const COMPANY = "Barbearia Silva";
@@ -291,136 +286,5 @@ export function CalledScreen({ onNext }: { onNext?: () => void }) {
         </div>
       </div>
     </>
-  );
-}
-
-function DoneScreen({ onReset }: { onReset: () => void }) {
-  const [rating, setRating] = useState(0);
-  const [sent, setSent] = useState(false);
-
-  return (
-    <>
-      <TicketHeader />
-      <div className="flex-1 flex flex-col px-4 pt-4 pb-4">
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <span className="w-20 h-20 rounded-full bg-lf-success/15 grid place-items-center">
-            <CheckCircle2 size={38} className="text-lf-success" />
-          </span>
-          <p className="mt-4 text-[19px] font-bold tracking-tight text-lf-primary">
-            Atendimento concluído
-          </p>
-          <p className="mt-1.5 text-[11px] text-lf-secondary">
-            Obrigado pela visita à {COMPANY}!
-          </p>
-
-          {sent ? (
-            <div className="mt-6 w-full flex items-center justify-center gap-2 rounded-xl border border-lf-success/25 bg-lf-success/10 py-3 text-[11px] font-medium text-lf-success">
-              <CheckCircle2 size={13} />
-              Avaliação enviada. Até logo!
-            </div>
-          ) : (
-            <div className="mt-6 w-full">
-              <p className="text-[11px] font-medium text-lf-secondary">
-                Como foi o atendimento?
-              </p>
-              <div className="mt-3 flex justify-center gap-2">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => setRating(n)}
-                    aria-label={`${n} estrela${n > 1 ? "s" : ""}`}
-                    className={`w-10 h-10 rounded-[10px] border grid place-items-center cursor-pointer transition-colors ${
-                      rating >= n
-                        ? "border-lf-accent bg-lf-accent/15 text-lf-accent"
-                        : "border-lf-border bg-lf-card text-[#73a0a6]"
-                    }`}
-                  >
-                    <Star size={16} className={rating >= n ? "fill-current" : ""} />
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                disabled={!rating}
-                onClick={() => setSent(true)}
-                className="mt-4 w-full h-11 rounded-xl bg-lf-accent text-lf-base text-[13px] font-semibold cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
-              >
-                Enviar avaliação
-              </button>
-            </div>
-          )}
-        </div>
-
-        <button
-          type="button"
-          onClick={onReset}
-          className="h-10 rounded-xl border border-lf-border text-[11.5px] font-medium text-lf-secondary cursor-pointer hover:border-lf-border-strong transition-colors"
-        >
-          Voltar para {COMPANY}
-        </button>
-      </div>
-    </>
-  );
-}
-
-const STEPS = ["Entrar", "Aguardando", "Chamado!", "Concluído"];
-
-export function AppDemo() {
-  const [step, setStep] = useState(0);
-
-  return (
-    <section id="app-demo" className="relative py-24 md:py-32 px-6 overflow-hidden">
-      <GradientDot size={700} color="#77aca2" opacity={0.07} className="-right-40 top-20" />
-
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <EyebrowLabel>App do Cliente</EyebrowLabel>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-[#e8f2f1]">
-            Experiência que encanta do começo ao fim
-          </h2>
-          <p className="mt-4 text-[#8bb5b0] text-lg max-w-2xl mx-auto">
-            Sem download, sem cadastro. O cliente abre o link no celular e já
-            está na fila — acompanhando a posição em tempo real.
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center gap-8">
-          {/* Step navigation pills */}
-          <div className="flex gap-2 flex-wrap justify-center">
-            {STEPS.map((s, i) => (
-              <button
-                key={s}
-                onClick={() => setStep(i)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border cursor-pointer transition-all duration-150 ${
-                  i === step
-                    ? "border-[#77aca2] bg-[rgba(119,172,162,0.15)] text-[#77aca2]"
-                    : "border-[#1a3d52] bg-transparent text-[#4d7a80] hover:text-[#8bb5b0] hover:border-[#255068]"
-                }`}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-
-          <PhoneFrame>
-            {step === 0 && <JoinScreen onNext={() => setStep(1)} />}
-            {step === 1 && <WaitingScreen />}
-            {step === 2 && <CalledScreen onNext={() => setStep(3)} />}
-            {step === 3 && <DoneScreen onReset={() => setStep(0)} />}
-          </PhoneFrame>
-
-          {step === 1 && (
-            <button
-              type="button"
-              onClick={() => setStep(2)}
-              className="text-xs text-[#77aca2] underline underline-offset-2 cursor-pointer"
-            >
-              Simular a chamada
-            </button>
-          )}
-        </div>
-      </div>
-    </section>
   );
 }

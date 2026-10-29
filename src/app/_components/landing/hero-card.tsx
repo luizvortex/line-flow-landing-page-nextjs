@@ -33,7 +33,13 @@ function ScaledPhone({
   );
 }
 
-export function HeroCard() {
+export function HeroCard({
+  title = "Todo o seu atendimento, em um só fluxo.",
+  subtitle = "Fila, agenda, fidelidade e financeiro no mesmo painel. O cliente entra pelo QR Code e acompanha a vez no celular, sem baixar app.",
+}: {
+  title?: string;
+  subtitle?: string;
+}) {
   return (
     <section
       id="main-content"
@@ -55,15 +61,36 @@ export function HeroCard() {
 
           <div className="relative max-w-[520px] animate-fade-up">
             <h1 className="text-[42px] sm:text-[56px] lg:text-[64px] font-bold tracking-tight leading-[1.02] text-lf-base">
-              Todo o seu atendimento, em um só fluxo.
+              {title}
             </h1>
 
             <p className="mt-5 text-lg leading-relaxed text-lf-base/75 max-w-[460px]">
-              Fila, agenda, fidelidade e financeiro no mesmo painel. O cliente
-              entra pelo QR Code e acompanha a vez no celular, sem baixar app.
+              {subtitle}
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <div className="relative mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+              {/* Seta desenhada à mão: dos celulares até o botão. Presa à linha do
+                  botão, para acompanhá-lo quando o título tem mais linhas. */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 360 170"
+                fill="none"
+                className="hidden lg:block absolute left-[337px] -top-[126px] w-[330px] text-lf-base pointer-events-none"
+              >
+                <path
+                  d="M352 4 C 335 60, 300 92, 252 100 C 206 108, 200 68, 226 60 C 256 51, 266 112, 200 140 C 150 161, 75 160, 14 152"
+                  stroke="currentColor"
+                  strokeWidth="2.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M30 139 L 12 152 L 31 163"
+                  stroke="currentColor"
+                  strokeWidth="2.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
               <a
                 href={SIGNUP_URL}
                 className="inline-flex items-center gap-2 rounded-xl bg-lf-base text-lf-primary font-bold px-7 py-4 text-base shadow-[0_12px_32px_rgba(3,25,38,0.35)] hover:bg-[#0b2d42] hover:-translate-y-0.5 transition-all duration-200"
@@ -86,28 +113,6 @@ export function HeroCard() {
               <ArrowDown size={15} />
             </a>
           </div>
-
-          {/* Seta desenhada à mão: dos celulares até o botão */}
-<svg
-            aria-hidden="true"
-            viewBox="0 0 360 170"
-            fill="none"
-            className="hidden lg:block absolute left-[385px] top-[278px] w-[330px] text-lf-base"
-          >
-            <path
-              d="M352 4 C 335 60, 300 92, 252 100 C 206 108, 200 68, 226 60 C 256 51, 266 112, 200 140 C 150 161, 75 160, 14 152"
-              stroke="currentColor"
-              strokeWidth="2.6"
-              strokeLinecap="round"
-            />
-            <path
-              d="M30 139 L 12 152 L 31 163"
-              stroke="currentColor"
-              strokeWidth="2.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
 
           {/* Celulares: no celular ficam abaixo do texto e vazam pela borda
               de baixo; no desktop vão para a direita do card. */}

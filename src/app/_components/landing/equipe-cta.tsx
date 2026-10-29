@@ -8,7 +8,11 @@ const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
  * Spoke): fala com o dono que tem equipe e mostra o painel saindo pela borda
  * do banner, com o mesmo botão de sempre.
  */
-export function EquipeCta() {
+export function EquipeCta({
+  title = "Tem uma equipe de profissionais?",
+}: {
+  title?: string;
+}) {
   return (
     <section id="equipe" className="px-4 sm:px-6 py-16 md:py-24">
       <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden border border-lf-border-strong bg-gradient-to-br from-[#0f3450] via-[#0b2d42] to-lf-card lg:min-h-[480px]">
@@ -20,7 +24,7 @@ export function EquipeCta() {
 
         <div className="relative px-6 pt-8 sm:px-12 md:pt-16 lg:pb-16 lg:max-w-[440px]">
           <h2 className="text-[26px] md:text-[42px] font-bold tracking-tight leading-[1.1] text-lf-primary">
-            Tem uma equipe de profissionais?
+            {title}
           </h2>
           <p className="mt-3 md:mt-5 text-[15px] md:text-lg leading-relaxed text-lf-secondary">
             Acompanhe a fila de cada um, as comissões e o caixa do dia em

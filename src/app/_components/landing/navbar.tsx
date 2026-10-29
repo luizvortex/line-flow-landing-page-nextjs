@@ -13,9 +13,9 @@ export interface NavLink {
 const defaultLinks: NavLink[] = [
   { label: "Como funciona", href: "#comece" },
   { label: "Benefícios", href: "#beneficios" },
-  { label: "Para equipes", href: "#equipe" },
   { label: "Planos", href: "#planos" },
   { label: "Dúvidas", href: "#faq" },
+  { label: "Barbearias", href: "/barbearias" },
 ];
 
 export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
