@@ -79,7 +79,7 @@ export function HeroCard() {
             </p>
 
             <a
-              href="#como-funciona"
+              href="#comece"
               className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-lf-base/80 hover:text-lf-base transition-colors"
             >
               Ver como funciona

@@ -45,7 +45,7 @@ function TicketHeader() {
   );
 }
 
-function JoinScreen({ onNext }: { onNext: () => void }) {
+export function JoinScreen({ onNext }: { onNext?: () => void }) {
   return (
     <>
       {/* Cabeçalho da entrada: logo, empresa e fila */}
@@ -243,7 +243,7 @@ export function WaitingScreen() {
   );
 }
 
-function CalledScreen({ onNext }: { onNext: () => void }) {
+export function CalledScreen({ onNext }: { onNext?: () => void }) {
   return (
     <>
       <TicketHeader />
