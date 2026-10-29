@@ -25,7 +25,7 @@ const POSITION = 15;
 const TICKET = `#${String(POSITION).padStart(3, "0")}`;
 
 /** `--text-muted` do app, um tom acima do da landing. */
-const MUTED = "text-[#73a0a6]";
+const MUTED = "text-lf-muted";
 
 /** Cabeçalho do ticket: logo e o link para a página da empresa. */
 function TicketHeader() {
@@ -93,7 +93,7 @@ export function JoinScreen({ onNext }: { onNext?: () => void }) {
 
         <div className="mt-3 flex items-center justify-between rounded-xl border border-lf-accent/30 bg-lf-accent/[0.08] px-3.5 py-3">
           <span className="flex items-center gap-1.5 text-[10.5px] font-medium text-lf-secondary">
-            <ListOrdered size={12} className="text-[#73a0a6]" />
+            <ListOrdered size={12} className="text-lf-muted" />
             Sua posição
           </span>
           <span className="font-mono text-[27px] font-bold leading-none text-lf-accent">
@@ -148,7 +148,7 @@ export function WaitingScreen() {
       <TicketHeader />
       <div className="flex-1 flex flex-col gap-3 px-4 pt-4">
         <span className="flex items-center gap-2 text-[10.5px] text-lf-secondary">
-          <ListOrdered size={13} className="text-[#73a0a6]" />
+          <ListOrdered size={13} className="text-lf-muted" />
           {QUEUE} · {COMPANY}
         </span>
 
@@ -198,7 +198,7 @@ export function WaitingScreen() {
                   key={n}
                   className={`absolute top-0 h-7 px-2 rounded-md border font-mono text-[10px] font-bold grid place-items-center ${
                     i === 0
-                      ? "bg-[#0b3a45] border-lf-accent/40 text-lf-accent"
+                      ? "bg-[color-mix(in_srgb,var(--lf-accent)_22%,var(--lf-card))] border-lf-accent/40 text-lf-accent"
                       : "bg-lf-elevated border-lf-border text-transparent"
                   }`}
                   // Pilha: a próxima senha na frente, as outras espiando atrás.
@@ -212,7 +212,7 @@ export function WaitingScreen() {
               <span>
                 <strong className="text-lf-primary">3</strong> pessoas na sua frente
               </span>
-              <ChevronRight size={10} className="text-[#73a0a6] shrink-0" />
+              <ChevronRight size={10} className="text-lf-muted shrink-0" />
             </span>
           </div>
 

@@ -236,12 +236,14 @@ function CarouselSteps() {
 
       {/* Trilho: o espaço nas pontas centraliza o primeiro e o último celular.
           overflow-y-hidden porque, com overflow-x ligado, o navegador liberava
-          uma rolagem vertical interna que cortava o topo do celular. */}
+          uma rolagem vertical interna que cortava o topo do celular. O pt/pb
+          largo, compensado pelo -my, deixa a sombra e o brilho caberem sem
+          aparecer uma borda reta. */}
       <div className="relative mt-6">
         <div
           ref={trackRef}
           onScroll={onScroll}
-          className="flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain snap-x snap-mandatory px-[calc(50%-108px)] sm:px-[calc(50%-126px)] pt-3 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="-my-10 flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain snap-x snap-mandatory px-[calc(50%-108px)] sm:px-[calc(50%-126px)] pt-14 pb-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-label="Passo a passo no app do cliente"
         >
           {steps.map((s, i) => (

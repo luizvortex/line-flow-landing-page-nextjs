@@ -33,9 +33,9 @@ import { AppLogo } from "./app-logo";
 export const DASHBOARD_WIDTH = 980;
 export const DASHBOARD_HEIGHT = 700;
 
-/** `--text-muted` e `--bg-brand` do app, um tom diferente dos da landing. */
-const MUTED = "text-[#73a0a6]";
-const BRAND_BG = "bg-[#020f18]";
+/** Tons do próprio app; os valores mudam com o tema (`.lf-app` no globals.css). */
+const MUTED = "text-lf-muted";
+const BRAND_BG = "bg-[var(--lf-app-brand)]";
 
 type NavItem = { label: string; icon: LucideIcon; active?: boolean; badge?: string };
 
@@ -146,11 +146,11 @@ const BADGE: Record<(typeof PANEL)[number]["tone"], string> = {
 export function DashboardMockup() {
   return (
     <div
-      className="lf-dark rounded-2xl overflow-hidden bg-lf-base border border-lf-border"
+      className="lf-app rounded-2xl overflow-hidden bg-lf-base border border-lf-border"
       style={{ width: DASHBOARD_WIDTH, height: DASHBOARD_HEIGHT }}
     >
       {/* Barra do navegador */}
-      <div className="flex items-center gap-2 px-4 h-10 bg-[#020f18] border-b border-lf-border">
+      <div className="flex items-center gap-2 px-4 h-10 bg-[var(--lf-app-brand)] border-b border-lf-border">
         <span className="w-2.5 h-2.5 rounded-full bg-[#f87171]/70" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#fbbf24]/70" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#4ade80]/70" />

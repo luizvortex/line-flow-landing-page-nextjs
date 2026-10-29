@@ -68,6 +68,62 @@
   --lf-error: #dc2626;
 }
 
+/*
+ * Telas do app (celulares, painel e os pedaços de interface sobre as fotos).
+ * Seguem o tema da página mesmo dentro de um trecho lf-dark — como os
+ * celulares sobre o card verde-água da hero —, com as cores do próprio app
+ * (globals.css do PWA), que tem alguns tons diferentes dos da landing.
+ */
+.lf-app {
+  --lf-base: #031926;
+  --lf-card: #072233;
+  --lf-hover: #0b2d42;
+  --lf-elevated: #0f3450;
+  --lf-border: #1a3d52;
+  --lf-border-strong: #255068;
+  --lf-primary: #e8f2f1;
+  --lf-secondary: #8bb5b0;
+  --lf-muted: #73a0a6;
+  --lf-accent: #77aca2;
+  --lf-accent-hover: #5d9990;
+  --lf-accent-deep: #468189;
+  --lf-success: #4ade80;
+  --lf-warning: #fbbf24;
+  --lf-error: #f87171;
+  --lf-app-brand: #020f18;
+  --lf-app-glass: rgba(7, 34, 51, 0.75);
+  --lf-app-flow-1: rgba(119, 172, 162, 0.2);
+  --lf-app-flow-2: rgba(70, 129, 137, 0.16);
+  --lf-app-flow-line: rgba(119, 172, 162, 0.13);
+  --lf-app-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  --lf-app-glow: rgba(119, 172, 162, 0.1);
+}
+
+[data-theme="light"] .lf-app {
+  --lf-base: #f0f6f5;
+  --lf-card: #ffffff;
+  --lf-hover: #e6f0ee;
+  --lf-elevated: #dde9e7;
+  --lf-border: #c5dbd9;
+  --lf-border-strong: #9ec4c0;
+  --lf-primary: #031926;
+  --lf-secondary: #2e5d68;
+  --lf-muted: #416b72;
+  --lf-accent: #468189;
+  --lf-accent-hover: #3a6e75;
+  --lf-accent-deep: #2e5d68;
+  --lf-success: #14713a;
+  --lf-warning: #b45309;
+  --lf-error: #dc2626;
+  --lf-app-brand: #e5efed;
+  --lf-app-glass: rgba(255, 255, 255, 0.78);
+  --lf-app-flow-1: rgba(119, 172, 162, 0.3);
+  --lf-app-flow-2: rgba(70, 129, 137, 0.14);
+  --lf-app-flow-line: rgba(70, 129, 137, 0.16);
+  --lf-app-shadow: 0 16px 40px rgba(3, 25, 38, 0.14);
+  --lf-app-glow: rgba(119, 172, 162, 0.18);
+}
+
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

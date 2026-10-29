@@ -82,7 +82,7 @@ function LightCard({ title, children }: { title: string; children: React.ReactNo
 /** Pedaço de interface flutuando sobre a foto, no visual escuro do app. */
 function UiCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="lf-dark rounded-2xl border border-white/10 bg-lf-card/95 backdrop-blur p-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+    <div className="lf-app rounded-2xl border border-lf-border bg-lf-card/95 backdrop-blur p-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
       {children}
     </div>
   );

@@ -65,7 +65,7 @@ function StoryAvatar({ name, seen }: { name: string; seen: boolean }) {
     <div className="flex flex-col items-center gap-1 w-[58px] shrink-0">
       <span
         className="grid p-[2.5px] rounded-full w-[54px] h-[54px]"
-        style={{ background: seen ? "#255068" : STORY_RING }}
+        style={{ background: seen ? "var(--lf-border-strong)" : STORY_RING }}
       >
         <span className="grid place-items-center rounded-full border-[2.5px] border-lf-base bg-lf-accent text-lf-base text-sm font-extrabold">
           {initials(name)}
@@ -103,7 +103,7 @@ function PostCard({
           <p className="text-[12px] font-semibold text-lf-primary truncate">
             {author}
           </p>
-          <p className="text-[10px] text-[#73a0a6]">{when}</p>
+          <p className="text-[10px] text-lf-muted">{when}</p>
         </div>
       </header>
 
@@ -151,7 +151,7 @@ export function FeedPreview() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(120% 70% at 85% 0%, rgba(119,172,162,0.2), transparent 60%), radial-gradient(90% 60% at 0% 20%, rgba(70,129,137,0.16), transparent 65%)",
+                "radial-gradient(120% 70% at 85% 0%, var(--lf-app-flow-1), transparent 60%), radial-gradient(90% 60% at 0% 20%, var(--lf-app-flow-2), transparent 65%)",
             }}
           />
           <svg
@@ -164,7 +164,7 @@ export function FeedPreview() {
                 key={w.d}
                 d={w.d}
                 fill="none"
-                stroke="rgba(119,172,162,0.13)"
+                stroke="var(--lf-app-flow-line)"
                 strokeWidth={1.2}
                 vectorEffect="non-scaling-stroke"
                 style={{ opacity: w.opacity }}
@@ -246,14 +246,14 @@ export function FeedPreview() {
         </div>
 
         {/* Barra de navegação flutuante (vidro) */}
-        <div className="absolute inset-x-2.5 bottom-2 h-[54px] px-1.5 rounded-[22px] border border-white/10 bg-[#072233]/75 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)] flex items-center justify-around gap-1">
+        <div className="absolute inset-x-2.5 bottom-2 h-[54px] px-1.5 rounded-[22px] border border-white/10 bg-[var(--lf-app-glass)] backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)] flex items-center justify-around gap-1">
           {navItems.map(({ label, icon: Icon, active }) => (
             <div
               key={label}
               className={`flex-1 h-[44px] rounded-[16px] flex flex-col items-center justify-center gap-0.5 text-[9px] font-semibold ${
                 active
                   ? "bg-lf-accent/15 text-lf-accent shadow-[inset_0_0_0_1px_rgba(119,172,162,0.3)]"
-                  : "text-[#73a0a6]"
+                  : "text-lf-muted"
               }`}
             >
               <Icon size={17} />

@@ -15,7 +15,7 @@ export function EquipeCta({
 }) {
   return (
     <section id="equipe" className="px-4 sm:px-6 py-16 md:py-24">
-      <div className="lf-dark relative max-w-6xl mx-auto rounded-[28px] overflow-hidden border border-lf-border-strong bg-gradient-to-br from-[#0f3450] via-[#0b2d42] to-lf-card lg:min-h-[480px]">
+      <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden border border-lf-border-strong bg-gradient-to-br from-lf-elevated via-lf-hover to-lf-card lg:min-h-[480px]">
         {/* Brilho verde-água atrás do texto */}
         <div
           aria-hidden="true"
@@ -48,7 +48,7 @@ export function EquipeCta({
             borda de baixo; no desktop, à direita, cortado pela borda do
             banner. O mockup tem tamanho fixo e só muda de escala. */}
         <div className="relative mt-7 ml-6 sm:ml-12 h-[190px] sm:h-[260px] lg:absolute lg:m-0 lg:left-[47%] lg:top-14 lg:w-[823px] lg:h-[588px]">
-          <div className="absolute top-0 left-0 origin-top-left scale-[0.42] sm:scale-[0.55] lg:scale-[0.84] shadow-[0_40px_80px_rgba(3,25,38,0.6)] rounded-2xl">
+          <div className="absolute top-0 left-0 origin-top-left scale-[0.42] sm:scale-[0.55] lg:scale-[0.84] lf-app shadow-[var(--lf-app-shadow)] rounded-2xl">
             <DashboardMockup />
           </div>
         </div>
