@@ -7,11 +7,11 @@ import {
   ListOrdered,
   MessageCircle,
   Plus,
-  Scissors,
   Search,
   User,
   type LucideIcon,
 } from "lucide-react";
+import Image from "next/image";
 import { PhoneFrame } from "./shared/phone-frame";
 import { AppLogo } from "./shared/app-logo";
 
@@ -215,32 +215,28 @@ export function FeedPreview() {
               caption="Combo corte + barba com horário livre hoje à tarde."
               cta="fila"
             >
-              {/* Arte ilustrativa do post */}
-              <div className="relative aspect-[1.6] bg-gradient-to-br from-[#06131c] via-[#0b2433] to-[#1d4a52] overflow-hidden">
-                <div className="absolute -right-6 -top-10 w-40 h-40 rounded-full bg-[#77aca2]/20 blur-2xl" />
-                <Scissors
-                  size={70}
-                  strokeWidth={1}
-                  className="absolute right-4 bottom-3 text-[#e8f2f1]/25 -rotate-12"
+              {/* Foto real do post: não muda com o tema, como num app de verdade */}
+              <div className="relative aspect-[1.6]">
+                <Image
+                  src="/images/beneficios/corte.webp"
+                  alt="Corte degradê recém-feito"
+                  fill
+                  sizes="260px"
+                  className="object-cover"
                 />
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2">
-                  <p className="text-[8px] uppercase tracking-[0.2em] text-[#c9e4df]/70">
-                    Estilo e tradição
-                  </p>
-                  <p className="text-[19px] font-extrabold leading-[1.05] text-[#e8f2f1] mt-0.5">
-                    Barbearia
-                    <br />
-                    Silva
-                  </p>
-                  <p className="mt-1.5 inline-block text-[8px] font-semibold text-lf-base bg-lf-accent rounded-full px-2 py-0.5">
-                    Corte + barba
-                  </p>
-                </div>
               </div>
             </PostCard>
 
-            <PostCard author="Studio Bela" when="há 3 dias" likes={57} cta="agenda">
-              <div className="aspect-[1.6] bg-gradient-to-br from-[#2a1f33] via-[#3b2c45] to-[#77aca2]/60" />
+            <PostCard author="Barbearia Centro" when="há 3 dias" likes={57} cta="agenda">
+              <div className="relative aspect-[1.6]">
+                <Image
+                  src="/images/beneficios/barbearia.webp"
+                  alt="Barbeiro atendendo um cliente"
+                  fill
+                  sizes="260px"
+                  className="object-cover"
+                />
+              </div>
             </PostCard>
           </div>
         </div>
