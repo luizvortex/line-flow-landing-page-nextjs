@@ -11,7 +11,7 @@ import { Gestao } from "@/src/app/_components/landing/gestao";
 import { Funcionalidades } from "@/src/app/_components/landing/funcionalidades";
 import { SocialProof } from "@/src/app/_components/landing/social-proof";
 import { PlanosResumo } from "@/src/app/_components/landing/planos-resumo";
-import { FAQ } from "@/src/app/_components/landing/faq";
+import { FaqResumo } from "@/src/app/_components/landing/faq-resumo";
 import { CTAFinal } from "@/src/app/_components/landing/cta-final";
 import { Footer } from "@/src/app/_components/landing/footer";
 import { plans } from "@/src/lib/plans";
@@ -25,6 +25,7 @@ export default function LandingPage() {
       <PassoAPasso />
       <EquipeCta />
       <PlanosResumo plans={plans} />
+      <FaqResumo />
       <Social />
       <ComoFunciona />
       <AppDemo />
@@ -32,7 +33,6 @@ export default function LandingPage() {
       <Funcionalidades />
       <Gestao />
       <SocialProof />
-      <FAQ />
       <CTAFinal />
       <Footer />
     </main>
