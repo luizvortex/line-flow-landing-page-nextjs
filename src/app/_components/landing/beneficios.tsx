@@ -88,23 +88,6 @@ function UiCard({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** QR Code ilustrativo: três quadros de canto e um miolo fixo. */
-const QR_SIZE = 21;
-function qrCell(x: number, y: number): boolean {
-  const finder = (fx: number, fy: number) => {
-    const dx = x - fx;
-    const dy = y - fy;
-    if (dx < 0 || dy < 0 || dx > 6 || dy > 6) return null;
-    return Math.max(Math.abs(dx - 3), Math.abs(dy - 3)) !== 2;
-  };
-  const f = finder(0, 0) ?? finder(QR_SIZE - 7, 0) ?? finder(0, QR_SIZE - 7);
-  if (f !== null) return f;
-  if ((x < 8 && y < 8) || (x > QR_SIZE - 9 && y < 8) || (x < 8 && y > QR_SIZE - 9)) {
-    return false;
-  }
-  return (x * 7 + y * 13 + x * y) % 5 < 2;
-}
-
 const queue = [
   { pos: "#012", name: "Rafael M.", status: "Em atendimento", now: true },
   { pos: "#013", name: "Ana Costa", status: "~5 min" },
@@ -259,19 +242,15 @@ export function Beneficios() {
                 key: "qrcode",
                 node: (
                   <LightCard title="Sem app para baixar: é só apontar a câmera">
-                    <div
-                      className="grid gap-[2px] p-3 bg-white rounded-xl shadow-[0_16px_40px_rgba(3,25,38,0.15)]"
-                      style={{ gridTemplateColumns: `repeat(${QR_SIZE}, 6px)` }}
-                      aria-hidden="true"
-                    >
-                      {Array.from({ length: QR_SIZE * QR_SIZE }).map((_, i) => (
-                        <span
-                          key={i}
-                          className={`w-[6px] h-[6px] rounded-[1px] ${
-                            qrCell(i % QR_SIZE, Math.floor(i / QR_SIZE)) ? "bg-lf-base" : ""
-                          }`}
-                        />
-                      ))}
+                    {/* QR Code de verdade: abre o Instagram do LineFlow. */}
+                    <div className="rounded-2xl bg-white p-2 shadow-[0_16px_40px_rgba(3,25,38,0.15)]">
+                      <Image
+                        src="/images/beneficios/qrcode-instagram.svg"
+                        alt="QR Code que abre o Instagram do LineFlow"
+                        width={168}
+                        height={168}
+                        unoptimized
+                      />
                     </div>
                   </LightCard>
                 ),
