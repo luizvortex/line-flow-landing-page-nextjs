@@ -52,7 +52,7 @@ const HIGHLIGHTS: Record<string, { intro?: string; items: string[] }> = {
   "pro-plus": {
     intro: "Tudo do Pro, mais:",
     items: [
-      "White label: edite o painel com a sua marca",
+      "White label: cores e logo da sua marca no painel",
       "50 filas ativas",
       "Dono + 20 operadores",
       "IA que consulta e executa ações",
