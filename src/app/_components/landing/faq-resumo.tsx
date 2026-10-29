@@ -58,24 +58,19 @@ export function FaqResumo() {
           </a>
         </div>
 
-        <div className="space-y-3">
+        <div className="border-t border-lf-border">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
-              <div
-                key={faq.q}
-                className={`rounded-2xl border transition-colors duration-200 ${
-                  isOpen ? "border-lf-border-strong bg-lf-card" : "border-lf-border bg-lf-card/50"
-                }`}
-              >
+              <div key={faq.q} className="border-b border-lf-border">
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-resposta-${i}`}
-                  className="w-full flex items-center justify-between gap-4 px-5 md:px-6 py-5 text-left cursor-pointer"
+                  className="group w-full flex items-center justify-between gap-4 py-6 text-left cursor-pointer"
                 >
-                  <span className="text-[15px] md:text-base font-semibold text-lf-primary">
+                  <span className="text-base md:text-lg font-semibold text-lf-primary group-hover:text-lf-accent transition-colors">
                     {faq.q}
                   </span>
                   <span
@@ -95,7 +90,7 @@ export function FaqResumo() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-5 md:px-6 pb-5 text-[15px] leading-relaxed text-lf-secondary">
+                    <p className="pb-6 pr-12 text-[15px] leading-relaxed text-lf-secondary">
                       {faq.a}
                     </p>
                   </div>
