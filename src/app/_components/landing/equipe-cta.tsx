@@ -15,7 +15,7 @@ export function EquipeCta({
 }) {
   return (
     <section id="equipe" className="px-4 sm:px-6 py-16 md:py-24">
-      <div className="relative max-w-6xl mx-auto rounded-[28px] overflow-hidden border border-lf-border-strong bg-gradient-to-br from-[#0f3450] via-[#0b2d42] to-lf-card lg:min-h-[480px]">
+      <div className="lf-dark relative max-w-6xl mx-auto rounded-[28px] overflow-hidden border border-lf-border-strong bg-gradient-to-br from-[#0f3450] via-[#0b2d42] to-lf-card lg:min-h-[480px]">
         {/* Brilho verde-água atrás do texto */}
         <div
           aria-hidden="true"

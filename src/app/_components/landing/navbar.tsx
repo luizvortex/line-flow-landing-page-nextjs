@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "./shared/theme-toggle";
 
 export interface NavLink {
   label: string;
@@ -33,7 +34,7 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
       <nav
         className={`sticky top-0 z-50 h-16 px-6 md:px-12 transition-all duration-200 ${
           scrolled
-            ? "bg-[#031926]/90 backdrop-blur-lg"
+            ? "bg-lf-base/90 backdrop-blur-lg"
             : "bg-transparent"
         }`}
       >
@@ -47,10 +48,10 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
               height={32}
               className="object-contain"
             />
-            <span className="text-xl font-bold text-[#e8f2f1]">
-              Line<span className="text-[#77aca2]">Flow</span>
+            <span className="text-xl font-bold text-lf-primary">
+              Line<span className="text-lf-accent">Flow</span>
             </span>
-            <span className="bg-[rgba(119,172,162,0.15)] text-[#77aca2] text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
+            <span className="bg-lf-accent/15 text-lf-accent text-[10px] tracking-wider uppercase font-semibold px-2 py-0.5 rounded-full">
               v1.1
             </span>
           </Link>
@@ -61,7 +62,7 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[#8bb5b0] text-sm hover:text-[#e8f2f1] transition-colors duration-150"
+                className="text-lf-secondary text-sm hover:text-lf-primary transition-colors duration-150"
               >
                 {link.label}
               </a>
@@ -70,29 +71,33 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
 
           {/* Right CTAs (desktop) */}
           <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
             <a
               href="https://lineflow.mpdev.pro.br"
-              className="text-[#8bb5b0] hover:text-[#e8f2f1] text-sm transition-colors duration-150"
+              className="text-lf-secondary hover:text-lf-primary text-sm transition-colors duration-150"
             >
               Entrar
             </a>
             <a
               href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
-              className="flex items-center gap-1.5 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-semibold text-sm px-5 py-2 rounded-lg shadow-[0_0_20px_rgba(119,172,162,.25)] hover:shadow-[0_0_28px_rgba(119,172,162,.35)] transition-all duration-150"
+              className="flex items-center gap-1.5 bg-lf-accent hover:bg-lf-accent-hover text-lf-base font-semibold text-sm px-5 py-2 rounded-lg shadow-[0_0_20px_rgba(119,172,162,.25)] hover:shadow-[0_0_28px_rgba(119,172,162,.35)] transition-all duration-150"
             >
               Comece grátis
               <ArrowRight size={14} strokeWidth={2} />
             </a>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="md:hidden text-[#8bb5b0] hover:text-[#e8f2f1] transition-colors p-1"
-            aria-label="Abrir menu de navegação"
-          >
-            <Menu size={20} />
-          </button>
+          {/* Mobile: tema + hamburger */}
+          <div className="md:hidden flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="text-lf-secondary hover:text-lf-primary transition-colors p-1"
+              aria-label="Abrir menu de navegação"
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -100,11 +105,11 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] md:hidden">
           <div
-            className="absolute inset-0 bg-[#031926]/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-lf-base/80 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="absolute right-0 top-0 bottom-0 w-72 bg-[#072233] border-l border-[#1a3d52] p-6 flex flex-col shadow-[0_0_60px_rgba(3,25,38,.9)]">
+          <div className="absolute right-0 top-0 bottom-0 w-72 bg-lf-card border-l border-lf-border p-6 flex flex-col shadow-[0_0_60px_rgba(3,25,38,.9)]">
             <div className="flex justify-between items-center mb-8">
               <Link href="/" className="flex items-center gap-2">
                 <Image
@@ -114,13 +119,13 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
                   height={28}
                   className="object-contain"
                 />
-                <span className="text-xl font-bold text-[#e8f2f1]">
-                  Line<span className="text-[#77aca2]">Flow</span>
+                <span className="text-xl font-bold text-lf-primary">
+                  Line<span className="text-lf-accent">Flow</span>
                 </span>
               </Link>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="text-[#8bb5b0] hover:text-[#e8f2f1] transition-colors p-1"
+                className="text-lf-secondary hover:text-lf-primary transition-colors p-1"
                 aria-label="Fechar menu"
               >
                 <X size={20} />
@@ -132,7 +137,7 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-[#8bb5b0] hover:text-[#e8f2f1] text-base transition-colors"
+                  className="text-lf-secondary hover:text-lf-primary text-base transition-colors"
                 >
                   {link.label}
                 </a>
@@ -141,13 +146,13 @@ export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
             <div className="flex flex-col gap-3 mt-auto">
               <a
                 href="https://lineflow.mpdev.pro.br"
-                className="text-center text-[#8bb5b0] hover:text-[#e8f2f1] text-sm transition-colors py-2"
+                className="text-center text-lf-secondary hover:text-lf-primary text-sm transition-colors py-2"
               >
                 Entrar
               </a>
               <a
                 href="https://lineflow.mpdev.pro.br/auth/cadastrar-empresa"
-                className="flex items-center justify-center gap-1.5 bg-[#77aca2] hover:bg-[#5d9990] text-[#031926] font-semibold text-sm px-5 py-3 rounded-lg transition-all"
+                className="flex items-center justify-center gap-1.5 bg-lf-accent hover:bg-lf-accent-hover text-lf-base font-semibold text-sm px-5 py-3 rounded-lg transition-all"
               >
                 Comece grátis
                 <ArrowRight size={14} strokeWidth={2} />

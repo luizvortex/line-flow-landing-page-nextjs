@@ -47,7 +47,7 @@ export function HeroCard({
     >
       <div className="relative max-w-6xl mx-auto">
         {/* Card colorido */}
-        <div className="relative rounded-[32px] bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] px-7 py-12 sm:px-12 md:py-16 lg:min-h-[560px] overflow-visible">
+        <div className="lf-dark relative rounded-[32px] bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] px-7 py-12 sm:px-12 md:py-16 lg:min-h-[560px] overflow-visible">
           {/* Textura sutil de pontos, como no hero antigo */}
           <div
             aria-hidden="true"

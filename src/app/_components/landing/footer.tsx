@@ -122,7 +122,7 @@ export function Footer() {
           <span
             style={{
               background:
-                "linear-gradient(180deg, rgba(232,242,241,0.07) 0%, rgba(232,242,241,0.02) 100%)",
+                "linear-gradient(180deg, color-mix(in srgb, var(--lf-primary) 7%, transparent) 0%, color-mix(in srgb, var(--lf-primary) 2%, transparent) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -133,7 +133,7 @@ export function Footer() {
           <span
             style={{
               background:
-                "linear-gradient(180deg, rgba(119,172,162,0.14) 0%, rgba(119,172,162,0.04) 100%)",
+                "linear-gradient(180deg, color-mix(in srgb, var(--lf-accent) 16%, transparent) 0%, color-mix(in srgb, var(--lf-accent) 5%, transparent) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",

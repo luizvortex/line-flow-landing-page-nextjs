@@ -72,6 +72,10 @@ export default function PrivacidadePage() {
               &ldquo;Criar conta grátis&rdquo; ou &ldquo;Entrar&rdquo;, você vai para o sistema, onde valem a
               Política de Privacidade e os Termos de Uso.
             </p>
+            <p>
+              A única coisa que guardamos no seu navegador é a sua escolha de tema (claro ou escuro), para
+              lembrar dela na próxima visita. Ela não identifica você e não sai do seu aparelho.
+            </p>
           </Section>
 
           <Section title="Seus direitos">

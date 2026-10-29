@@ -11,7 +11,7 @@ import { plans } from "@/src/lib/plans";
 
 export default function LandingPage() {
   return (
-    <main className="bg-[#031926] min-h-screen">
+    <main className="bg-lf-base min-h-screen">
       <Navbar />
       <HeroCard />
       <Beneficios />

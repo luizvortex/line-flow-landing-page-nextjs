@@ -1,24 +1,77 @@
 ﻿@import "tailwindcss";
 
+/*
+ * Cores da marca. Os utilitários `lf-*` leem variáveis que mudam com o tema:
+ * `:root` é o escuro, `[data-theme="light"]` o claro. Quem precisa ficar
+ * sempre escuro (telas do app, cards verde-água, faixa da equipe) usa a
+ * classe `lf-dark`: ela define as variáveis no próprio elemento, o que vence
+ * as herdadas do <html> em qualquer tema.
+ */
+@theme inline {
+  --color-lf-base: var(--lf-base);
+  --color-lf-card: var(--lf-card);
+  --color-lf-hover: var(--lf-hover);
+  --color-lf-elevated: var(--lf-elevated);
+  --color-lf-border: var(--lf-border);
+  --color-lf-border-strong: var(--lf-border-strong);
+  --color-lf-primary: var(--lf-primary);
+  --color-lf-secondary: var(--lf-secondary);
+  --color-lf-muted: var(--lf-muted);
+  --color-lf-accent: var(--lf-accent);
+  --color-lf-accent-hover: var(--lf-accent-hover);
+  --color-lf-accent-deep: var(--lf-accent-deep);
+  --color-lf-success: var(--lf-success);
+  --color-lf-warning: var(--lf-warning);
+  --color-lf-error: var(--lf-error);
+}
+
+:root,
+.lf-dark {
+  --lf-base: #031926;
+  --lf-card: #072233;
+  --lf-hover: #0b2d42;
+  --lf-elevated: #0f3450;
+  --lf-border: #1a3d52;
+  --lf-border-strong: #255068;
+  --lf-primary: #e8f2f1;
+  --lf-secondary: #8bb5b0;
+  --lf-muted: #4d7a80;
+  --lf-accent: #77aca2;
+  --lf-accent-hover: #5d9990;
+  --lf-accent-deep: #468189;
+  --lf-success: #4ade80;
+  --lf-warning: #fbbf24;
+  --lf-error: #f87171;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* Paleta clara, a mesma do tema claro do app (globals.css do PWA). */
+[data-theme="light"] {
+  color-scheme: light;
+  --lf-base: #f0f6f5;
+  --lf-card: #ffffff;
+  --lf-hover: #e6f0ee;
+  --lf-elevated: #dde9e7;
+  --lf-border: #c5dbd9;
+  --lf-border-strong: #9ec4c0;
+  --lf-primary: #031926;
+  --lf-secondary: #2e5d68;
+  --lf-muted: #416b72;
+  --lf-accent: #468189;
+  --lf-accent-hover: #3a6e75;
+  --lf-accent-deep: #2e5d68;
+  --lf-success: #15803d;
+  --lf-warning: #b45309;
+  --lf-error: #dc2626;
+}
+
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-lf-base: #031926;
-  --color-lf-card: #072233;
-  --color-lf-hover: #0b2d42;
-  --color-lf-elevated: #0f3450;
-  --color-lf-border: #1a3d52;
-  --color-lf-border-strong: #255068;
-  --color-lf-primary: #e8f2f1;
-  --color-lf-secondary: #8bb5b0;
-  --color-lf-muted: #4d7a80;
-  --color-lf-accent: #77aca2;
-  --color-lf-accent-hover: #5d9990;
-  --color-lf-accent-deep: #468189;
-  --color-lf-success: #4ade80;
-  --color-lf-warning: #fbbf24;
-  --color-lf-error: #f87171;
 
   --animate-ping-live: ping-live 2s ease-out infinite;
   --animate-float: float 4s ease-in-out infinite;
@@ -31,8 +84,9 @@ html {
 }
 
 body {
-  background: #031926;
-  color: #e8f2f1;
+  background: var(--lf-base);
+  color: var(--lf-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 @keyframes ping-live {

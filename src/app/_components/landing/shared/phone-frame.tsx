@@ -12,7 +12,7 @@ interface PhoneFrameProps {
  */
 export function PhoneFrame({ children, className = "" }: PhoneFrameProps) {
   return (
-    <div className={`relative w-[300px] ${className}`}>
+    <div className={`lf-dark relative w-[300px] ${className}`}>
       <div
         aria-hidden="true"
         className="absolute inset-0 rounded-[40px] bg-lf-accent/10 blur-3xl scale-110 pointer-events-none"

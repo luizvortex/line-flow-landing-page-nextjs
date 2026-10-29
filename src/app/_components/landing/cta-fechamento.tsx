@@ -13,7 +13,7 @@ export function CtaFechamento({
 }) {
   return (
     <section id="comecar" className="px-4 sm:px-6 pt-8 pb-20 md:pb-28">
-      <div className="relative max-w-6xl mx-auto overflow-hidden rounded-[32px] bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] px-7 py-12 sm:px-12 md:py-16">
+      <div className="lf-dark relative max-w-6xl mx-auto overflow-hidden rounded-[32px] bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] px-7 py-12 sm:px-12 md:py-16">
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] pointer-events-none"

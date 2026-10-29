@@ -75,7 +75,7 @@ function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
     <article
       className={`relative flex flex-col rounded-[22px] p-6 ${
         featured
-          ? "order-first md:order-none bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] text-lf-base lg:-my-3 lg:py-9 shadow-[0_30px_60px_rgba(3,25,38,0.45)]"
+          ? "lf-dark order-first md:order-none bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] text-lf-base lg:-my-3 lg:py-9 shadow-[0_30px_60px_rgba(3,25,38,0.45)]"
           : "bg-lf-card border border-lf-border text-lf-primary"
       }`}
     >

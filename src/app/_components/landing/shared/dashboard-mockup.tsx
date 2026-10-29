@@ -146,7 +146,7 @@ const BADGE: Record<(typeof PANEL)[number]["tone"], string> = {
 export function DashboardMockup() {
   return (
     <div
-      className="rounded-2xl overflow-hidden bg-lf-base border border-lf-border"
+      className="lf-dark rounded-2xl overflow-hidden bg-lf-base border border-lf-border"
       style={{ width: DASHBOARD_WIDTH, height: DASHBOARD_HEIGHT }}
     >
       {/* Barra do navegador */}

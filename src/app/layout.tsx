@@ -50,27 +50,41 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Aplica o tema antes da primeira pintura, para a página não abrir num tema e
+ * trocar em seguida: a escolha salva pelo botão vence; sem ela, segue o
+ * sistema. Precisa ser um script inline e síncrono no <head>.
+ */
+const themeScript = `(function(){try{var t=localStorage.getItem("lf-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){}})()`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+    // suppressHydrationWarning: o data-theme é colocado pelo script antes do
+    // React hidratar, então o atributo diverge do HTML do servidor de propósito.
     <html
       lang="pt-BR"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       {/* Extensões de navegador (ColorZilla, Grammarly e afins) injetam
           atributos no <body> antes da hidratação, o que o React acusa como
           divergência. Vale só para os atributos deste elemento — os filhos
           continuam sendo comparados normalmente. */}
       <body
         suppressHydrationWarning
-        className="bg-[#031926] text-[#e8f2f1] min-h-screen"
+        className="bg-lf-base text-lf-primary min-h-screen"
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#77aca2] focus:text-[#031926] focus:rounded-lg focus:font-semibold"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-lf-accent focus:text-lf-base focus:rounded-lg focus:font-semibold"
         >
           Pular para o conteúdo
         </a>

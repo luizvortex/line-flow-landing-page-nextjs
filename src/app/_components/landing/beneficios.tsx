@@ -71,7 +71,7 @@ function PhotoCard({
 function LightCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <article
-      className={`${LIGHT} min-h-[340px] md:min-h-[360px] rounded-[24px] overflow-hidden flex flex-col justify-between p-7 md:p-8`}
+      className={`lf-dark ${LIGHT} min-h-[340px] md:min-h-[360px] rounded-[24px] overflow-hidden flex flex-col justify-between p-7 md:p-8`}
     >
       <div className="flex-1 flex items-center justify-center pb-6">{children}</div>
       <CardTitle light>{title}</CardTitle>
@@ -82,7 +82,7 @@ function LightCard({ title, children }: { title: string; children: React.ReactNo
 /** Pedaço de interface flutuando sobre a foto, no visual escuro do app. */
 function UiCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-lf-card/95 backdrop-blur p-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+    <div className="lf-dark rounded-2xl border border-white/10 bg-lf-card/95 backdrop-blur p-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
       {children}
     </div>
   );
