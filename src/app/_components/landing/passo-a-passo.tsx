@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 import { PhoneFrame } from "./shared/phone-frame";
 import { CalledScreen, JoinScreen, WaitingScreen } from "./app-demo";
 
@@ -156,6 +157,8 @@ function CarouselSteps() {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const lastTouch = useRef(0);
+  // A seta de "arraste para o lado" some no primeiro toque: o gesto já foi entendido.
+  const [touched, setTouched] = useState(false);
 
   const goTo = (i: number) => {
     const track = trackRef.current;
@@ -189,7 +192,18 @@ function CarouselSteps() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const markTouch = () => {
+      lastTouch.current = Date.now();
+      setTouched(true);
+    };
+    track.addEventListener("pointerdown", markTouch);
+    track.addEventListener("touchstart", markTouch, { passive: true });
+    const removeTouch = () => {
+      track.removeEventListener("pointerdown", markTouch);
+      track.removeEventListener("touchstart", markTouch);
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return removeTouch;
 
     let visible = false;
     const observer = new IntersectionObserver(
@@ -200,12 +214,6 @@ function CarouselSteps() {
     );
     observer.observe(track);
 
-    const markTouch = () => {
-      lastTouch.current = Date.now();
-    };
-    track.addEventListener("pointerdown", markTouch);
-    track.addEventListener("touchstart", markTouch, { passive: true });
-
     const timer = window.setInterval(() => {
       if (!visible || Date.now() - lastTouch.current < RESUME_AFTER_TOUCH_MS) return;
       goTo((activeRef.current + 1) % steps.length);
@@ -213,8 +221,7 @@ function CarouselSteps() {
 
     return () => {
       observer.disconnect();
-      track.removeEventListener("pointerdown", markTouch);
-      track.removeEventListener("touchstart", markTouch);
+      removeTouch();
       window.clearInterval(timer);
     };
   }, []);
@@ -227,27 +234,41 @@ function CarouselSteps() {
         <Title />
       </div>
 
-      {/* Trilho: o espaço nas pontas centraliza o primeiro e o último celular */}
-      <div
-        ref={trackRef}
-        onScroll={onScroll}
-        className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory px-[calc(50%-108px)] sm:px-[calc(50%-126px)] pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        aria-label="Passo a passo no app do cliente"
-      >
-        {steps.map((s, i) => (
-          <div
-            key={s.title}
-            className={`snap-center shrink-0 transition-all duration-300 ${
-              i === active ? "opacity-100 scale-100" : "opacity-45 scale-[0.92]"
-            }`}
-          >
-            <div className="relative w-[216px] h-[449px] sm:w-[252px] sm:h-[524px]">
-              <div className="absolute top-0 left-0 origin-top-left scale-[0.72] sm:scale-[0.84]">
-                <PhoneFrame>{s.screen}</PhoneFrame>
+      {/* Trilho: o espaço nas pontas centraliza o primeiro e o último celular.
+          overflow-y-hidden porque, com overflow-x ligado, o navegador liberava
+          uma rolagem vertical interna que cortava o topo do celular. */}
+      <div className="relative mt-6">
+        <div
+          ref={trackRef}
+          onScroll={onScroll}
+          className="flex gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain snap-x snap-mandatory px-[calc(50%-108px)] sm:px-[calc(50%-126px)] pt-3 pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="Passo a passo no app do cliente"
+        >
+          {steps.map((s, i) => (
+            <div
+              key={s.title}
+              className={`snap-center shrink-0 transition-all duration-300 ${
+                i === active ? "opacity-100 scale-100" : "opacity-45 scale-[0.92]"
+              }`}
+            >
+              <div className="relative w-[216px] h-[449px] sm:w-[252px] sm:h-[524px]">
+                <div className="absolute top-0 left-0 origin-top-left scale-[0.72] sm:scale-[0.84]">
+                  <PhoneFrame>{s.screen}</PhoneFrame>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Seta sutil indicando o arraste para o lado */}
+        <span
+          aria-hidden="true"
+          className={`pointer-events-none absolute left-3 top-[42%] -translate-y-1/2 text-lf-primary transition-opacity duration-500 ${
+            touched ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <ArrowRight size={30} strokeWidth={2} className="animate-swipe-hint drop-shadow-[0_2px_8px_rgba(3,25,38,0.8)]" />
+        </span>
       </div>
 
       {/* Passo ativo */}
