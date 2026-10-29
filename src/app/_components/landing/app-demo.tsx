@@ -144,7 +144,7 @@ function JoinScreen({ onNext }: { onNext: () => void }) {
   );
 }
 
-function WaitingScreen() {
+export function WaitingScreen() {
   // Barra de 10 segmentos como no ticket: verdes já atendidos, o seu em destaque.
   const filled = 3;
 
