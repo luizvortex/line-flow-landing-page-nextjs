@@ -44,6 +44,9 @@ function Title() {
 function StickySteps() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  // Preenchimento de cada trecho da linha entre os números: escrito direto no
+  // style a cada quadro, sem re-renderizar a seção.
+  const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     let frame = 0;
@@ -54,11 +57,18 @@ function StickySteps() {
       const rect = el.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 0.999);
-      setActive(Math.floor(progress * steps.length));
+      const position = progress * steps.length;
+      setActive(Math.floor(position));
+      // O trecho i enche enquanto o passo i está ativo e fica cheio quando o
+      // passo seguinte acende.
+      fillRefs.current.forEach((fill, i) => {
+        if (fill) fill.style.transform = `scaleY(${Math.min(Math.max(position - i, 0), 1)})`;
+      });
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
@@ -106,27 +116,40 @@ function StickySteps() {
               {steps.map((s, i) => (
                 <li
                   key={s.title}
-                  className={`relative flex gap-5 pb-8 last:pb-0 transition-opacity duration-500 ${
-                    i === active ? "opacity-100" : "opacity-35"
-                  }`}
+                  className="relative flex gap-5 pb-8 last:pb-0"
                 >
                   {/* Linha entre os números */}
                   {i < steps.length - 1 && (
                     <span
                       aria-hidden="true"
-                      className="absolute left-[17px] top-11 bottom-1 w-px bg-lf-border-strong"
-                    />
+                      className="absolute left-[16px] top-11 bottom-1 w-[3px] rounded-full bg-lf-border overflow-hidden"
+                    >
+                      <span
+                        ref={(el) => {
+                          fillRefs.current[i] = el;
+                        }}
+                        className="block h-full w-full rounded-full bg-lf-accent origin-top"
+                        style={{ transform: "scaleY(0)" }}
+                      />
+                    </span>
                   )}
                   <span
                     className={`relative z-10 w-9 h-9 shrink-0 rounded-full grid place-items-center font-mono text-sm font-bold transition-colors duration-500 ${
                       i === active
                         ? "bg-lf-accent text-lf-base"
-                        : "bg-lf-card border border-lf-border-strong text-lf-secondary"
+                        : i < active
+                          ? "bg-lf-card border-2 border-lf-accent text-lf-accent"
+                          : "bg-lf-card border border-lf-border-strong text-lf-secondary opacity-60"
                     }`}
                   >
                     {i + 1}
                   </span>
-                  <div>
+                  {/* Só o texto esmaece: a barra entre os números fica sempre viva. */}
+                  <div
+                    className={`transition-opacity duration-500 ${
+                      i === active ? "opacity-100" : "opacity-35"
+                    }`}
+                  >
                     <h3 className="text-[26px] font-bold tracking-tight text-lf-primary leading-tight">
                       {s.title}
                     </h3>
