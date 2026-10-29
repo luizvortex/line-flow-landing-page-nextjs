@@ -10,7 +10,7 @@ import { Agendamento } from "@/src/app/_components/landing/agendamento";
 import { Gestao } from "@/src/app/_components/landing/gestao";
 import { Funcionalidades } from "@/src/app/_components/landing/funcionalidades";
 import { SocialProof } from "@/src/app/_components/landing/social-proof";
-import { Planos } from "@/src/app/_components/landing/planos";
+import { PlanosResumo } from "@/src/app/_components/landing/planos-resumo";
 import { FAQ } from "@/src/app/_components/landing/faq";
 import { CTAFinal } from "@/src/app/_components/landing/cta-final";
 import { Footer } from "@/src/app/_components/landing/footer";
@@ -24,6 +24,7 @@ export default function LandingPage() {
       <Beneficios />
       <PassoAPasso />
       <EquipeCta />
+      <PlanosResumo plans={plans} />
       <Social />
       <ComoFunciona />
       <AppDemo />
@@ -31,7 +32,6 @@ export default function LandingPage() {
       <Funcionalidades />
       <Gestao />
       <SocialProof />
-      <Planos initialPlans={plans} />
       <FAQ />
       <CTAFinal />
       <Footer />
