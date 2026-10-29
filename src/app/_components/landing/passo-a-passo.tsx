@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PhoneFrame } from "./shared/phone-frame";
 import { CalledScreen, JoinScreen, WaitingScreen } from "./app-demo";
 
 /**
  * "Comece em minutos" no formato do Spoke. No desktop a seção fica presa na
  * tela enquanto a página rola e cada trecho acende um passo; no celular vira
- * um carrossel horizontal.
+ * um carrossel horizontal que passa sozinho.
  */
 
 const steps: { title: string; desc: string; screen: ReactNode }[] = [
@@ -142,14 +141,21 @@ function StickySteps() {
   );
 }
 
+/** Tempo de cada passo no carrossel automático e a pausa depois de um toque. */
+const AUTOPLAY_MS = 4000;
+const RESUME_AFTER_TOUCH_MS = 6000;
+
 /**
  * Celular e tablet: carrossel horizontal no formato do Spoke mobile. O passo
  * ativo fica no centro e as bordas dos celulares vizinhos aparecem nas
- * laterais; arrastar ou tocar nas setas troca o passo.
+ * laterais. Passa sozinho enquanto está na tela, pausa quando a pessoa
+ * arrasta e respeita quem pediu para reduzir movimento.
  */
 function CarouselSteps() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const activeRef = useRef(0);
+  const lastTouch = useRef(0);
 
   const goTo = (i: number) => {
     const track = trackRef.current;
@@ -176,8 +182,42 @@ function CarouselSteps() {
         nearest = i;
       }
     });
+    activeRef.current = nearest;
     setActive(nearest);
   };
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let visible = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+      },
+      { threshold: 0.5 },
+    );
+    observer.observe(track);
+
+    const markTouch = () => {
+      lastTouch.current = Date.now();
+    };
+    track.addEventListener("pointerdown", markTouch);
+    track.addEventListener("touchstart", markTouch, { passive: true });
+
+    const timer = window.setInterval(() => {
+      if (!visible || Date.now() - lastTouch.current < RESUME_AFTER_TOUCH_MS) return;
+      goTo((activeRef.current + 1) % steps.length);
+    }, AUTOPLAY_MS);
+
+    return () => {
+      observer.disconnect();
+      track.removeEventListener("pointerdown", markTouch);
+      track.removeEventListener("touchstart", markTouch);
+      window.clearInterval(timer);
+    };
+  }, []);
 
   const step = steps[active];
 
@@ -210,37 +250,24 @@ function CarouselSteps() {
         ))}
       </div>
 
-      {/* Passo ativo + navegação */}
+      {/* Passo ativo */}
       <div className="mt-6 px-6 max-w-md mx-auto">
-        <div className="flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => goTo(Math.max(active - 1, 0))}
-            disabled={active === 0}
-            aria-label="Passo anterior"
-            className="w-10 h-10 rounded-full border border-lf-border-strong grid place-items-center text-lf-primary disabled:opacity-30 transition-opacity"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <div className="flex gap-2" aria-hidden="true">
-            {steps.map((s, i) => (
-              <span
-                key={s.title}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === active ? "w-6 bg-lf-accent" : "w-2 bg-lf-border-strong"
-                }`}
-              />
-            ))}
-          </div>
-          <button
-            type="button"
-            onClick={() => goTo(Math.min(active + 1, steps.length - 1))}
-            disabled={active === steps.length - 1}
-            aria-label="Próximo passo"
-            className="w-10 h-10 rounded-full border border-lf-border-strong grid place-items-center text-lf-primary disabled:opacity-30 transition-opacity"
-          >
-            <ChevronRight size={18} />
-          </button>
+        <div className="flex justify-center gap-2">
+          {steps.map((s, i) => (
+            <button
+              key={s.title}
+              type="button"
+              onClick={() => {
+                lastTouch.current = Date.now();
+                goTo(i);
+              }}
+              aria-label={`Ir para o passo ${i + 1}`}
+              aria-current={i === active ? "step" : undefined}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === active ? "w-6 bg-lf-accent" : "w-2 bg-lf-border-strong"
+              }`}
+            />
+          ))}
         </div>
 
         <div className="mt-6 flex gap-4" aria-live="polite">

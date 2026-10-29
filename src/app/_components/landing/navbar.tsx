@@ -11,11 +11,11 @@ export interface NavLink {
 }
 
 const defaultLinks: NavLink[] = [
-  { label: "Como funciona", href: "#como-funciona" },
-  { label: "App do cliente", href: "#app-demo" },
-  { label: "Agendamento", href: "#agendamento" },
-  { label: "Funcionalidades", href: "#funcionalidades" },
+  { label: "Como funciona", href: "#comece" },
+  { label: "Benefícios", href: "#beneficios" },
+  { label: "Para equipes", href: "#equipe" },
   { label: "Planos", href: "#planos" },
+  { label: "Dúvidas", href: "#faq" },
 ];
 
 export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {

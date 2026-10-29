@@ -3,13 +3,6 @@ import { HeroCard } from "@/src/app/_components/landing/hero-card";
 import { Beneficios } from "@/src/app/_components/landing/beneficios";
 import { PassoAPasso } from "@/src/app/_components/landing/passo-a-passo";
 import { EquipeCta } from "@/src/app/_components/landing/equipe-cta";
-import { Social } from "@/src/app/_components/landing/social";
-import { ComoFunciona } from "@/src/app/_components/landing/como-funciona";
-import { AppDemo } from "@/src/app/_components/landing/app-demo";
-import { Agendamento } from "@/src/app/_components/landing/agendamento";
-import { Gestao } from "@/src/app/_components/landing/gestao";
-import { Funcionalidades } from "@/src/app/_components/landing/funcionalidades";
-import { SocialProof } from "@/src/app/_components/landing/social-proof";
 import { PlanosResumo } from "@/src/app/_components/landing/planos-resumo";
 import { FaqResumo } from "@/src/app/_components/landing/faq-resumo";
 import { CtaFechamento } from "@/src/app/_components/landing/cta-fechamento";
@@ -27,13 +20,6 @@ export default function LandingPage() {
       <PlanosResumo plans={plans} />
       <FaqResumo />
       <CtaFechamento />
-      <Social />
-      <ComoFunciona />
-      <AppDemo />
-      <Agendamento />
-      <Funcionalidades />
-      <Gestao />
-      <SocialProof />
       <Footer />
     </main>
   );
