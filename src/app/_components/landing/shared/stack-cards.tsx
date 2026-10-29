@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export interface StackItem {
   key: string;
@@ -18,13 +18,34 @@ const MIN_OPACITY = 0.35;
 /**
  * Grade que, no celular, vira uma pilha como a do Spoke: cada card fica preso
  * no topo e o próximo sobe por cima dele, enquanto o de baixo encolhe e
- * apaga. No desktop é a grade normal de 3 colunas.
+ * apaga. No desktop é a grade normal de 3 colunas, e cada card entra
+ * deslizando quando aparece na tela: a coluna da esquerda vem da esquerda e
+ * a da direita, da direita.
  *
  * O efeito escreve direto no `style` dos cards a cada quadro de rolagem, sem
  * passar pelo estado do React, para não renderizar a grade inteira de novo.
  */
 export function StackCards({ items }: { items: StackItem[] }) {
   const wrappers = useRef<(HTMLDivElement | null)[]>([]);
+  const [shown, setShown] = useState<boolean[]>(() => items.map(() => false));
+
+  // Entrada no desktop: marca cada card como visível na primeira vez que ele
+  // aparece e para de observá-lo.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const i = wrappers.current.indexOf(entry.target as HTMLDivElement);
+          observer.unobserve(entry.target);
+          setShown((prev) => (prev[i] ? prev : prev.map((v, j) => v || j === i)));
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -60px 0px" },
+    );
+    wrappers.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let frame = 0;
@@ -74,8 +95,14 @@ export function StackCards({ items }: { items: StackItem[] }) {
           ref={(el) => {
             wrappers.current[i] = el;
           }}
-          className={`sticky md:static ${item.wide ? "md:col-span-2" : ""}`}
-          style={{ top: STICKY_TOP }}
+          className={`sticky md:static md:transition-[opacity,translate] md:duration-700 md:ease-out ${
+            item.wide ? "md:col-span-2" : ""
+          } ${
+            shown[i]
+              ? "md:opacity-100 md:translate-x-0"
+              : `md:opacity-0 ${i % 2 === 0 ? "md:-translate-x-24" : "md:translate-x-24"}`
+          }`}
+          style={{ top: STICKY_TOP, transitionDelay: i % 2 === 1 ? "120ms" : undefined }}
         >
           <div className="origin-top will-change-transform md:will-change-auto">
             {item.node}

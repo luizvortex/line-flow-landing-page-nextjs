@@ -110,7 +110,7 @@ const smallFeatures: { icon: LucideIcon; title: string; desc: string }[] = [
 
 export function Beneficios() {
   return (
-    <section id="beneficios" className="px-4 sm:px-6 py-20 md:py-28">
+    <section id="beneficios" className="px-4 sm:px-6 py-20 md:py-28 overflow-x-clip">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl md:text-[42px] font-bold tracking-tight leading-[1.12] text-lf-primary max-w-3xl">
           Por ordem de chegada ou com hora marcada,{" "}
