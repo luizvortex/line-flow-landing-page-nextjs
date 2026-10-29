@@ -7,8 +7,8 @@ const brl = (value: number) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 /**
- * Planos resumidos para a página de anúncio: três cards com o Pro em
- * destaque e o Pro Plus numa faixa à parte. Preços vêm de `plans.ts`; os
+ * Planos resumidos para a página de anúncio: os quatro planos lado a lado,
+ * compactos, com o Pro em destaque. Preços vêm de `plans.ts`; os
  * destaques de cada card são só o que diferencia o plano do anterior. No
  * celular o card em destaque sobe para o topo da lista.
  */
@@ -39,9 +39,18 @@ const HIGHLIGHTS: Record<string, { intro?: string; items: string[] }> = {
       "Assistente de IA e marca própria",
     ],
   },
+  "pro-plus": {
+    intro: "Tudo do Pro, mais:",
+    items: [
+      "50 filas ativas",
+      "Dono + 20 operadores",
+      "IA que consulta e executa ações",
+      "Posts sem limite e vídeos no perfil",
+    ],
+  },
 };
 
-const SHOWN = ["free", "starter", "pro"];
+const SHOWN = ["free", "starter", "pro", "pro-plus"];
 
 function PlanCard({ plan }: { plan: Plan }) {
   const highlight = HIGHLIGHTS[plan.id];
@@ -50,45 +59,45 @@ function PlanCard({ plan }: { plan: Plan }) {
 
   return (
     <article
-      className={`relative flex flex-col rounded-[24px] p-7 md:p-8 ${
+      className={`relative flex flex-col rounded-[22px] p-6 ${
         featured
-          ? "order-first md:order-none bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] text-lf-base md:-my-4 md:py-11 shadow-[0_30px_60px_rgba(3,25,38,0.45)]"
+          ? "order-first md:order-none bg-gradient-to-br from-[#c6e6df] via-[#9fcfc5] to-[#77aca2] text-lf-base lg:-my-3 lg:py-9 shadow-[0_30px_60px_rgba(3,25,38,0.45)]"
           : "bg-lf-card border border-lf-border text-lf-primary"
       }`}
     >
       {featured && (
-        <span className="absolute top-5 right-5 rounded-full bg-lf-base text-[#c6e6df] text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+        <span className="absolute top-5 right-5 rounded-full bg-lf-base text-[#c6e6df] text-[9px] font-bold uppercase tracking-widest px-2.5 py-1">
           Mais escolhido
         </span>
       )}
 
       <h3 className="text-lg font-semibold">{plan.name}</h3>
-      <p className={`mt-1 text-sm leading-snug ${featured ? "text-lf-base/70" : "text-lf-secondary"}`}>
+      <p className={`mt-1 text-[13px] leading-snug min-h-[34px] ${featured ? "text-lf-base/70" : "text-lf-secondary"}`}>
         {plan.desc}
       </p>
 
-      <div className="mt-6 flex items-baseline gap-1">
-        <span className="font-mono text-[40px] font-bold tracking-tight leading-none">
+      <div className="mt-5 flex items-baseline gap-1">
+        <span className="font-mono text-[30px] font-bold tracking-tight leading-none whitespace-nowrap">
           {plan.monthly === 0 ? "R$ 0" : brl(plan.monthly)}
         </span>
         <span className={`text-sm ${featured ? "text-lf-base/60" : "text-lf-muted"}`}>/mês</span>
       </div>
-      <p className={`mt-2 text-xs min-h-4 ${featured ? "text-lf-base/70" : "text-lf-muted"}`}>
+      <p className={`mt-2 text-[11px] min-h-4 ${featured ? "text-lf-base/70" : "text-lf-muted"}`}>
         {annualMonthly !== null
           ? `ou ${brl(annualMonthly)}/mês no plano anual`
           : "Grátis para sempre"}
       </p>
 
-      <ul className="mt-7 space-y-3 flex-1">
+      <ul className="mt-5 space-y-2.5 flex-1">
         {highlight.intro && (
-          <li className={`text-xs font-semibold uppercase tracking-wide ${featured ? "text-lf-base/60" : "text-lf-muted"}`}>
+          <li className={`text-[10.5px] font-semibold uppercase tracking-wide ${featured ? "text-lf-base/60" : "text-lf-muted"}`}>
             {highlight.intro}
           </li>
         )}
         {highlight.items.map((item) => (
-          <li key={item} className="flex gap-2.5 text-[15px] leading-snug">
+          <li key={item} className="flex gap-2 text-[13.5px] leading-snug">
             <Check
-              size={17}
+              size={15}
               strokeWidth={2.5}
               className={`shrink-0 mt-0.5 ${featured ? "text-lf-base" : "text-lf-accent"}`}
             />
@@ -99,14 +108,14 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <a
         href={SIGNUP_URL}
-        className={`mt-8 inline-flex items-center justify-center gap-2 rounded-xl py-3.5 text-[15px] font-bold transition-all duration-200 hover:-translate-y-0.5 ${
+        className={`mt-6 inline-flex items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 ${
           featured
             ? "bg-lf-base text-lf-primary hover:bg-[#0b2d42] shadow-[0_12px_28px_rgba(3,25,38,0.35)]"
             : "border border-lf-border-strong text-lf-primary hover:border-lf-accent"
         }`}
       >
-        {plan.monthly === 0 ? "Começar grátis" : `Começar com o ${plan.name}`}
-        <ArrowRight size={16} strokeWidth={2.5} />
+        {plan.monthly === 0 ? "Começar grátis" : `Assinar ${plan.name}`}
+        <ArrowRight size={15} strokeWidth={2.5} />
       </a>
     </article>
   );
@@ -116,7 +125,6 @@ export function PlanosResumo({ plans }: { plans: Plan[] }) {
   const shown = SHOWN.map((id) => plans.find((p) => p.id === id)).filter(
     (p): p is Plan => !!p,
   );
-  const proPlus = plans.find((p) => p.id === "pro-plus");
 
   return (
     <section id="planos" className="px-4 sm:px-6 py-20 md:py-28">
@@ -130,30 +138,13 @@ export function PlanosResumo({ plans }: { plans: Plan[] }) {
           </p>
         </div>
 
-        <div className="mt-14 grid md:grid-cols-3 gap-5 md:gap-4 items-stretch">
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
           {shown.map((plan) => (
             <PlanCard key={plan.id} plan={plan} />
           ))}
         </div>
 
-        {proPlus && (
-          <div className="mt-10 md:mt-12 flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-[20px] border border-lf-border bg-lf-card/60 px-7 py-5">
-            <p className="text-[15px] text-lf-secondary">
-              <span className="font-semibold text-lf-primary">Operação maior?</span>{" "}
-              O {proPlus.name} tem 50 filas, dono + 20 operadores e IA que executa
-              ações, por {brl(proPlus.monthly)}/mês.
-            </p>
-            <a
-              href={SIGNUP_URL}
-              className="shrink-0 inline-flex items-center gap-1.5 text-sm font-semibold text-lf-accent hover:text-lf-accent-hover transition-colors"
-            >
-              Começar com o {proPlus.name}
-              <ArrowRight size={15} />
-            </a>
-          </div>
-        )}
-
-        <p className="mt-8 flex items-center justify-center gap-2 text-sm text-lf-muted">
+        <p className="mt-10 flex items-center justify-center gap-2 text-sm text-lf-muted">
           <ShieldCheck size={16} className="text-lf-accent" />
           Comece sem cartão de crédito e cancele quando quiser.
         </p>
