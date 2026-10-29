@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { StackCards } from "./shared/stack-cards";
 import {
   Bell,
   CalendarCheck,
@@ -46,7 +47,7 @@ function PhotoCard({
   overlay: React.ReactNode;
 }) {
   return (
-    <article className="relative md:col-span-2 min-h-[420px] md:min-h-[360px] rounded-[24px] overflow-hidden flex flex-col justify-end p-7 md:p-8">
+    <article className="relative min-h-[420px] md:min-h-[360px] rounded-[24px] overflow-hidden flex flex-col justify-end p-7 md:p-8">
       <Image
         src={src}
         alt={alt}
@@ -133,155 +134,184 @@ export function Beneficios() {
           <span className="text-lf-accent">seu cliente nunca fica esperando.</span>
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Linha 1 */}
-          <LightCard title="Fila com senha no celular">
-            <div className="w-full max-w-[260px] space-y-1.5">
-              {queue.map((q) => (
-                <div
-                  key={q.pos}
-                  className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 ${
-                    q.you
-                      ? "bg-lf-base text-white shadow-[0_10px_24px_rgba(3,25,38,0.25)]"
-                      : "bg-white/70 text-lf-base"
-                  }`}
-                >
-                  <span className={`font-mono text-xs font-bold ${q.you ? "text-lf-accent" : "text-[#468189]"}`}>
-                    {q.pos}
-                  </span>
-                  <span className="text-[13px] font-medium flex-1 truncate">{q.name}</span>
-                  <span
-                    className={`text-[11px] ${
-                      q.now ? "text-[#15803d] font-semibold" : q.you ? "text-white/70" : "text-lf-base/55"
-                    }`}
-                  >
-                    {q.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </LightCard>
-
-          <PhotoCard
-            src="/images/beneficios/barbearia.webp"
-            alt="Barbeiro cortando o cabelo de um cliente numa barbearia iluminada"
-            title="Agenda online com lembrete automático"
-            overlay={
-              <UiCard>
-                <div className="flex gap-3">
-                  <span className="w-9 h-9 rounded-xl bg-lf-accent/15 grid place-items-center shrink-0">
-                    <Bell size={16} className="text-lf-accent" />
-                  </span>
-                  <div>
-                    <p className="text-[13px] font-semibold text-lf-primary">Barbearia Silva</p>
-                    <p className="text-xs text-lf-secondary leading-snug mt-0.5">
-                      Seu horário é amanhã, às <b className="text-lf-primary">10:30</b>. Te esperamos!
-                    </p>
-                  </div>
-                </div>
-              </UiCard>
-            }
-          />
-
-          {/* Linha 2 */}
-          <PhotoCard
-            src="/images/beneficios/cliente-celular.webp"
-            alt="Cliente marcando horário pelo celular num café"
-            title="O cliente marca o horário pelo celular, sem ligar"
-            overlay={
-              <UiCard>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-lf-muted font-medium">
-                  Terça, 16
-                </p>
-                <div className="mt-2 grid grid-cols-3 gap-1.5">
-                  {["09:30", "10:30", "11:00", "14:30", "15:00", "16:00"].map((t) => (
-                    <span
-                      key={t}
-                      className={`rounded-lg py-1.5 text-center font-mono text-[11px] border ${
-                        t === "10:30"
-                          ? "border-lf-accent bg-lf-accent/20 text-lf-accent font-bold"
-                          : "border-lf-border text-lf-secondary"
-                      }`}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <span className="mt-3 h-9 rounded-xl bg-lf-accent text-lf-base flex items-center justify-center gap-1.5 text-xs font-bold">
-                  <CalendarCheck size={14} />
-                  Confirmar 10:30
-                </span>
-              </UiCard>
-            }
-          />
-
-          <LightCard title="Comissão de cada profissional calculada sozinha">
-            <div className="w-full max-w-[260px] rounded-2xl bg-white/70 p-4">
-              <p className="text-[11px] font-semibold text-lf-base/60 uppercase tracking-[0.1em]">
-                Comissões de hoje
-              </p>
-              <div className="mt-3 space-y-3">
-                {commissions.map((c) => (
-                  <div key={c.name}>
-                    <div className="flex justify-between text-[13px] text-lf-base">
-                      <span className="font-medium">{c.name}</span>
-                      <span className="font-mono font-semibold">{c.value}</span>
+        <div className="mt-12">
+          <StackCards
+            items={[
+              {
+                key: "fila",
+                node: (
+                  <LightCard title="Fila com senha no celular">
+                    <div className="w-full max-w-[260px] space-y-1.5">
+                      {queue.map((q) => (
+                        <div
+                          key={q.pos}
+                          className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 ${
+                            q.you
+                              ? "bg-lf-base text-white shadow-[0_10px_24px_rgba(3,25,38,0.25)]"
+                              : "bg-white/70 text-lf-base"
+                          }`}
+                        >
+                          <span className={`font-mono text-xs font-bold ${q.you ? "text-lf-accent" : "text-[#468189]"}`}>
+                            {q.pos}
+                          </span>
+                          <span className="text-[13px] font-medium flex-1 truncate">{q.name}</span>
+                          <span
+                            className={`text-[11px] ${
+                              q.now ? "text-[#15803d] font-semibold" : q.you ? "text-white/70" : "text-lf-base/55"
+                            }`}
+                          >
+                            {q.status}
+                          </span>
+                        </div>
+                      ))}
                     </div>
-                    <span className="mt-1.5 block h-1.5 rounded-full bg-lf-base/10 overflow-hidden">
-                      <span className="block h-full rounded-full bg-[#468189]" style={{ width: `${c.pct}%` }} />
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </LightCard>
-
-          {/* Linha 3 */}
-          <LightCard title="Sem app para baixar: é só apontar a câmera">
-            <div
-              className="grid gap-[2px] p-3 bg-white rounded-xl shadow-[0_16px_40px_rgba(3,25,38,0.15)]"
-              style={{ gridTemplateColumns: `repeat(${QR_SIZE}, 6px)` }}
-              aria-hidden="true"
-            >
-              {Array.from({ length: QR_SIZE * QR_SIZE }).map((_, i) => (
-                <span
-                  key={i}
-                  className={`w-[6px] h-[6px] rounded-[1px] ${
-                    qrCell(i % QR_SIZE, Math.floor(i / QR_SIZE)) ? "bg-lf-base" : ""
-                  }`}
-                />
-              ))}
-            </div>
-          </LightCard>
-
-          <PhotoCard
-            src="/images/beneficios/corte.webp"
-            alt="Corte degradê recém-feito, visto de trás, numa barbearia"
-            title="Seu trabalho no feed do cliente, com botão para entrar na fila"
-            overlay={
-              <UiCard>
-                <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-lf-accent text-lf-base grid place-items-center text-[10px] font-bold">
-                    BS
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-xs font-semibold text-lf-primary">Barbearia Silva</p>
-                    <p className="text-[10px] text-lf-muted">agora</p>
-                  </div>
-                </div>
-                <p className="mt-2.5 text-xs text-lf-secondary leading-snug">
-                  Degradê do dia ✂️ Horários livres hoje à tarde.
-                </p>
-                <div className="mt-2 flex items-center gap-1.5 text-[#e0683f]">
-                  <Heart size={14} className="fill-current" />
-                  <span className="text-[11px] font-semibold">48</span>
-                </div>
-                <span className="mt-2.5 h-9 rounded-xl bg-lf-accent text-lf-base flex items-center justify-center gap-1.5 text-xs font-bold">
-                  <ListOrdered size={14} />
-                  Entrar na fila
-                </span>
-              </UiCard>
-            }
+                  </LightCard>
+                ),
+              },
+              {
+                key: "agenda",
+                wide: true,
+                node: (
+                  <PhotoCard
+                    src="/images/beneficios/barbearia.webp"
+                    alt="Barbeiro cortando o cabelo de um cliente numa barbearia iluminada"
+                    title="Agenda online com lembrete automático"
+                    overlay={
+                      <UiCard>
+                        <div className="flex gap-3">
+                          <span className="w-9 h-9 rounded-xl bg-lf-accent/15 grid place-items-center shrink-0">
+                            <Bell size={16} className="text-lf-accent" />
+                          </span>
+                          <div>
+                            <p className="text-[13px] font-semibold text-lf-primary">Barbearia Silva</p>
+                            <p className="text-xs text-lf-secondary leading-snug mt-0.5">
+                              Seu horário é amanhã, às <b className="text-lf-primary">10:30</b>. Te esperamos!
+                            </p>
+                          </div>
+                        </div>
+                      </UiCard>
+                    }
+                  />
+                ),
+              },
+              {
+                key: "marcar",
+                wide: true,
+                node: (
+                  <PhotoCard
+                    src="/images/beneficios/cliente-celular.webp"
+                    alt="Cliente marcando horário pelo celular num café"
+                    title="O cliente marca o horário pelo celular, sem ligar"
+                    overlay={
+                      <UiCard>
+                        <p className="text-[11px] uppercase tracking-[0.12em] text-lf-muted font-medium">
+                          Terça, 16
+                        </p>
+                        <div className="mt-2 grid grid-cols-3 gap-1.5">
+                          {["09:30", "10:30", "11:00", "14:30", "15:00", "16:00"].map((t) => (
+                            <span
+                              key={t}
+                              className={`rounded-lg py-1.5 text-center font-mono text-[11px] border ${
+                                t === "10:30"
+                                  ? "border-lf-accent bg-lf-accent/20 text-lf-accent font-bold"
+                                  : "border-lf-border text-lf-secondary"
+                              }`}
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                        <span className="mt-3 h-9 rounded-xl bg-lf-accent text-lf-base flex items-center justify-center gap-1.5 text-xs font-bold">
+                          <CalendarCheck size={14} />
+                          Confirmar 10:30
+                        </span>
+                      </UiCard>
+                    }
+                  />
+                ),
+              },
+              {
+                key: "comissao",
+                node: (
+                  <LightCard title="Comissão de cada profissional calculada sozinha">
+                    <div className="w-full max-w-[260px] rounded-2xl bg-white/70 p-4">
+                      <p className="text-[11px] font-semibold text-lf-base/60 uppercase tracking-[0.1em]">
+                        Comissões de hoje
+                      </p>
+                      <div className="mt-3 space-y-3">
+                        {commissions.map((c) => (
+                          <div key={c.name}>
+                            <div className="flex justify-between text-[13px] text-lf-base">
+                              <span className="font-medium">{c.name}</span>
+                              <span className="font-mono font-semibold">{c.value}</span>
+                            </div>
+                            <span className="mt-1.5 block h-1.5 rounded-full bg-lf-base/10 overflow-hidden">
+                              <span className="block h-full rounded-full bg-[#468189]" style={{ width: `${c.pct}%` }} />
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </LightCard>
+                ),
+              },
+              {
+                key: "qrcode",
+                node: (
+                  <LightCard title="Sem app para baixar: é só apontar a câmera">
+                    <div
+                      className="grid gap-[2px] p-3 bg-white rounded-xl shadow-[0_16px_40px_rgba(3,25,38,0.15)]"
+                      style={{ gridTemplateColumns: `repeat(${QR_SIZE}, 6px)` }}
+                      aria-hidden="true"
+                    >
+                      {Array.from({ length: QR_SIZE * QR_SIZE }).map((_, i) => (
+                        <span
+                          key={i}
+                          className={`w-[6px] h-[6px] rounded-[1px] ${
+                            qrCell(i % QR_SIZE, Math.floor(i / QR_SIZE)) ? "bg-lf-base" : ""
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </LightCard>
+                ),
+              },
+              {
+                key: "feed",
+                wide: true,
+                node: (
+                  <PhotoCard
+                    src="/images/beneficios/corte.webp"
+                    alt="Corte degradê recém-feito, visto de trás, numa barbearia"
+                    title="Seu trabalho no feed do cliente, com botão para entrar na fila"
+                    overlay={
+                      <UiCard>
+                        <div className="flex items-center gap-2">
+                          <span className="w-7 h-7 rounded-full bg-lf-accent text-lf-base grid place-items-center text-[10px] font-bold">
+                            BS
+                          </span>
+                          <div className="min-w-0">
+                            <p className="text-xs font-semibold text-lf-primary">Barbearia Silva</p>
+                            <p className="text-[10px] text-lf-muted">agora</p>
+                          </div>
+                        </div>
+                        <p className="mt-2.5 text-xs text-lf-secondary leading-snug">
+                          Degradê do dia ✂️ Horários livres hoje à tarde.
+                        </p>
+                        <div className="mt-2 flex items-center gap-1.5 text-[#e0683f]">
+                          <Heart size={14} className="fill-current" />
+                          <span className="text-[11px] font-semibold">48</span>
+                        </div>
+                        <span className="mt-2.5 h-9 rounded-xl bg-lf-accent text-lf-base flex items-center justify-center gap-1.5 text-xs font-bold">
+                          <ListOrdered size={14} />
+                          Entrar na fila
+                        </span>
+                      </UiCard>
+                    }
+                  />
+                ),
+              },
+            ]}
           />
         </div>
 
