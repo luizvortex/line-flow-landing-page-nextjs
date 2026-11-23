@@ -34,6 +34,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Planos e preços", href: "/#planos" },
       { label: "Dúvidas frequentes", href: "/#faq" },
       { label: "Para barbearias", href: "/barbearias" },
+      { label: "Para beach tennis", href: "/beach-tennis" },
     ],
   },
   {

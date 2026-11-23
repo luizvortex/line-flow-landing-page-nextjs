@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ArrowDown, ArrowRight, Zap } from "lucide-react";
 import { PhoneFrame } from "./shared/phone-frame";
 import { FeedPreview } from "./social";
@@ -37,9 +38,15 @@ function ScaledPhone({
 export function HeroCard({
   title = "Todo o seu atendimento, em um só fluxo.",
   subtitle = "Fila, agenda, fidelidade e financeiro no mesmo painel. O cliente entra pelo QR Code e acompanha a vez no celular, sem baixar app.",
+  celularTras,
+  celularFrente,
 }: {
   title?: string;
   subtitle?: string;
+  /** Celular de trás, já com a moldura. Padrão: o feed. */
+  celularTras?: ReactNode;
+  /** Celular da frente, já com a moldura. Padrão: a senha na fila. */
+  celularFrente?: ReactNode;
 }) {
   return (
     <section
@@ -123,14 +130,16 @@ export function HeroCard({
           >
             <Parallax speed={0.08} className="z-0">
               <ScaledPhone className="-rotate-[5deg] mt-8 -mr-10 sm:-mr-8 z-0">
-                <FeedPreview />
+                {celularTras ?? <FeedPreview />}
               </ScaledPhone>
             </Parallax>
             <Parallax speed={0.18} className="z-10">
               <ScaledPhone className="rotate-[4deg] z-10">
-                <PhoneFrame>
-                  <WaitingScreen />
-                </PhoneFrame>
+                {celularFrente ?? (
+                  <PhoneFrame>
+                    <WaitingScreen />
+                  </PhoneFrame>
+                )}
               </ScaledPhone>
             </Parallax>
           </div>

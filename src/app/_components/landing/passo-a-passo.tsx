@@ -11,7 +11,13 @@ import { CalledScreen, JoinScreen, WaitingScreen } from "./app-demo";
  * um carrossel horizontal que passa sozinho.
  */
 
-const steps: { title: string; desc: string; screen: ReactNode }[] = [
+export interface Passo {
+  title: string;
+  desc: string;
+  screen: ReactNode;
+}
+
+const stepsPadrao: Passo[] = [
   {
     title: "O cliente entra pelo QR Code",
     desc: "Ele aponta a câmera, vê a posição e a espera estimada e entra na fila. Sem baixar app, sem cadastro.",
@@ -32,16 +38,22 @@ const steps: { title: string; desc: string; screen: ReactNode }[] = [
 /** Altura de rolagem dedicada a cada passo, em vh. */
 const VH_PER_STEP = 70;
 
-function Title() {
+const tituloPadrao: ReactNode = (
+  <>
+    Comece a atender em <span className="text-lf-accent">minutos</span>
+  </>
+);
+
+function Title({ children }: { children: ReactNode }) {
   return (
     <h2 className="text-center text-3xl md:text-[44px] font-bold tracking-tight text-lf-primary">
-      Comece a atender em <span className="text-lf-accent">minutos</span>
+      {children}
     </h2>
   );
 }
 
 /** Desktop: a seção fica presa na tela e a rolagem da página troca o passo. */
-function StickySteps() {
+function StickySteps({ steps, titulo }: { steps: Passo[]; titulo: ReactNode }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   // Preenchimento de cada trecho da linha entre os números: escrito direto no
@@ -76,7 +88,7 @@ function StickySteps() {
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [steps.length]);
 
   return (
     <div
@@ -86,7 +98,7 @@ function StickySteps() {
     >
       <div className="sticky top-0 h-screen flex flex-col justify-center px-6 pt-16 overflow-hidden">
         <div className="max-w-6xl w-full mx-auto">
-          <Title />
+          <Title>{titulo}</Title>
 
           <div className="mt-10 grid grid-cols-2 gap-16 items-center">
             {/* Celular: as três telas empilhadas, só a do passo ativo aparece */}
@@ -175,7 +187,7 @@ const RESUME_AFTER_TOUCH_MS = 6000;
  * laterais. Passa sozinho enquanto está na tela, pausa quando a pessoa
  * arrasta e respeita quem pediu para reduzir movimento.
  */
-function CarouselSteps() {
+function CarouselSteps({ steps, titulo }: { steps: Passo[]; titulo: ReactNode }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
@@ -247,14 +259,14 @@ function CarouselSteps() {
       removeTouch();
       window.clearInterval(timer);
     };
-  }, []);
+  }, [steps.length]);
 
   const step = steps[active];
 
   return (
     <div className="py-16">
       <div className="px-4">
-        <Title />
+        <Title>{titulo}</Title>
       </div>
 
       {/* Trilho: o espaço nas pontas centraliza o primeiro e o último celular.
@@ -332,14 +344,21 @@ function CarouselSteps() {
   );
 }
 
-export function PassoAPasso() {
+/** Por padrão, o fluxo da fila; as páginas de nicho passam os próprios passos. */
+export function PassoAPasso({
+  passos = stepsPadrao,
+  titulo = tituloPadrao,
+}: {
+  passos?: Passo[];
+  titulo?: ReactNode;
+}) {
   return (
     <section id="comece" className="relative">
       <div className="hidden lg:block">
-        <StickySteps />
+        <StickySteps steps={passos} titulo={titulo} />
       </div>
       <div className="lg:hidden">
-        <CarouselSteps />
+        <CarouselSteps steps={passos} titulo={titulo} />
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ArrowRight, Zap } from "lucide-react";
 import { DashboardMockup } from "./shared/dashboard-mockup";
 
@@ -10,8 +11,13 @@ const SIGNUP_URL = "https://lineflow.mpdev.pro.br/auth/cadastrar-empresa";
  */
 export function EquipeCta({
   title = "Tem uma equipe de profissionais?",
+  subtitle = "Acompanhe a fila de cada um, as comissões e o caixa do dia em tempo real, de qualquer lugar.",
+  painel,
 }: {
   title?: string;
+  subtitle?: string;
+  /** Mockup do painel (980×700, encolhido por escala). Padrão: a visão geral. */
+  painel?: ReactNode;
 }) {
   return (
     <section id="equipe" className="px-4 sm:px-6 py-16 md:py-24">
@@ -27,8 +33,7 @@ export function EquipeCta({
             {title}
           </h2>
           <p className="mt-3 md:mt-5 text-[15px] md:text-lg leading-relaxed text-lf-secondary">
-            Acompanhe a fila de cada um, as comissões e o caixa do dia em
-            tempo real, de qualquer lugar.
+            {subtitle}
           </p>
 
           <a
@@ -49,7 +54,7 @@ export function EquipeCta({
             banner. O mockup tem tamanho fixo e só muda de escala. */}
         <div className="relative mt-7 ml-6 sm:ml-12 h-[190px] sm:h-[260px] lg:absolute lg:m-0 lg:left-[47%] lg:top-14 lg:w-[823px] lg:h-[588px]">
           <div className="absolute top-0 left-0 origin-top-left scale-[0.42] sm:scale-[0.55] lg:scale-[0.84] lf-app shadow-[var(--lf-app-shadow)] rounded-2xl">
-            <DashboardMockup />
+            {painel ?? <DashboardMockup />}
           </div>
         </div>
       </div>

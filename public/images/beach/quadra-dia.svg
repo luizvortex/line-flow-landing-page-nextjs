@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <!-- Imagem de exemplo (placeholder). Trocar pela foto definitiva em .webp. -->
+  <defs>
+    <linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fc4e0"/><stop offset="1" stop-color="#d9eef3"/></linearGradient>
+    <linearGradient id="areia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efd9a8"/><stop offset="1" stop-color="#d6b47a"/></linearGradient>
+    <pattern id="malha" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0L14 14M14 0L0 14" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/></pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#ceu)"/>
+  <rect y="380" width="1200" height="420" fill="url(#areia)"/>
+  <circle cx="1020" cy="120" r="60" fill="#fff4c2" opacity=".9"/><rect y="372" width="1200" height="14" fill="#6fa8a0" opacity=".5"/>
+  <!-- Linhas da quadra em perspectiva -->
+  <polygon points="300,440 900,440 1150,790 50,790" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="6"/>
+  <line x1="175" y1="615" x2="1025" y2="615" stroke="rgba(255,255,255,.75)" stroke-width="5"/>
+  <!-- Rede -->
+  <line x1="220" y1="330" x2="220" y2="625" stroke="#1b2a33" stroke-width="10"/>
+  <line x1="980" y1="330" x2="980" y2="625" stroke="#1b2a33" stroke-width="10"/>
+  <rect x="220" y="345" width="760" height="110" fill="url(#malha)"/>
+  <rect x="220" y="340" width="760" height="12" fill="#f4f1ea"/>
+  <!-- Bola -->
+  <circle cx="760" cy="250" r="22" fill="#f7d046"/><path d="M742 236 Q760 250 742 266" stroke="#fff" stroke-width="3" fill="none"/>
+</svg>

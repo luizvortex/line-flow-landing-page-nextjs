@@ -17,6 +17,7 @@ const defaultLinks: NavLink[] = [
   { label: "Planos", href: "#planos" },
   { label: "Dúvidas", href: "#faq" },
   { label: "Barbearias", href: "/barbearias" },
+  { label: "Beach Tennis", href: "/beach-tennis" },
 ];
 
 export function Navbar({ links = defaultLinks }: { links?: NavLink[] }) {
