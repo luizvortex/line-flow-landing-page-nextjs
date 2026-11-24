@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SplashLineFlow, splashScript } from "./_components/landing/shared/splash";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "./_components/analytics";
@@ -74,6 +75,7 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: splashScript }} />
       </head>
       {/* Extensões de navegador (ColorZilla, Grammarly e afins) injetam
           atributos no <body> antes da hidratação, o que o React acusa como
@@ -83,6 +85,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="bg-lf-base text-lf-primary min-h-screen"
       >
+        <SplashLineFlow />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-lf-accent focus:text-lf-base focus:rounded-lg focus:font-semibold"
