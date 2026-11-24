@@ -41,6 +41,7 @@ export function HeroCard({
   celularTras,
   celularFrente,
   enfeite,
+  classeTexto = "",
 }: {
   title?: string;
   subtitle?: string;
@@ -50,6 +51,13 @@ export function HeroCard({
   celularFrente?: ReactNode;
   /** No lugar da seta desenhada (só no desktop), preso à linha do botão. */
   enfeite?: ReactNode;
+  /**
+   * Classes extras do bloco de texto. A seta é presa ao botão e começa atrás
+   * dos celulares, que têm posição fixa no card: um título mais curto que o
+   * da home sobe o botão e deixa o começo da seta solto. Um respiro no topo
+   * devolve o botão à altura da home.
+   */
+  classeTexto?: string;
 }) {
   return (
     <section
@@ -70,7 +78,7 @@ export function HeroCard({
             }}
           />
 
-          <div className="relative max-w-[520px] animate-fade-up">
+          <div className={`relative max-w-[520px] animate-fade-up ${classeTexto}`}>
             <h1 className="text-[42px] sm:text-[56px] lg:text-[64px] font-bold tracking-tight leading-[1.02] text-lf-base">
               {title}
             </h1>

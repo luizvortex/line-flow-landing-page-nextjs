@@ -99,6 +99,9 @@ export default function BeachTennisPage() {
       <Navbar />
       <HeroCard
         title="Quadra cheia de manhã à noite."
+        // Título de 2 linhas (o da home tem 3): desce o texto para o botão e a
+        // seta ficarem na mesma altura da home em relação aos celulares.
+        classeTexto="lg:pt-[66px]"
         subtitle="Reserva online 24h, preço de horário nobre, mensalistas, aulas e a comanda da quadra num painel só. O jogador reserva pelo celular, sem baixar app."
         celularTras={
           <PhoneFrame>
