@@ -17,7 +17,7 @@ export function BannerQuadra({
     <section className="px-4 sm:px-6 py-10 md:py-16">
       <div className="relative max-w-6xl mx-auto overflow-hidden rounded-[28px] min-h-[520px] md:min-h-[440px] flex items-center justify-center">
         <Image
-          src="/images/beach/quadra-banner-2.webp"
+          src="/images/beach/quadra-banner-3.webp"
           alt="Quadra de beach tennis de areia vista do alto, com a rede na diagonal e gramado em volta"
           fill
           sizes="(max-width: 1200px) 100vw, 1152px"
@@ -32,7 +32,7 @@ export function BannerQuadra({
           </p>
 
           {/* Raquete no cartão de vidro */}
-          <div className="shrink-0 rounded-[22px] border border-white/30 bg-white/[0.06] backdrop-blur-[4px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
+          <div className="shrink-0 rounded-[22px] border border-white/30 bg-white/[0.06] backdrop-blur-[2px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
             <Image
               src="/images/beach/raquete-lineflow.webp"
               alt="Raquete de beach tennis preta com a marca LineFlow vazada"
