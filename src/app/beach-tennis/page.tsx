@@ -113,12 +113,12 @@ export default function BeachTennisPage() {
           // raquete inteira.
           <span aria-hidden="true" className="hidden xl:block absolute inset-0 pointer-events-none select-none">
             <Image
-              src="/images/beach/bola-verde.webp"
+              src="/images/beach/bola-verde-2.webp"
               alt=""
-              width={400}
-              height={185}
+              width={342}
+              height={274}
               priority
-              className="absolute left-[290px] -top-[42px] w-[200px] h-auto"
+              className="absolute left-[291px] -top-[85px] w-[171px] h-auto"
             />
             <Image
               src="/images/beach/raquete-verde.webp"
