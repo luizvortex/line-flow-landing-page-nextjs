@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Navbar } from "@/src/app/_components/landing/navbar";
 import { HeroCard } from "@/src/app/_components/landing/hero-card";
 import { PassoAPasso, type Passo } from "@/src/app/_components/landing/passo-a-passo";
@@ -104,6 +105,19 @@ export default function BeachTennisPage() {
           <PhoneFrame>
             <ReservaFeitaScreen />
           </PhoneFrame>
+        }
+        enfeite={
+          // A bola sai da raquete e vai até o botão, no lugar da seta da home.
+          // Só a partir de 1280px: abaixo disso os celulares cobririam a raquete.
+          <Image
+            src="/images/beach/raquete-bola.webp"
+            alt=""
+            aria-hidden="true"
+            width={900}
+            height={460}
+            priority
+            className="hidden xl:block absolute left-[258px] -top-[146px] w-[390px] h-auto pointer-events-none select-none drop-shadow-[0_14px_22px_rgba(3,25,38,0.22)]"
+          />
         }
         celularFrente={
           <PhoneFrame>
