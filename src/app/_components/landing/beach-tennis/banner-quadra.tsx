@@ -32,7 +32,7 @@ export function BannerQuadra({
           </p>
 
           {/* Raquete no cartão de vidro */}
-          <div className="shrink-0 rounded-[22px] border border-white/50 bg-[#dff3ec]/55 backdrop-blur-[1.5px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
+          <div className="shrink-0 rounded-[22px] border border-white/30 bg-white/[0.06] backdrop-blur-[4px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
             <Image
               src="/images/beach/raquete-lineflow.webp"
               alt="Raquete de beach tennis preta com a marca LineFlow vazada"
