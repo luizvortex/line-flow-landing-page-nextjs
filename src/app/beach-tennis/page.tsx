@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Navbar } from "@/src/app/_components/landing/navbar";
 import { HeroCard } from "@/src/app/_components/landing/hero-card";
 import { PassoAPasso, type Passo } from "@/src/app/_components/landing/passo-a-passo";
@@ -105,30 +104,6 @@ export default function BeachTennisPage() {
           <PhoneFrame>
             <ReservaFeitaScreen />
           </PhoneFrame>
-        }
-        enfeite={
-          // A raquete em pé, com o cabo entrando um pouco atrás do primeiro
-          // celular, e a bola saindo dela até o botão, no lugar da seta da
-          // home. Só a partir de 1280px: abaixo disso os celulares cobririam a
-          // raquete inteira.
-          <span aria-hidden="true" className="hidden xl:block absolute inset-0 pointer-events-none select-none">
-            <Image
-              src="/images/beach/bola-verde-2.webp"
-              alt=""
-              width={342}
-              height={274}
-              priority
-              className="absolute left-[291px] -top-[85px] w-[171px] h-auto"
-            />
-            <Image
-              src="/images/beach/raquete-verde.webp"
-              alt=""
-              width={209}
-              height={468}
-              priority
-              className="absolute left-[563px] -top-[223px] w-[105px] h-auto drop-shadow-[0_14px_22px_rgba(3,25,38,0.25)]"
-            />
-          </span>
         }
         celularFrente={
           <PhoneFrame>
