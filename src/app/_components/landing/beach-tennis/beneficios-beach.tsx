@@ -118,8 +118,8 @@ export function BeneficiosBeach() {
                 wide: true,
                 node: (
                   <PhotoCard
-                    src="/images/beach/quadra-dia.svg"
-                    alt="Quadra de beach tennis com rede, areia e céu azul"
+                    src="/images/beach/quadra-dia.webp"
+                    alt="Quadra de areia com rede, coqueiros e céu azul"
                     title="Reserva online 24 horas, até pelo WhatsApp"
                     overlay={
                       <UiCard>
@@ -148,8 +148,8 @@ export function BeneficiosBeach() {
                 wide: true,
                 node: (
                   <PhotoCard
-                    src="/images/beach/quadra-noite.svg"
-                    alt="Quadra de beach tennis iluminada à noite"
+                    src="/images/beach/quadra-noite.webp"
+                    alt="Dois jogadores de beach tennis numa quadra iluminada por refletores à noite"
                     title="Horário nobre com preço de horário nobre"
                     overlay={
                       <UiCard>
@@ -239,8 +239,8 @@ export function BeneficiosBeach() {
                 wide: true,
                 node: (
                   <PhotoCard
-                    src="/images/beach/aula.svg"
-                    alt="Aula de beach tennis com professor e alunos na areia"
+                    src="/images/beach/aula.webp"
+                    alt="Professor de beach tennis orientando três alunos na quadra de areia"
                     title="Aulas e turmas com lista de presença"
                     overlay={
                       <UiCard>

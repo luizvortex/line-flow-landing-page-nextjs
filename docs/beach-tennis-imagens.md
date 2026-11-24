@@ -1,9 +1,9 @@
 # Fotos da página /beach-tennis
 
-A página usa ilustrações de exemplo em `public/images/beach/*.svg`. Para trocar
-pelas fotos definitivas: gere as imagens, exporte em `.webp` (1600×1067, ~150 KB)
-com o mesmo nome (`quadra-dia.webp`, `quadra-noite.webp`, `aula.webp`) e troque
-a extensão em `src/app/_components/landing/beach-tennis/beneficios-beach.tsx`.
+As fotos ficam em `public/images/beach/` (`quadra-dia.webp`, `quadra-noite.webp`,
+`aula.webp`, 1536×1024, até ~200 KB) e são usadas em
+`src/app/_components/landing/beach-tennis/beneficios-beach.tsx`. Para trocar,
+gere uma nova com o prompt abaixo e salve por cima com o mesmo nome.
 
 Os cards põem um pedaço da interface no **canto superior direito** e o título
 no **canto inferior esquerdo**: deixe essas áreas sem rostos nem detalhes
