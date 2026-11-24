@@ -223,7 +223,7 @@ body {
   background: var(--lf-base);
   animation: lf-splash-sai 0.45s ease-in 1.6s forwards;
 }
-html[data-splash-visto] .lf-splash {
+html[data-splash-oculta] .lf-splash {
   display: none;
 }
 .lf-splash-conteudo {

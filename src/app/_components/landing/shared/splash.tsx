@@ -4,9 +4,10 @@
  * (globals.css, `.lf-splash`), sem esperar o JavaScript: se o JS demorar, a
  * página aparece do mesmo jeito.
  *
- * Aparece só na primeira página aberta na sessão (o script do <head> marca
- * `data-splash-visto` no <html> nas seguintes) e quase não anima para quem
- * pediu menos movimento.
+ * Aparece ao abrir o site e a cada recarregada (F5, Ctrl+F5). Ao ir de uma
+ * página do site para outra por um link (home → beach tennis), o script do
+ * <head> a esconde antes da primeira pintura. Quase não anima para quem pediu
+ * menos movimento.
  */
 
 /** Símbolo do LineFlow (o mesmo de `public/logo.svg` do app). */
@@ -29,7 +30,7 @@ export function SplashLineFlow() {
 }
 
 /**
- * Script do <head>: na primeira página da sessão, deixa a tela aparecer e
- * anota; nas seguintes, esconde antes da primeira pintura.
+ * Script do <head>: esconde a tela quando a página foi aberta por um link do
+ * próprio site (navegação, não recarga). Abrir de fora, F5 e Ctrl+F5 mostram.
  */
-export const splashScript = `(function(){try{if(sessionStorage.getItem("lf-splash")){document.documentElement.setAttribute("data-splash-visto","")}else{sessionStorage.setItem("lf-splash","1")}}catch(e){}})()`;
+export const splashScript = `(function(){try{var n=performance.getEntriesByType("navigation")[0];var tipo=n?n.type:"navigate";var r=document.referrer;if(tipo!=="reload"&&r&&new URL(r).origin===location.origin){document.documentElement.setAttribute("data-splash-oculta","")}}catch(e){}})()`;
