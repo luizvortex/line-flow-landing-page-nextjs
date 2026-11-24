@@ -107,25 +107,26 @@ export default function BeachTennisPage() {
           </PhoneFrame>
         }
         enfeite={
-          // A raquete em pé, ao lado dos celulares, e a bola saindo dela até
-          // o botão, no lugar da seta da home. Só a partir de 1280px: abaixo
-          // disso os celulares cobririam a raquete.
+          // A raquete em pé, com o cabo entrando um pouco atrás do primeiro
+          // celular, e a bola saindo dela até o botão, no lugar da seta da
+          // home. Só a partir de 1280px: abaixo disso os celulares cobririam a
+          // raquete inteira.
           <span aria-hidden="true" className="hidden xl:block absolute inset-0 pointer-events-none select-none">
             <Image
-              src="/images/beach/bola-rastro.webp"
+              src="/images/beach/bola-verde.webp"
               alt=""
-              width={570}
-              height={515}
+              width={400}
+              height={185}
               priority
-              className="absolute left-[262px] -top-[186px] w-[285px] h-auto"
+              className="absolute left-[290px] -top-[42px] w-[200px] h-auto"
             />
             <Image
-              src="/images/beach/raquete.webp"
+              src="/images/beach/raquete-verde.webp"
               alt=""
-              width={236}
-              height={460}
+              width={209}
+              height={468}
               priority
-              className="absolute left-[508px] -top-[204px] w-[104px] h-auto drop-shadow-[0_14px_22px_rgba(3,25,38,0.25)]"
+              className="absolute left-[563px] -top-[223px] w-[105px] h-auto drop-shadow-[0_14px_22px_rgba(3,25,38,0.25)]"
             />
           </span>
         }
