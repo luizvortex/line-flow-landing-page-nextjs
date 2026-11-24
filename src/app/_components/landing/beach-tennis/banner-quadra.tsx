@@ -34,6 +34,24 @@ function RaqueteLineFlow({ className = "" }: { className?: string }) {
           <stop offset="0.5" stopColor="#26292b" />
           <stop offset="1" stopColor="#0c0d0e" />
         </linearGradient>
+        {/* "LINE FLOW" vazado: a face some onde estão as letras */}
+        <mask id="rq-vazado" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="400">
+          <rect width="200" height="400" fill="#fff" />
+          <g
+            fill="#000"
+            fontFamily="var(--font-geist-sans), system-ui, sans-serif"
+            fontWeight="900"
+            textAnchor="middle"
+            style={{ letterSpacing: "-0.5px" }}
+          >
+            <text x="100" y="124" fontSize="52">
+              LINE
+            </text>
+            <text x="100" y="172" fontSize="52">
+              FLOW
+            </text>
+          </g>
+        </mask>
         <pattern id="rq-trama" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <rect width="3" height="6" fill="rgba(255,255,255,0.025)" />
         </pattern>
@@ -48,7 +66,8 @@ function RaqueteLineFlow({ className = "" }: { className?: string }) {
       <path d="M86 222 L95 268" stroke="#b9efdc" strokeWidth="1.6" strokeLinecap="round" opacity="0.7" />
       <path d="M114 222 L105 268" stroke="#b9efdc" strokeWidth="1.6" strokeLinecap="round" opacity="0.7" />
 
-      {/* Cabeça */}
+      {/* Cabeça (com a marca vazada) */}
+      <g mask="url(#rq-vazado)">
       <path
         d="M100 6 C162 6 194 56 194 114 C194 170 160 214 120 226 L80 226 C40 214 6 170 6 114 C6 56 38 6 100 6 Z"
         fill="url(#rq-face)"
@@ -65,21 +84,6 @@ function RaqueteLineFlow({ className = "" }: { className?: string }) {
       {FUROS.map(([x, y]) => (
         <circle key={`${x}-${y}`} cx={x} cy={y} r="3.1" fill="#020303" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
       ))}
-
-      {/* Marca */}
-      <g
-        fill="#b9efdc"
-        fontFamily="var(--font-geist-sans), system-ui, sans-serif"
-        fontWeight="900"
-        textAnchor="middle"
-        style={{ letterSpacing: "-0.5px" }}
-      >
-        <text x="100" y="124" fontSize="52">
-          LINE
-        </text>
-        <text x="100" y="172" fontSize="52">
-          FLOW
-        </text>
       </g>
 
       {/* Cabo com grip */}
@@ -113,16 +117,16 @@ export function BannerQuadra({
         <div aria-hidden="true" className="absolute inset-0 bg-[#031926]/15" />
 
         <div className="relative w-full px-6 py-10 flex flex-col items-center gap-6 md:flex-row md:justify-between md:gap-8 md:px-12">
-          <p className="text-center md:text-left text-[34px] md:text-[44px] lg:text-[56px] font-black uppercase tracking-tight leading-[0.95] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)] md:flex-1">
+          <p className="max-w-[10ch] text-center md:text-left md:mr-auto text-[26px] md:text-[32px] lg:text-[40px] font-black uppercase tracking-tight leading-[0.95] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)] md:flex-1">
             {esquerda}
           </p>
 
           {/* Raquete no cartão de vidro */}
-          <div className="shrink-0 rounded-[22px] border border-white/35 bg-white/15 backdrop-blur-md shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
+          <div className="shrink-0 rounded-[22px] border border-white/35 bg-white/10 backdrop-blur-[3px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
             <RaqueteLineFlow className="w-[110px] md:w-[130px] h-auto drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)]" />
           </div>
 
-          <p className="text-center md:text-right text-[34px] md:text-[44px] lg:text-[56px] font-black uppercase tracking-tight leading-[0.95] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)] md:flex-1">
+          <p className="max-w-[10ch] text-center md:text-right md:ml-auto text-[26px] md:text-[32px] lg:text-[40px] font-black uppercase tracking-tight leading-[0.95] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)] md:flex-1">
             {direita}
           </p>
         </div>
