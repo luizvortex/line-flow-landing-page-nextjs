@@ -21,27 +21,16 @@ import { AppLogo } from "../shared/app-logo";
 const ARENA = "Arena Pé na Areia";
 const MUTED = "text-lf-muted";
 
-/** Areia + rede, em CSS: no lugar da foto da quadra nas miniaturas. */
+/** Foto da quadra (miniatura leve, 640px), como a foto que o dono sobe no app. */
 function MiniQuadra({ noite = false, className = "" }: { noite?: boolean; className?: string }) {
   return (
     <span
       aria-hidden="true"
-      className={`relative block overflow-hidden ${className}`}
+      className={`block bg-cover bg-center ${className}`}
       style={{
-        background: noite
-          ? "linear-gradient(180deg,#0c2233 0%,#173a4e 45%,#c9a874 46%,#b8925c 100%)"
-          : "linear-gradient(180deg,#9fd3e6 0%,#cfe9f0 45%,#ecd6a8 46%,#dcbd86 100%)",
+        backgroundImage: `url(/images/beach/${noite ? "quadra-noite-mini" : "quadra-mini"}.webp)`,
       }}
-    >
-      <span className="absolute left-[8%] right-[8%] top-[46%] h-[2px] bg-white/80" />
-      <span className="absolute left-1/2 top-[28%] bottom-[54%] w-[1.5px] -translate-x-1/2 bg-white/70" />
-      <span
-        className="absolute left-[18%] right-[18%] top-[30%] h-[16%] border border-white/60"
-        style={{
-          backgroundImage: "repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 1px,transparent 1px 5px)",
-        }}
-      />
-    </span>
+    />
   );
 }
 
