@@ -193,26 +193,12 @@ export function Navbar({ links = defaultLinks }: { links?: NavItem[] }) {
                 <X size={20} />
               </button>
             </div>
-            <nav className="flex flex-col gap-5 mb-8">
-              {links.map((link) =>
-                isGroup(link) ? (
-                  // No celular não há "passar o mouse": o grupo vem aberto.
-                  <div key={link.label} className="flex flex-col gap-4">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-lf-muted">
-                      {link.label}
-                    </span>
-                    {link.items.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="text-lf-secondary hover:text-lf-primary text-base transition-colors"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                ) : (
+            {/* Páginas no topo; as seções de "Produto" vêm depois, separadas
+                por uma linha (no celular não há "passar o mouse", então o
+                grupo vem aberto). */}
+            <nav className="flex flex-col mb-8">
+              <div className="flex flex-col gap-5">
+                {links.filter((l): l is NavLink => !isGroup(l)).map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
@@ -221,8 +207,25 @@ export function Navbar({ links = defaultLinks }: { links?: NavItem[] }) {
                   >
                     {link.label}
                   </a>
-                ),
-              )}
+                ))}
+              </div>
+              {links.filter(isGroup).map((grupo) => (
+                <div key={grupo.label} className="flex flex-col gap-4 mt-6 pt-6 border-t border-lf-border">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-lf-muted">
+                    {grupo.label}
+                  </span>
+                  {grupo.items.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-lf-secondary hover:text-lf-primary text-base transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              ))}
             </nav>
             <div className="flex flex-col gap-3 mt-auto">
               <a
