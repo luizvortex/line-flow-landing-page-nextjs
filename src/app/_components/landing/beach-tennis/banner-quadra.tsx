@@ -6,92 +6,71 @@ import Image from "next/image";
  * cartão de vidro. No celular as frases ficam acima e abaixo da raquete.
  */
 
-/** Furinhos da face, fora da faixa do texto. */
+/** Contorno da cabeça, quase redonda como nas raquetes de beach tennis (viewBox 220×420). */
+const CABECA =
+  "M110 10 C168 10 206 52 206 110 C206 160 176 200 134 214 L86 214 C44 200 14 160 14 110 C14 52 52 10 110 10 Z";
+
+/** Furos da face em quincôncio, cobrindo a cabeça inteira (inclusive entre as letras). */
 const FUROS: [number, number][] = [];
-for (let linha = 0; linha < 13; linha++) {
-  const y = 32 + linha * 15;
-  if (y > 74 && y < 184) continue; // faixa do "LINE / FLOW"
-  const desloca = linha % 2 ? 7.5 : 0;
-  for (let x = 22 + desloca; x <= 178; x += 15) {
-    const dx = (x - 100) / 84;
-    const dy = (y - 116) / 104;
-    if (dx * dx + dy * dy < 0.8) FUROS.push([x, y]);
+for (let linha = 0; linha < 14; linha++) {
+  const y = 28 + linha * 13;
+  const desloca = linha % 2 ? 6.5 : 0;
+  for (let x = 30 + desloca; x <= 190; x += 13) {
+    const dx = (x - 110) / 86;
+    const dy = (y - 112) / 92;
+    // Fora das letras (margem de 4): os furos ficam em volta e entre as
+    // linhas, sem serrilhar a marca.
+    const naLinha1 = y > 74 && y < 122 && x > 46 && x < 174;
+    const naLinha2 = y > 124 && y < 172 && x > 40 && x < 180;
+    if (dx * dx + dy * dy < 0.82 && !naLinha1 && !naLinha2) FUROS.push([x, y]);
   }
 }
 
-/** Raquete de beach tennis preta com "LINE FLOW" na face, em SVG. */
+/**
+ * Raquete de beach tennis no estilo chapado da referência: cabeça preta fosca
+ * com a marca e os furos vazados (o cartão de vidro aparece por eles),
+ * garganta fina em V com filetes claros e cabo fino.
+ */
 function RaqueteLineFlow({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 200 400" className={className} role="img" aria-label="Raquete de beach tennis com a marca LineFlow">
+    <svg viewBox="0 0 220 420" className={className} role="img" aria-label="Raquete de beach tennis com a marca LineFlow vazada">
       <defs>
-        <radialGradient id="rq-face" cx="38%" cy="30%" r="80%">
-          <stop offset="0" stopColor="#2b2f31" />
-          <stop offset="0.55" stopColor="#141617" />
-          <stop offset="1" stopColor="#070808" />
-        </radialGradient>
-        <linearGradient id="rq-cabo" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#0c0d0e" />
-          <stop offset="0.5" stopColor="#26292b" />
-          <stop offset="1" stopColor="#0c0d0e" />
-        </linearGradient>
-        {/* "LINE FLOW" vazado: a face some onde estão as letras */}
-        <mask id="rq-vazado" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="400">
-          <rect width="200" height="400" fill="#fff" />
+        <mask id="rq-vazado" maskUnits="userSpaceOnUse" x="0" y="0" width="220" height="420">
+          <rect width="220" height="420" fill="#fff" />
+          {FUROS.map(([x, y]) => (
+            <circle key={`${x}-${y}`} cx={x} cy={y} r="2.4" fill="#000" />
+          ))}
           <g
             fill="#000"
             fontFamily="var(--font-geist-sans), system-ui, sans-serif"
             fontWeight="900"
             textAnchor="middle"
-            style={{ letterSpacing: "-0.5px" }}
+            style={{ letterSpacing: "-1px" }}
           >
-            <text x="100" y="124" fontSize="52">
+            <text x="110" y="116" fontSize="50">
               LINE
             </text>
-            <text x="100" y="172" fontSize="52">
+            <text x="110" y="166" fontSize="50">
               FLOW
             </text>
           </g>
         </mask>
-        <pattern id="rq-trama" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect width="3" height="6" fill="rgba(255,255,255,0.025)" />
-        </pattern>
       </defs>
 
-      {/* Garganta: dois braços em triângulo, com o vão no meio */}
-      <path
-        d="M78 214 L122 214 L109 276 L91 276 Z M92 226 L108 226 L100 262 Z"
-        fill="#111314"
-        fillRule="evenodd"
-      />
-      <path d="M86 222 L95 268" stroke="#b9efdc" strokeWidth="1.6" strokeLinecap="round" opacity="0.7" />
-      <path d="M114 222 L105 268" stroke="#b9efdc" strokeWidth="1.6" strokeLinecap="round" opacity="0.7" />
+      {/* Garganta fina em V, com o vão no meio e filetes claros */}
+      <path d="M90 206 L130 206 L117 300 L103 300 Z M101 220 L119 220 L110 282 Z" fill="#0c0d0e" fillRule="evenodd" />
+      <path d="M100 216 L108 286" stroke="#cfeee3" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M120 216 L112 286" stroke="#cfeee3" strokeWidth="1.6" strokeLinecap="round" />
 
-      {/* Cabeça (com a marca vazada) */}
-      <g mask="url(#rq-vazado)">
-      <path
-        d="M100 6 C162 6 194 56 194 114 C194 170 160 214 120 226 L80 226 C40 214 6 170 6 114 C6 56 38 6 100 6 Z"
-        fill="url(#rq-face)"
-        stroke="#33383b"
-        strokeWidth="3"
-      />
-      <path
-        d="M100 6 C162 6 194 56 194 114 C194 170 160 214 120 226 L80 226 C40 214 6 170 6 114 C6 56 38 6 100 6 Z"
-        fill="url(#rq-trama)"
-      />
-      {/* Brilho da borda */}
-      <path d="M40 40 C58 20 80 12 100 11" stroke="rgba(255,255,255,0.22)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      {/* Cabeça preta fosca com a marca e os furos vazados */}
+      <path d={CABECA} fill="#0c0d0e" stroke="#1f2224" strokeWidth="3" mask="url(#rq-vazado)" />
 
-      {FUROS.map(([x, y]) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r="3.1" fill="#020303" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
-      ))}
-      </g>
-
-      {/* Cabo com grip */}
-      <rect x="89" y="272" width="22" height="116" rx="7" fill="url(#rq-cabo)" />
+      {/* Cabo fino */}
+      <rect x="103" y="296" width="14" height="108" rx="5" fill="#0c0d0e" />
       {Array.from({ length: 9 }, (_, i) => (
-        <path key={i} d={`M89 ${284 + i * 11} L111 ${278 + i * 11}`} stroke="rgba(255,255,255,0.09)" strokeWidth="2" />
+        <path key={i} d={`M103 ${308 + i * 10} L117 ${303 + i * 10}`} stroke="rgba(255,255,255,0.08)" strokeWidth="1.6" />
       ))}
-      <rect x="87" y="382" width="26" height="12" rx="5" fill="#77aca2" />
+      <rect x="101" y="400" width="18" height="10" rx="4" fill="#0c0d0e" />
     </svg>
   );
 }
@@ -107,11 +86,11 @@ export function BannerQuadra({
     <section className="px-4 sm:px-6 py-10 md:py-16">
       <div className="relative max-w-6xl mx-auto overflow-hidden rounded-[28px] min-h-[520px] md:min-h-[440px] flex items-center justify-center">
         <Image
-          src="/images/beach/quadra-banner.webp"
+          src="/images/beach/quadra-banner-2.webp"
           alt="Quadra de beach tennis de areia vista do alto, com a rede na diagonal e gramado em volta"
           fill
           sizes="(max-width: 1200px) 100vw, 1152px"
-          className="object-cover object-[70%_50%]"
+          className="object-cover object-[82%_62%]"
         />
         {/* Leve escurecida para as frases brancas lerem bem sobre o gramado */}
         <div aria-hidden="true" className="absolute inset-0 bg-[#031926]/15" />
@@ -122,8 +101,8 @@ export function BannerQuadra({
           </p>
 
           {/* Raquete no cartão de vidro */}
-          <div className="shrink-0 rounded-[22px] border border-white/35 bg-white/10 backdrop-blur-[3px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
-            <RaqueteLineFlow className="w-[110px] md:w-[130px] h-auto drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)]" />
+          <div className="shrink-0 rounded-[22px] border border-white/50 bg-[#dff3ec]/55 backdrop-blur-[1.5px] shadow-[0_20px_50px_rgba(3,25,38,0.3)] px-7 py-6">
+            <RaqueteLineFlow className="w-[120px] md:w-[150px] h-auto drop-shadow-[0_14px_20px_rgba(0,0,0,0.45)]" />
           </div>
 
           <p className="max-w-[10ch] text-center md:text-right md:ml-auto text-[26px] md:text-[32px] lg:text-[40px] font-black uppercase tracking-tight leading-[0.95] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)] md:flex-1">
