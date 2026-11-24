@@ -8,6 +8,7 @@ import { FaqResumo, type FaqItem } from "@/src/app/_components/landing/faq-resum
 import { CtaFechamento } from "@/src/app/_components/landing/cta-fechamento";
 import { Footer } from "@/src/app/_components/landing/footer";
 import { PhoneFrame } from "@/src/app/_components/landing/shared/phone-frame";
+import { BannerQuadra } from "@/src/app/_components/landing/beach-tennis/banner-quadra";
 import { BeneficiosBeach } from "@/src/app/_components/landing/beach-tennis/beneficios-beach";
 import { GradeQuadrasMockup } from "@/src/app/_components/landing/beach-tennis/grade-quadras-mockup";
 import {
@@ -115,6 +116,7 @@ export default function BeachTennisPage() {
         }
       />
       <BeneficiosBeach />
+      <BannerQuadra esquerda="Reserve em segundos" direita="Jogue sem espera" />
       <PassoAPasso
         passos={passos}
         titulo={
