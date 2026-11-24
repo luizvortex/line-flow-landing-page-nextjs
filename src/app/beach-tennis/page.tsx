@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Navbar } from "@/src/app/_components/landing/navbar";
 import { HeroCard } from "@/src/app/_components/landing/hero-card";
 import { PassoAPasso, type Passo } from "@/src/app/_components/landing/passo-a-passo";
+import { EquipeCta } from "@/src/app/_components/landing/equipe-cta";
 import { PlanosResumo } from "@/src/app/_components/landing/planos-resumo";
 import { FaqResumo, type FaqItem } from "@/src/app/_components/landing/faq-resumo";
 import { CtaFechamento } from "@/src/app/_components/landing/cta-fechamento";
 import { Footer } from "@/src/app/_components/landing/footer";
 import { PhoneFrame } from "@/src/app/_components/landing/shared/phone-frame";
 import { BeneficiosBeach } from "@/src/app/_components/landing/beach-tennis/beneficios-beach";
-import { BannerJogadores } from "@/src/app/_components/landing/beach-tennis/banner-jogadores";
+import { GradeQuadrasMockup } from "@/src/app/_components/landing/beach-tennis/grade-quadras-mockup";
 import {
   ReservaFeitaScreen,
   ReservarQuadraScreen,
@@ -122,9 +123,10 @@ export default function BeachTennisPage() {
           </>
         }
       />
-      <BannerJogadores
+      <EquipeCta
         title="Tem professores na arena?"
         subtitle="Turmas, chamada de cada aula, mensalidades e a comissão de cada professor, com a grade de todas as quadras à vista."
+        painel={<GradeQuadrasMockup />}
       />
       <PlanosResumo plans={plans} />
       <FaqResumo
